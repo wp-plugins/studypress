@@ -144,5 +144,3 @@ include_once("cours_shortcode.php");
 include_once("Course.php");
 include_once("Categories.php");
 ?>
-
-

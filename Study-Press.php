@@ -2,7 +2,7 @@
 /*
 Plugin Name: StudyPress
 Description: StudyPress is an elearning authoring tool. With this plugin you can easily create a learning content and publish it as slides in your wordpress pages and posts. If you use BuddyPress, you can also share the course in your BuddyPress activity page.
-Version: 0.1
+Version: 0.11
 Author: Tadlaoui mohammed | Bensmaine yasser | Bouacha oussama
 
 
@@ -34,7 +34,7 @@ function notre_plugin() {
   global $wpdb;
   $table_name = $studi_category;
   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql2 = $wpdb->prepare("CREATE TABLE $table_name (
+                     $sql2 = "CREATE TABLE $table_name (
                     `cat_id` INT UNSIGNED AUTO_INCREMENT ,
                     `cat_name` VARCHAR(100) UNIQUE ,
                     `cat_des` longtext ,
@@ -42,14 +42,14 @@ function notre_plugin() {
                     `courses_nbr` INT,
                      PRIMARY KEY (cat_id),
                      FOREIGN KEY ( `cat_parent` ) REFERENCES $studi_category (`cat_id`)
-)");
+)";
                      $wpdb->query($sql2);
                    }
 
 
   $table_name = $studi_courses;
   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                    $sql = $wpdb->prepare("CREATE TABLE $table_name (
+                    $sql = "CREATE TABLE $table_name (
                     `course_id` INT UNSIGNED AUTO_INCREMENT ,
                     `nom` VARCHAR(100) UNIQUE ,
                     `duration` INT NOT NULL,
@@ -57,29 +57,29 @@ function notre_plugin() {
 					`cours_des` longtext ,
 					 `cours_picture` text,
                     `shortcode` VARCHAR(40),
-                     PRIMARY KEY (course_id))");
+                     PRIMARY KEY (course_id))";
                     $wpdb->query($sql);}
                      
   $table_name = $studi_slides;
   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql1 = $wpdb->prepare("CREATE TABLE $table_name (
+                     $sql1 = "CREATE TABLE $table_name (
                     `slides_id` INT UNSIGNED AUTO_INCREMENT ,
                     `course_id` INT UNSIGNED,
                     `slides_name` VARCHAR(100) ,
                     `slides_content` longtext ,
                     `slides_order` INT NOT NULL,                    
                      PRIMARY KEY (slides_id),
-                     FOREIGN KEY ( `course_id` ) REFERENCES $studi_courses (`course_id`))");
+                     FOREIGN KEY ( `course_id` ) REFERENCES $studi_courses (`course_id`))";
                      $wpdb->query($sql1);}
 					 
   $table_name = $studi_categ_cours;
   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql3 = $wpdb->prepare("CREATE TABLE $table_name (
+                     $sql3 = "CREATE TABLE $table_name (
                     `course_id` INT UNSIGNED,
                     `cat_id` INT UNSIGNED,                 
                      PRIMARY KEY (course_id,cat_id),
                      FOREIGN KEY ( `course_id` ) REFERENCES $studi_courses (`course_id`),
-                     FOREIGN KEY ( `cat_id` ) REFERENCES $studi_category (`cat_id`))");
+                     FOREIGN KEY ( `cat_id` ) REFERENCES $studi_category (`cat_id`))";
                      $wpdb->query($sql3);}
 					 
  /* $table_name = $studi_quiz;
@@ -130,7 +130,7 @@ function notre_plugin() {
                      PRIMARY KEY (reponse_id),
                      FOREIGN KEY ( `quest_id` ) REFERENCES $studi_question (`quest_id`))";
                      $wpdb->query($sql7); }*/
-  add_menu_page('Cours', 'StudyPress', 'manage_options', 'id_Cours', 'sub1',plugins_url( 'StudyPress/images/logologo.png' ) , '30');
+  add_menu_page('Cours', 'StudyPress', 'manage_options', 'id_Cours', 'sub1',plugins_url( 'studypress/images/logologo.png' ) , '30');
   add_submenu_page('id_Cours', 'All courses','All courses', 'manage_options', 'id_Cours','');
   add_submenu_page('id_Cours', 'Create a course','Create a course', 'manage_options', 'id_sub1','sub2');
   add_submenu_page('id_Cours', 'Categories','Categories', 'manage_options', 'id_sub2','sub3');

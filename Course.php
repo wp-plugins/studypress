@@ -24,11 +24,11 @@ function sub1() {
   if(isset($_POST['delete_course'])){
   $cours_list = implode(', ', $_POST['list']);
   global $wpdb;
-  $req3=$wpdb->prepare("DELETE FROM $studi_slides WHERE course_id IN(".$cours_list.")");
+  $req3=$wpdb->prepare("DELETE FROM $studi_slides WHERE course_id IN(%s)",$cours_list);
   $wpdb->query($req3);  
-  $req=$wpdb->prepare("DELETE FROM $studi_categ_cours WHERE course_id IN(".$cours_list.")");
+  $req=$wpdb->prepare("DELETE FROM $studi_categ_cours WHERE course_id IN(%s)",$cours_list);
   $wpdb->query($req);  
-  $req2=$wpdb->prepare("DELETE FROM $studi_courses WHERE course_id IN(".$cours_list.")");
+  $req2=$wpdb->prepare("DELETE FROM $studi_courses WHERE course_id IN(%s)",$cours_list);
   $wpdb->query($req2);}
 ?>
   </br>&nbsp;&nbsp;<label style=" font-size:200%;">Courses</label>&nbsp;&nbsp;
@@ -37,16 +37,20 @@ function sub1() {
   <form method="POST"  id="showcourse" name="showcourse" enctype="multipart/form-data" >    
     <input type="submit" id='delete_course' name='delete_course'  title="delete course" value="Delete"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<select name="filtrer_cat" >
-		           <option value="All" >ALL Quizs</option>
+		           <option value="All" >ALL Courses</option>
 			   <?php     global $wpdb;
-                         foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent FROM $studi_category where cat_parent is NULL")) as $key => $row) {
+                         foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent 
+						                                             FROM $studi_category 
+																	 where cat_parent is NULL",$studi_category)) as $key => $row) {
                 // each column in your row will be accessible like this
                 $nom_cat = sanitize_text_field($row-> cat_name);
                 $id = sanitize_text_field($row-> cat_id);
                 $id_parent = sanitize_text_field($row-> cat_parent);
                      ?>
 				  <option value="<?php echo $id; ?>" ><?php echo $nom_cat;?></option><?php 
-				   foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent FROM $studi_category where cat_parent='".$id."'")) as $key1 => $row1){
+				   foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent 
+				                                               FROM $studi_category 
+															   where cat_parent=%d",$id)) as $key1 => $row1){
 				    $nom1 = sanitize_text_field($row1-> cat_name);
                     $id1 = sanitize_text_field($row1-> cat_id);
                     $id_parent1 = sanitize_text_field($row1-> cat_parent); ?>
@@ -71,10 +75,10 @@ function sub1() {
 <?php
   if(isset($_POST['filtre_course'])){
        if($_POST['filtrer_cat']=='All'){
-  $req=$wpdb->get_results($wpdb->prepare("SELECT * FROM $studi_courses"));
+  $req=$wpdb->get_results($wpdb->prepare("SELECT * FROM $studi_courses",$studi_courses));
    global $wpdb;
 			 foreach( $wpdb->get_results($wpdb->prepare("SELECT count(*) as nbr 
-			                              FROM $studi_courses")) 
+			                                             FROM $studi_courses",$studi_courses)) 
 								as $key => $row)
              {$cours_nbr = $row-> nbr;}
 }
@@ -83,19 +87,19 @@ function sub1() {
 		       FROM $studi_courses
 			   where course_id IN (select course_id
 			                       from $studi_categ_cours
-								   where cat_id='".$_POST['filtrer_cat']."')"));
+								   where cat_id=%d)",$_POST['filtrer_cat']));
 			 foreach( $wpdb->get_results($wpdb->prepare("SELECT count(*) as nbr 
 		       FROM $studi_courses
 			   where course_id IN (select course_id
 			                       from $studi_categ_cours
-								   where cat_id='".$_POST['filtrer_cat']."')"))
+								   where cat_id=%d)",$_POST['filtrer_cat']))
 								as $key => $row)
              {$cours_nbr = $row-> nbr;}	}}	
 	else {
-  $req=$wpdb->get_results($wpdb->prepare("SELECT * FROM $studi_courses"));
+  $req=$wpdb->get_results($wpdb->prepare("SELECT * FROM $studi_courses",$studi_courses));
    global $wpdb;
 			 foreach( $wpdb->get_results($wpdb->prepare("SELECT count(*) as nbr 
-			                              FROM $studi_courses")) 
+			                              FROM $studi_courses",$studi_courses)) 
 								as $key => $row)
              {$cours_nbr = $row-> nbr;}}
  if($cours_nbr==0){  ?>
@@ -121,7 +125,7 @@ function sub1() {
 			 foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_name 
                                           FROM $studi_categ_cours, $studi_category
 		                                  where $studi_categ_cours.cat_id=$studi_category.cat_id
-										  AND $studi_categ_cours.course_id='".$course_id."'")) as $key => $row)
+										  AND $studi_categ_cours.course_id=%d",$course_id)) as $key => $row)
                 {$cat_name = sanitize_text_field($row-> cat_name);
 				 print_r ('-'.$cat_name); echo'</br>';}echo'</th>
 		 <th width="100px">';print_r ($shortcode);echo'</th>
@@ -159,7 +163,7 @@ function sub2() {
   global $wpdb;
   foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_id,slides_name,slides_content,slides_order
                                               FROM $studi_slides                                              
-                                              WHERE slides_id='".$_GET['id_slide']."'")) as $key1 => $row1) {
+                                              WHERE slides_id=%d",$_GET['id_slide'])) as $key1 => $row1) {
                                                                                             $content = $row1-> slides_content;
                                                                                             $slides_id = sanitize_text_field($row1-> slides_id);
                                                                                             $slides_name = sanitize_text_field($row1-> slides_name);
@@ -168,7 +172,7 @@ function sub2() {
   global $wpdb;
   foreach( $wpdb->get_results($wpdb->prepare("SELECT nom,duration,author,cours_des,cours_picture
                                               FROM $studi_courses
-                                               where course_id='".$_GET['id']."'")) as $key => $row) {
+                                               where course_id=%d",$_GET['id'])) as $key => $row) {
                                                                                      $nom = sanitize_text_field($row-> nom);
                                                                                      $duration = sanitize_text_field($row-> duration);
                                                                                      $author = sanitize_text_field($row-> author);
@@ -179,13 +183,13 @@ function sub2() {
   
   $req111=$wpdb->get_results($wpdb->prepare("select slides_id,slides_name,slides_order
                                              FROM $studi_slides
-                                             WHERE course_id='".$_GET['id']."'
-                                             ORDER BY slides_order ASC"));
+                                             WHERE course_id=%d
+                                             ORDER BY slides_order ASC",$_GET['id']));
   $req112=$wpdb->get_results($wpdb->prepare("select slides_id,slides_name,slides_order
                                              FROM $studi_slides
                                              WHERE course_id >= ALL(SELECT course_id 
 											                        FROM $studi_courses)
-                                             ORDER BY slides_order ASC"));
+                                             ORDER BY slides_order ASC",$studi_slides,$studi_courses));
 ?>  <form id="monform" name="form1" method="post" enctype="multipart/form-data" >
   </br>&nbsp;&nbsp;<label style=" font-size:200%;">Course Creation</label>&nbsp;&nbsp;</br></br></br>
 <?php global $new;    
@@ -218,22 +222,22 @@ function sub2() {
 		  
           global $wpdb;
           $req5=$wpdb->prepare("UPDATE $studi_courses 
-		                        SET nom = '".$nom."',`duration` = '".$duration."',`author` = '".$author."', cours_des='".$cours_desc."',`cours_picture` = '".$cours_picture."' 
-								WHERE course_id ='".$_GET['id']."'");
+		                        SET nom =%s,`duration` =%d,`author` =%s, cours_des=%s,`cours_picture` =%s 
+								WHERE course_id =%d",$nom,$duration,$author,$cours_desc,$cours_picture,$_GET['id']);
           $wpdb->query($req5);
 		  
 	      $catList = implode(', ', $_POST['cat_list']);
 	      $req12=$wpdb->get_results($wpdb->prepare("select  cat_id
 		                                            from $studi_category
-			                                        where cat_id IN(".$catList.")"));
+			                                        where cat_id IN(%d)",$catList));
 		  
 		  foreach($req12 as $key => $row ){$cat_id = $row-> cat_id; 
 		    $data11 = array( 'course_id' => $_GET['id'], 'cat_id' => $cat_id);  
-          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11));
+          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11),$studi_categ_cours);
 		}
 		  $req4=$wpdb->prepare("DELETE FROM $studi_categ_cours 
-		                        WHERE course_id='".$_GET['id']."' 
-								and cat_id  NOT IN(".$catList.")");
+		                        WHERE course_id=%d 
+								and cat_id  NOT IN(%d)",$_GET['id'],$catList);
           $wpdb->query($req4);
 
 
@@ -246,28 +250,29 @@ function sub2() {
           global $wpdb; $ids=stripslashes($_POST['ids_cours']); 
           foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id          
 		                                              FROM $studi_courses 
-													  where nom = '".$ids."'")) as $key => $row)
+													  where nom =%s",$ids)) as $key => $row)
                 {$id = sanitize_text_field($row-> course_id); } 
 		if(!empty($id)){
           $req11=$wpdb->prepare("UPDATE $studi_courses 
-		                         SET nom = '".$nom."',`duration` = '".$duration."',`author` = '".$author."', cours_des='".$cours_desc."',`cours_picture` = '".$cours_picture."'
-                                 WHERE course_id='".$id."'");
+		                         SET nom =%s,`duration` =%d,`author` =%s, cours_des=%s,`cours_picture` =%s
+                                 WHERE course_id=%d",$nom,$duration,$author,$cours_desc,$cours_picture,$id);
 			$wpdb->query($req11);
 				      $catList = implode(', ', $_POST['cat_list']);
 	      $req12=$wpdb->get_results($wpdb->prepare("select  cat_id
 		                                            from $studi_category
-			                                        where cat_id IN(".$catList.")"));
+			                                        where cat_id IN(%d)",$catList));
 		  
 		  foreach($req12 as $key => $row ){$cat_id = sanitize_text_field($row-> cat_id); 
 		    $data11 = array( 'course_id' => $id, 'cat_id' => $cat_id);  
-          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11));
+          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11),$studi_categ_cours);
 		}
 		  $req4=$wpdb->prepare("DELETE FROM $studi_categ_cours 
 		                        WHERE course_id='".$id."' 
-								and cat_id  NOT IN(".$catList.")");
+								and cat_id  NOT IN(%d)",$catList);
           $wpdb->query($req4);
 													 
 																 ?>
+
 			
 		   <div style="width:98%; height:25px;   border-width:thin; border-style:solid; border-color:rgb(0,0,0); background:rgb(255,255,204); float:left;">
            &nbsp;&nbsp;<label style="height:5%;">The course has been modified : <?php print_r ($nom); ?></label>
@@ -277,28 +282,28 @@ function sub2() {
 
           $data = array( 'nom' => $nom, 'duration' => $duration, 'author' => $author, 'cours_des' => $cours_desc,'shortcode' =>  $short, 'cours_picture'=> $cours_picture ); 
           global $wpbd;
-          $result =$wpdb->prepare($wpdb->insert( $studi_courses, $data));
+          $result =$wpdb->prepare($wpdb->insert( $studi_courses, $data),$studi_courses);
           foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id 
 		                                              FROM $studi_courses 
 													  where course_id >= ALL(SELECT course_id 
-													                         FROM $studi_courses)")) as $key => $row)
+													                         FROM $studi_courses)",$studi_courses,$studi_courses)) as $key => $row)
                 {$id = sanitize_text_field($row-> course_id);}
           $short= '[stps_shortcode id="'.$id.'"]';
           $req11=$wpdb->prepare("UPDATE $studi_courses 
-		                         SET shortcode = '".$short."' 
-								 WHERE course_id='".$id."'");
+		                         SET shortcode =%s 
+								 WHERE course_id=%d",$short,$id);
 		  $wpdb->query($req11);
 
 	  $catList = implode(', ', $_POST['cat_list']);
 	                                $req12=$wpdb->get_results($wpdb->prepare("select  cat_id
 									       from $studi_category
-										   where cat_id IN(".$catList.")"));
+										   where cat_id IN(%d)",$catList));
 		foreach($req12 as $key => $row ){$cat_id=sanitize_text_field($row-> cat_id); 
 		          $data11 = array( 'course_id' => $id, 'cat_id' => $cat_id);  
           global $wpbd;
-          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11));
+          $result =$wpdb->prepare($wpdb->insert( $studi_categ_cours, $data11),$studi_categ_cours);
 		}
-          foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id FROM $studi_courses where nom = '".$nom."' ")) as $key => $row)
+          foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id FROM $studi_courses where nom =%s",$nom)) as $key => $row)
                 {$id = sanitize_text_field($row-> course_id);} 
 		  if($id ==''){?>
                 <div style="width:98%; height:25px;   border-width:thin; border-style:solid; border-color:rgb(0,0,0); background:rgb(255,153,0); float:left;">
@@ -322,15 +327,15 @@ function sub2() {
               $slideList = implode(', ', $_POST['id_rep']); 
                $req=$wpdb->get_results($wpdb->prepare("SELECT slides_id,course_id,slides_order
 			                                           FROM $studi_slides 
-					                                   where slides_id IN(".$slideList.")"));
-			foreach($req as $key => $row ){ $slides_id=sanitize_text_field($row-> slides_id);
+					                                   where slides_id IN('".$slideList."')",$d));
+			foreach($req as $key => $row ){ $slides_id=sanitize_text_field($row-> slides_id); ECHO $slides_id; 
 			                                $course_id=sanitize_text_field($row-> course_id);
 											$slides_order=sanitize_text_field($row-> slides_order);
-                  $req2=$wpdb->prepare("DELETE FROM $studi_slides WHERE slides_id='".$slides_id."'");
+                  $req2=$wpdb->prepare("DELETE FROM $studi_slides WHERE slides_id='".$slides_id."'",$d);
                   $wpdb->query($req2);
 			  $req3=$wpdb->prepare("UPDATE $studi_slides SET slides_order=slides_order-1 
-			                                where course_id = '".$course_id."' 
-											and slides_order >= '".$slides_order."'");
+			                                where course_id ='".$course_id."' 
+											and slides_order >='".$slides_order."'",$d,$d);
               $wpdb->query($req3);
 } 
 
@@ -354,7 +359,7 @@ function sub2() {
 		</thead>
 		<tr> <?php 			 
 		     foreach( $wpdb->get_results($wpdb->prepare("SELECT count(*) as nbr 
-			                                             FROM $studi_category")) as $key => $row)
+			                                             FROM $studi_category",$studi_category)) as $key => $row)
              {$cat_nbr = $row-> nbr;} 
           if($cat_nbr==0){  ?>          	
 		    <th width="5px">
@@ -367,24 +372,24 @@ function sub2() {
 			                foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id 
 							                                            FROM $studi_courses 
 																		where course_id >= ALL(SELECT course_id 
-																		                       FROM $studi_courses)")) as $key => $row)
+																		                       FROM $studi_courses)",$studi_courses,$studi_courses)) as $key => $row)
                            {$id = $row-> course_id;}
 						   $cat_check=sanitize_text_field($id);}
 				else{$cat_check=$_GET['id'];}
 			        global $wpdb;
-			        $req=$wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent FROM $studi_category where cat_parent is NULL"));
+			        $req=$wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent FROM $studi_category where cat_parent is NULL",$studi_category));
 			        $req1=$wpdb->get_results($wpdb->prepare("SELECT cat_name, cat_id
                                                              FROM $studi_category
                                                              WHERE cat_id IN ( SELECT cat_id
                                                                                FROM $studi_categ_cours
-                                                                               WHERE course_id = '".$cat_check."')"));
+                                                                               WHERE course_id =%d)",$cat_check));
 					 foreach($req1 as $key => $row_cat ){$List_cat[]= sanitize_text_field($row_cat-> cat_name);} 
 
 foreach( $wpdb->get_results($wpdb->prepare("SELECT count(cat_id) as number
                                             FROM $studi_category
                                             WHERE cat_id IN ( SELECT cat_id
                                                               FROM $studi_categ_cours
-                                                              WHERE course_id = '".$cat_check."')")) as $key => $row)
+                                                              WHERE course_id =%d)",$cat_check)) as $key => $row)
                     {				    $number = $row-> number;} 
                     foreach($req as $key => $row_each){ $cat_id= sanitize_text_field($row_each-> cat_id);
 					                                    $cat_name= sanitize_text_field($row_each-> cat_name);
@@ -402,7 +407,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
 						   
 			          $req2=$wpdb->get_results($wpdb->prepare("SELECT cat_id, cat_name, cat_parent
                                                                FROM wp_studi_category
-                                                               WHERE cat_parent='".$cat_id."'"));
+                                                               WHERE cat_parent=%d",$cat_id));
                          foreach($req2 as $key => $row_each1){$cat_id1= sanitize_text_field($row_each1-> cat_id);
 					                                    $cat_name1= sanitize_text_field($row_each1-> cat_name);
 														$cat_parent1= sanitize_text_field($row_each1-> cat_parent);
@@ -429,7 +434,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
 			   <?php     global $wpdb;
                          foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent 
 						                                             FROM $studi_category 
-																	 where cat_parent is NULL")) as $key => $row) {
+																	 where cat_parent is NULL",$studi_category)) as $key => $row) {
                 $nom_cat = sanitize_text_field($row-> cat_name);
                 $id = sanitize_text_field($row-> cat_id);
                 $id_parent = sanitize_text_field($row-> cat_parent);
@@ -437,7 +442,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
 				  <option value="<?php echo $id; ?>" ><?php echo $nom_cat;?></option><?php 
 				   foreach( $wpdb->get_results($wpdb->prepare("SELECT cat_id,cat_name,cat_parent 
 				                                               FROM $studi_category 
-															   where cat_parent='".$id."'")) as $key1 => $row1){
+															   where cat_parent=%d",$id)) as $key1 => $row1){
 				    $nom1 = sanitize_text_field($row1-> cat_name);
                     $id1 = sanitize_text_field($row1-> cat_id);
                     $id_parent1 = sanitize_text_field($row1-> cat_parent); ?>
@@ -457,12 +462,12 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
 	    if($_POST['cat_par_new'] ==Neither){
 		          		        global $wpdb;
                                 $req5=$wpdb->prepare("INSERT INTO $studi_category (`cat_id`, `cat_name`, `cat_des`, `cat_parent`, `courses_nbr`) 
-								                                            VALUES (NULL, '$name', '$desc', NULL, '$nbre')");
+								                                            VALUES (NULL, %s, %s, NULL, %d)",$name,$desc,$nbre);
                                 $wpdb->query($req5);}
 				 else {	    $parent = stripslashes($_POST['cat_par_new']);
 				            global $wpdb;
                             $req5=$wpdb->prepare("INSERT INTO $studi_category (`cat_id`, `cat_name`, `cat_des`, `cat_parent`, `courses_nbr`) 
-						                                                VALUES (NULL, '$name', '$desc', '$parent', '$nbre')");
+						                                                VALUES (NULL, %s, %s, %d, %d)",$name,$desc,$parent,$nbre);
                              $wpdb->query($req5);}
 				?> <input type="hidden" name="ids_cours" id="ids_cours" value="<?php print_r($_POST['post_title']); ?>" /> <?php
                                    }?>         
@@ -491,7 +496,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
         <?php
   foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id
                                               FROM $studi_courses
-                                              where nom='".$nom."'")) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);} ?>
+                                              where nom=%s",$nom)) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);} ?>
         </br></br>
       
 
@@ -513,7 +518,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
    if(!empty($nom) && !empty($author) && !empty($duration)  && !empty($_POST['cat_list'])){
 	 foreach( $wpdb->get_results($wpdb->prepare("SELECT shortcode
                                                  FROM $studi_courses
-                                                 where nom='".$nom."'")) as $key => $row){$shortcode = sanitize_text_field($row-> shortcode);}
+                                                 where nom=%s",$nom)) as $key => $row){$shortcode = sanitize_text_field($row-> shortcode);}
        ?><div style="float:right; width:60%;">
 	     <label  title="course shortcode" style=" font-size:110%;">Shortcode</label></br>
 	     <label  title="course shortcode" style=" font-size:110%;"><?php echo $shortcode; ?></label>
@@ -521,7 +526,7 @@ for ($i = 0; $i < $number; $i++){if($cat_name==$List_cat[$i]){echo 'checked="che
          else {
 	      foreach( $wpdb->get_results($wpdb->prepare("SELECT shortcode
                                                       FROM $studi_courses
-                                                      where course_id='".$_GET['id']."'")) as $key => $row){$shortcode = sanitize_text_field($row-> shortcode);}
+                                                      where course_id=%d",$_GET['id'])) as $key => $row){$shortcode = sanitize_text_field($row-> shortcode);}
        ?><div style="float:right; width:60%;">
 	     <label  title="course shortcode" style=" font-size:110%;">Shortcode</label></br>
 	     <label  title="course shortcode" style=" font-size:110%;"><?php echo $shortcode; ?></label>
@@ -573,7 +578,7 @@ if($k=='2'){
 <?php 
    foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id
                                                FROM $studi_courses
-                                               where nom='".$_POST['post_title']."'")) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);}  ?>
+                                               where nom=%s",$_POST['post_title'])) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);}  ?>
             <input type="submit" name='delete_slide' title="delete slide" value="Delete"  /></br>
 			<label  style="font-size:80%; margin-left:27px; text-decoration:underline;" onclick="cocher();">Mark</label>/<label style="font-size:80%; text-decoration:underline;" onclick="decocher();">Unmark</label><label style="font-size:80%;">&nbsp;&nbsp;All</label></th>
           </tr>
@@ -581,7 +586,7 @@ if($k=='2'){
 <?php 			
                  foreach( $wpdb->get_results($wpdb->prepare("SELECT count(*) as nbr 
                                                              FROM $studi_slides 
-															 where course_id='".$course_id."' ")) as $key => $row)
+															 where course_id=%d ",$course_id)) as $key => $row)
              {$slide_nbr = $row-> nbr;}
  if($slide_nbr==0){ 
  ?> 
@@ -637,24 +642,24 @@ if($k=='2'){
             foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id 
 			                                            FROM $studi_courses 
 														where course_id >= ALL(SELECT course_id 
-														                       FROM $studi_courses)")) as $key => $row)
+														                       FROM $studi_courses)",$studi_courses)) as $key => $row)
                 {$id = sanitize_text_field($row-> course_id);}
             foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_order 
 			                                            FROM $studi_slides 
-														where course_id='".$id."' 
+														where course_id=%d 
 														and slides_order >= ALL(SELECT slides_order 
 														                        FROM $studi_slides 
-																				where course_id='".$id."')")) as $key => $row1)
+																				where course_id=%d)",$id,$id)) as $key => $row1)
              {$slides_order = sanitize_text_field($row1-> slides_order); }
 			if(empty($slides_order)){$max_order=1;} else{$max_order=$slides_order+1;}
                 $data = array( 'course_id' => $id, 'slides_name' => 'New slide', 'slides_content' => '', 'slides_order' => $max_order );
-                $result =$wpdb->prepare($wpdb->insert( $studi_slides, $data));
+                $result =$wpdb->prepare($wpdb->insert( $studi_slides, $data),$studi_slides);
                               
                 $req=$wpdb->get_results($wpdb->prepare("select slides_id,slides_name,slides_order
                                                         FROM $studi_slides,$studi_courses
                                                         WHERE $studi_slides.course_id=$studi_courses.course_id
-                                                        AND $studi_courses.course_id='".$id."'
-                                                        ORDER BY slides_order ASC"));
+                                                        AND $studi_courses.course_id=%d
+                                                        ORDER BY slides_order ASC",$id));
                 foreach($req as $key => $row){$slides_id = sanitize_text_field($row-> slides_id);
 				                            $slides_name = sanitize_text_field($row-> slides_name);
 											$slides_order= sanitize_text_field($row-> slides_order);
@@ -675,19 +680,19 @@ if($k=='2'){
               else {
              foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_order 
 			                                             FROM $studi_slides 
-														 where course_id='".$_GET['id']."' 
+														 where course_id=%d 
 														 and slides_order >= ALL(SELECT slides_order 
 														                         FROM $studi_slides 
-																				 where course_id='".$_GET['id']."')")) as $key => $row1)
+																				 where course_id=%d)",$_GET['id'],$_GET['id'])) as $key => $row1)
              {$slides_order = sanitize_text_field($row1-> slides_order); }
 			 if(empty($slides_order)){$max_order=1;} else{$max_order=$slides_order+1;}
                   $data = array( 'course_id' => $_GET['id'], 'slides_name' => 'New slide', 'slides_content' => '', 'slides_order' => $max_order );
-                $result =$wpdb->prepare($wpdb->insert( $studi_slides, $data));
+                $result =$wpdb->prepare($wpdb->insert( $studi_slides, $data),$studi_slides);
 				global $wpdb;
                 foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_id 
 				                                            FROM $studi_slides 
 															where slides_id >= ALL(SELECT slides_id 
-															                       FROM $studi_slides)")) as $key => $row1)
+															                       FROM $studi_slides)",$studi_slides)) as $key => $row1)
                             {$ids1 = sanitize_text_field($row1-> slides_id); 
 		     echo '
                                     <input type="hidden" name="ids_new" value="',$ids1,'" />';	
@@ -720,7 +725,7 @@ if($k=='2'){
                     foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_id 
 					                                            FROM $studi_slides 
 																where slides_id >= ALL(SELECT slides_id 
-																                       FROM $studi_slides)")) as $key => $row1)
+																                       FROM $studi_slides)",$studi_slides,$studi_slides)) as $key => $row1)
                             {$ids2 = sanitize_text_field($row1-> slides_id); }
 
     
@@ -730,29 +735,29 @@ if($k=='2'){
             foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id 
 			                                            FROM $studi_courses 
 														where course_id >= ALL(SELECT course_id 
-														                       FROM $studi_courses)")) as $key => $row)
+														                       FROM $studi_courses)",$studi_courses,$studi_courses)) as $key => $row)
                 {$id = sanitize_text_field($row-> course_id);}
             foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_id 
 			                                            FROM $studi_slides 
 														where slides_id >= ALL(SELECT slides_id 
-														                       FROM $studi_slides)")) as $key => $row1)
+														                       FROM $studi_slides)",$studi_slides,$studi_slides)) as $key => $row1)
                 {$ids = sanitize_text_field($row1-> slides_id); }
             global $wpdb;
                                 $req5=$wpdb->prepare("UPDATE $studi_slides
                                       SET slides_order = slides_order+1
-                                      WHERE slides_order >= '".$order."'
-                                      AND course_id='".$id."'");
+                                      WHERE slides_order >= %d
+                                      AND course_id=%d",$order,$id);
                                 $wpdb->query($req5);
             
                $req=$wpdb->prepare("UPDATE $studi_slides
-                                    SET slides_name = '".$slide_name."',`slides_content` = '".$contenue."', slides_order = '".$order."'
-                                    WHERE slides_id = '".$ids."'");
+                                    SET slides_name =%s,`slides_content` =%s, slides_order =%d
+                                    WHERE slides_id =%d",$slide_name,$contenue,$order,$ids);
                $wpdb->query($req);                                              
                 $req=$wpdb->get_results($wpdb->prepare("select slides_id,slides_name,slides_order
                                                         FROM $studi_slides,$studi_courses
                                                         WHERE $studi_slides.course_id=$studi_courses.course_id
-                                                        AND $studi_courses.course_id='".$id."'
-                                                        ORDER BY slides_order ASC"));
+                                                        AND $studi_courses.course_id=%d
+                                                        ORDER BY slides_order ASC",$id));
                 foreach($req as $key => $row){$slides_id = sanitize_text_field($row-> slides_id);
 				                            $slides_name = sanitize_text_field($row-> slides_name);
 											$slides_order = sanitize_text_field($row-> slides_order);
@@ -775,41 +780,41 @@ if($k=='2'){
                        foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_id 
 					                                               FROM $studi_slides 
 																   where slides_id >= ALL(SELECT slides_id 
-																                          FROM $studi_slides)")) as $key => $row1)
+																                          FROM $studi_slides)",$studi_slides,$studi_slides)) as $key => $row1)
                             {$ids = sanitize_text_field($row1-> slides_id); }
                        global $wpdb;
                        $req5=$wpdb->prepare("UPDATE $studi_slides
                                              SET slides_order = slides_order+1
                                              WHERE slides_order >= '".$order."'
-                                             AND course_id='".$_GET['id']."'");
+                                             AND course_id='".$_GET['id']."'",$d);
                        $wpdb->query($req5);
 
                $req=$wpdb->prepare("UPDATE $studi_slides
-                                    SET slides_name = '".$slide_name."',`slides_content` = '".$contenue."', slides_order = '".$order."'
-                                    WHERE slides_id ='".$ids."' 
-									AND course_id='".$_GET['id']."'");
+                                    SET slides_name =%s,`slides_content` =%s, slides_order =%d
+                                    WHERE slides_id =%d 
+									AND course_id=%d",$slide_name,$contenue,$order,$ids,$_GET['id']);
                 $wpdb->query($req);
 }}
        else {
                   global $wpdb;
                   $req5=$wpdb->prepare("UPDATE $studi_slides
                                       SET slides_order = slides_order+1
-                                      WHERE slides_order >= '".$order."' AND slides_order < '".$slides_order."'
-                                      AND course_id='".$_GET['id']."'");
+                                      WHERE slides_order >=%d AND slides_order < %d
+                                      AND course_id=%d",$order,$slides_order,$_GET['id']);
                    $wpdb->query($req5);
  
                  if ($idss == $ids2){ 
                          $req=$wpdb->prepare("UPDATE $studi_slides
-                                             SET slides_name = '".$slide_name."',`slides_content` = '".$contenue."', slides_order = '".$order."'
-                                             WHERE slides_id ='".$idss."'");
+                                             SET slides_name =%s,`slides_content` =%s, slides_order =%d
+                                             WHERE slides_id =%d",$slide_name,$contenue,$order,$idss);
                          $wpdb->query($req);
 						echo '<input type="hidden" name="ids_new_test" value="',$idss,'" />';
 }
                  if($idss != $ids2)  {                               
                       global $wpdb;
                       $req5=$wpdb->prepare("UPDATE $studi_slides
-                                            SET slides_name = '".$slide_name."',`slides_content` = '".$contenue."', slides_order = '".$order."'
-                                            WHERE slides_id ='".$_GET['id_slide']."'");
+                                            SET slides_name =%s,`slides_content` =%s, slides_order =%d
+                                            WHERE slides_id =%d",$slide_name,$contenue,$order,$_GET['id_slide']);
                       $wpdb->query($req5);
                                }}                                   
 
@@ -825,7 +830,7 @@ if($k=='2'){
  			if($_GET['id_slide']){
 			 			   foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_name,slides_order 
 						                                               FROM $studi_slides 
-																	   where slides_id='".$_GET['id_slide']."'")) as $key => $row1)
+																	   where slides_id=%d",$_GET['id_slide'])) as $key => $row1)
                            {$slides_name = sanitize_text_field($row1-> slides_name);
                             $slides_order = sanitize_text_field($row1-> slides_order);				}}
 	if (isset($_POST['new_slide']) or isset($_POST['delete_slide']) or isset($_POST['save_slide']) or isset($_POST['add_cat']) or $_GET['id_slide'] ) { ?>
@@ -838,17 +843,17 @@ if($k=='2'){
             foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id
                                                         FROM $studi_courses
                                                         where course_id >= ALL(SELECT course_id
-                                                                               FROM $studi_courses)")) as $key => $row)
+                                                                               FROM $studi_courses)",$studi_courses,$studi_courses)) as $key => $row)
             {$id = sanitize_text_field($row-> course_id);}
 			if(!$_GET['id']){$id_cours=$id;} else{$id_cours=$_GET['id'];}
 
               if ( isset($_POST['new_slide']) ){ 
 			   foreach( $wpdb->get_results($wpdb->prepare("SELECT slides_order 
 			                                               FROM $studi_slides 
-														   where course_id='".$id_cours."'
+														   where course_id=%d
 														   and slides_order >= ALL(SELECT slides_order 
 														                           FROM $studi_slides 
-																				   where course_id='".$id_cours."')")) as $key => $row1)
+																				   where course_id=%d)",$id_cours,$id_cours)) as $key => $row1)
                 {$max_order = sanitize_text_field($row1-> slides_order); } 
 				$slides_order=$max_order; $slides_name='';}
 			?>
@@ -863,7 +868,7 @@ if($k=='2'){
 
  <?php  foreach( $wpdb->get_results($wpdb->prepare("SELECT course_id
                                                     FROM $studi_courses
-                                                    where nom='".$nom."'")) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);} ?>
+                                                    where nom=%s",$nom)) as $key => $row) {$course_id = sanitize_text_field($row-> course_id);} ?>
      
         <input class="button-primary" type="submit" name='save_slide' value="&nbsp;&nbsp;Save&nbsp;&nbsp;" title="save slide" style="float:right;"  />
            </th>

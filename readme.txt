@@ -3,7 +3,7 @@ Contributors: mtadlaoui, Yasser Bensmaine, os-roxx
 Tags: studypress, LMS, elearning, e-learning, Authoring Tool
 Requires at least: 3.4.0
 Tested up to: 3.5.1
-Stable tag: 0.11
+Stable tag: 0.12
 License: GPLv2 or later
 
 An easy elearning authoring tool.

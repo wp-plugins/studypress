@@ -68,7 +68,7 @@ echo "</br></br></br><div id="; echo '"slider_c'; echo $atts['id']; echo'">
                echo '<li><div style=" width:700px; background:rgb(252,252,227); height:400px;"><div style=" left:-40%;    width:93%;">'; echo $nom; echo '</div></div></li>';}
 				echo '<li>
 				        <div style=" width:700px; background:rgb(252,252,227); height:400px;">
-						  <div style="width:90%;">
+						  <div style="width:90%;">                             <div align="center"><img src="' . plugins_url( 'images/zarkhrafaaa.png' , __FILE__ ) . '"></div>
 						     <h2 style="text-align: center;"><div style="margin: 150px 80px 40px 100px  ;  width:480px; height:50px;  	font-size:150%;"><span style="text-align:center;">   ';  echo 'The end';  echo'</span></div></h2>
 
 						  </div>

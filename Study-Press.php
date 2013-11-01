@@ -2,7 +2,7 @@
 /*
 Plugin Name: StudyPress
 Description: StudyPress is an elearning authoring tool. With this plugin you can easily create a learning content and publish it as slides in your wordpress pages and posts. If you use BuddyPress, you can also share the course in your BuddyPress activity page.
-Version: 0.11
+Version: 0.12
 Author: Tadlaoui mohammed | Bensmaine yasser | Bouacha oussama
 
 

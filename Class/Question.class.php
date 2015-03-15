@@ -6,7 +6,7 @@ class Question {
     private $_quizId;
     private $_content;
     private $_order;
-    private $_propositions = [];
+    private $_propositions = array();
 
 
     public function __construct(array $d)

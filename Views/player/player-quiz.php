@@ -71,7 +71,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 
 
             <div class="owl-item">
-                <?= slide_presentation_quiz($quiz,$sp_userName) ?>
+                <?php echo  slide_presentation_quiz($quiz,$sp_userName) ?>
             </div>
 
       		</div>
@@ -82,7 +82,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 				<button class="btn-next">Next</button>
 				<button class="btn-prev">Prev</button>
             </div>
-            <button class="full-screen" title="<?= $tr->__("Full screen") ?>">fullScreen</button>
+            <button class="full-screen" title="<?php echo  $tr->__("Full screen") ?>">fullScreen</button>
 		</div>
 	</div>
 
@@ -90,13 +90,13 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
         <div class="sp-btn-rater"></div>
             <div class="sp-content-rater hide">
                 <div class="sp-rater-quality">
-                    <h2><?= $tr->__("Quality") ?></h2>
+                    <h2><?php echo  $tr->__("Quality") ?></h2>
                     <?php
                     $managerRate = new RateQualityManager();
                     $user =  new StudyPressUserWP();
 
                     ?>
-                    <div class="sp-rate-quality"  data-id="<?= $id ?>"  data-user="<?= $user->id() ?>" ></div>
+                    <div class="sp-rate-quality"  data-id="<?php echo  $id ?>"  data-user="<?php echo  $user->id() ?>" ></div>
                     <?php
                     echo $tr->__("Number of raters") . ": " . $managerRate->countRate($id) ."<br/>";
                     echo $tr->__("Average") . ": " . round((float) $managerRate->AVG($id),2) ."<br/>";
@@ -118,8 +118,8 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 
                 <div class="div-rate-domain">
 
-                    <?= $domain->getName() ?>
-                    <div class="sp-rate-domain" data-average="<?= ($user->isLoggedIn())?(($managerRateDomain->voteExist($id,$user->id(),$domain->getId()))?$managerRateDomain->voteExist($id,$user->id(),$domain->getId())->getValue():"0"):"0" ?>" data-id="<?= $id ?>" data-domain="<?= $domain->getId() ?>" data-user="<?= $user->id() ?>"></div>
+                    <?php echo  $domain->getName() ?>
+                    <div class="sp-rate-domain" data-average="<?php echo  ($user->isLoggedIn())?(($managerRateDomain->voteExist($id,$user->id(),$domain->getId()))?$managerRateDomain->voteExist($id,$user->id(),$domain->getId())->getValue():"0"):"0" ?>" data-id="<?php echo  $id ?>" data-domain="<?php echo  $domain->getId() ?>" data-user="<?php echo  $user->id() ?>"></div>
                     <?php
                     echo $tr->__("Number of raters") . ": " . $managerRateDomain->countRate($id,$domain->getId()) ."<br/>";
                     echo $tr->__("Average") . ": " . round((float) $managerRateDomain->AVG($id,$domain->getId()),2) ."<br/>";
@@ -139,12 +139,12 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 </div>
 
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/owl.carousel.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/cbpFWTabs.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/minuteur.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/owl.carousel.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/cbpFWTabs.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/minuteur.js" ?>"></script>
 
 
 <script>
@@ -182,11 +182,11 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
                 });
 
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/validate-qcm.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/validate-qcm.php",
                     {
                         type: "validate",
                         question: question,
-                        id_quiz: <?= $id ?>
+                        id_quiz: <?php echo  $id ?>
                     }
 
                     , function (data) {
@@ -232,17 +232,17 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 
 
                 var d = new Date().getTime();
-                var date = <?= ($result && !$result->isValide())?"'".$result->getDateBegin()."'":"d" ?>;
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/validate-qcm.php",
+                var date = <?php echo  ($result && !$result->isValide())?"'".$result->getDateBegin()."'":"d" ?>;
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/validate-qcm.php",
                     {
                         type: "start",
                         date: date,
-                        quizId: <?= $id ?>
+                        quizId: <?php echo  $id ?>
                     }
 
                     , function (data) {
                         if (trimStr(data) === "true") {
-                            minuteur(date, <?= $quiz->getDuration() ?>);
+                            minuteur(date, <?php echo  $quiz->getDuration() ?>);
                         }
 
 
@@ -258,17 +258,17 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 
             function writeResult(vide) {
                 if (!vide)
-                    $(".sp-player-minuteur").html("Vous avez obtenu " + "<?= ($result!==null)?$result->getNote():""?>%");
+                    $(".sp-player-minuteur").html("Vous avez obtenu " + "<?php echo  ($result!==null)?$result->getNote():""?>%");
                 else
                     $(".sp-player-minuteur").html("");
             }
 
 
-            var pathQuality = "<?= __ROOT_PLUGIN__2 ?>controllers/ratingQuality.controller.php";
+            var pathQuality = "<?php echo  __ROOT_PLUGIN__2 ?>controllers/ratingQuality.controller.php";
 
             var rateQuality = $(".sp-rate-quality").rateYo({
                 starWidth: "40px",
-                rating: "<?= ($user->isLoggedIn())?(($managerRate->voteExist($id,$user->id()))?$managerRate->voteExist($id,$user->id())->getValue():"0"):"0" ?>",
+                rating: "<?php echo  ($user->isLoggedIn())?(($managerRate->voteExist($id,$user->id()))?$managerRate->voteExist($id,$user->id())->getValue():"0"):"0" ?>",
                 fullStar: true,
                 onChange: function (rating, rateYoInstance) {
 
@@ -282,7 +282,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
             });
 
 
-            var pathDomain = "<?= __ROOT_PLUGIN__2 ?>controllers/ratingDomain.controller.php";
+            var pathDomain = "<?php echo  __ROOT_PLUGIN__2 ?>controllers/ratingDomain.controller.php";
 
             $(".sp-rate-domain").each(function () {
                 var item = $(this);
@@ -300,7 +300,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
             sp_owl = $(".sp-player #carousel");
 
             var optionsOwl = {
-                jsonPath: "<?= __ROOT_PLUGIN__2 . $path_json ?>",
+                jsonPath: "<?php echo  __ROOT_PLUGIN__2 . $path_json ?>",
                 jsonSuccess: setSlides,
                 singleItem: true,
                 lazyLoad: true,
@@ -318,7 +318,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
                     sp_owl.trigger("owl.next");
                 }, 1000);
 
-                <?=
+                <?php echo
                 ($quiz->getDuration()>0)?"saveDateBegin();":""
                 ?>
 
@@ -358,7 +358,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
             }
 
 
-            <?=
+            <?php echo
             ($result && $result->isValide())?"startQuiz();writeResult(false);":""
 
             ?>

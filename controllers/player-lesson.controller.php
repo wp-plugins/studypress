@@ -67,7 +67,7 @@ if($id !== null){
             $sp_userLink = StudyPressUserWP::getUserPostsLink( $lesson->getAuthorId() );
 
 
-            $items =[];
+            $items =array();
             $owl['items'][] = array(
 
                 'name' => $tr->__('Presentation'),

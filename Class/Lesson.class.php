@@ -5,7 +5,7 @@
 class Lesson extends AbstractActivity
 {
 
-    private $_slides = [];
+    private $_slides =array();
 
 
     public function __construct(array $d){
@@ -42,7 +42,7 @@ class Lesson extends AbstractActivity
     }
 
     public function removeSlide($id){
-        $newSlide = [];
+        $newSlide = array();
         foreach($this->_slides as $slide){
             if($id != $slide->getId()) $newSlide[] = $slide;
         }

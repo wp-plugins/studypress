@@ -123,7 +123,7 @@ class SlideManager
 
 
     public function getSlidesOfLesson($id){
-        $slides = [];
+        $slides = array();
         $id = (int) $id;
         $result = $this->_access->getResults($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameSlide() . " WHERE " . StudyPressDB::COL_ID_LESSON_SLIDE . " = '%d' ORDER BY " . StudyPressDB::COL_ORDER_SLIDE ." ASC",$id));
         foreach ($result as $row) {

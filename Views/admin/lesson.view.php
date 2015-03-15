@@ -57,7 +57,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
     <div class="row">
         <div class="col-md-8">
             <h3><?php $tr->_e("All lessons"); ?></h3>
-            <div class="alert alert-danger" role="alert" <?= ($error_lesson_remove=='')?'style=\'display:none\'':'' ?>"> <?= $error_lesson_remove ?> </div>
+            <div class="alert alert-danger" role="alert" <?php echo ($error_lesson_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_lesson_remove ?> </div>
             <form action="" method="post">
 
             <table class="table table-hover table-bordered sortable">
@@ -75,7 +75,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tbody>
                 
                 <?php
-                $__lessons = [];
+                $__lessons = array();
                 $currentUser = new StudyPressUserWP();
                 if($currentUser->isAdministrator())
                 {
@@ -103,19 +103,19 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
                         ?>
                         <tr class="tr-div" >
-                            <td><input type='checkbox' name="id[]" value='<?= $row->getId() ?>'/></td>
+                            <td><input type='checkbox' name="id[]" value='<?php echo $row->getId() ?>'/></td>
                             <td>
-                                <a href="<?= $url_mod_lesson ?>"><b><?= $row->getName() ?></b></a>
+                                <a href="<?php echo $url_mod_lesson ?>"><b><?php echo $row->getName() ?></b></a>
 
                                 <div class="tr-div-remove-modife">
-                                    <a href="<?= $url_mod_lesson ?>"><?php $tr->_e("Edit"); ?></a> |
-                                    <a href=<?= "'" .$url_delete_lesson . "' " . $confirm ?> class="red" ><?php $tr->_e("Delete"); ?></a>
+                                    <a href="<?php echo $url_mod_lesson ?>"><?php $tr->_e("Edit"); ?></a> |
+                                    <a href=<?php echo "'" .$url_delete_lesson . "' " . $confirm ?> class="red" ><?php $tr->_e("Delete"); ?></a>
                                 </div>
 
                             </td>
 
-                            <td><?=$managerCourse->getById($row->getCourseId())->getName();?></td>
-                            <td> <?= $row->getAuthor() ?></td>
+                            <td><?php echo $managerCourse->getById($row->getCourseId())->getName();?></td>
+                            <td> <?php echo $row->getAuthor() ?></td>
                             <td class="col-md-1 td-post">
                             <?php
                             if($row->getPostId() === 0)
@@ -133,7 +133,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tfoot>
                 <tr>
                     <td colspan="5">
-                        <button type="submit" name="remove" class="btn btn-danger" <?= $confirm ?> ><?php $tr->_e("Delete"); ?> </button>
+                        <button type="submit" name="remove" class="btn btn-danger" <?php echo $confirm ?> ><?php $tr->_e("Delete"); ?> </button>
                     </td>
                 </tr>
                 </tfoot>
@@ -152,7 +152,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
                 <div class="panel-body">
                         <div class="alert alert-danger" role="alert"
-                        <?= ($error_lesson_add=='')?'style=\'display:none\'':'' ?>"> <?= $error_lesson_add ?> </div>
+                        <?php echo  ($error_lesson_add=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_lesson_add ?> </div>
 
 
                         <div class="form-group">
@@ -209,9 +209,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 </div>
 
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap-sortable.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap-sortable.js" ?>"></script>
 <script>
     (function($) {
         $(document).ready(function() {
@@ -219,9 +219,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
             $('.select-picture').click(function (e) {
                 e.preventDefault();
                 var uploader = wp.media({
-                    title: '<?= $tr->__('Upload an Image')?>',
+                    title: '<?php echo  $tr->__('Upload an Image')?>',
                     button: {
-                        text: '<?= $tr->__('Select an Image')?>'
+                        text: '<?php echo  $tr->__('Select an Image')?>'
                     },
                     library: {
                         type: 'image'
@@ -242,9 +242,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
             $('.select-file').click(function (e) {
                 e.preventDefault();
                 var uploader = wp.media({
-                    title: '<?= $tr->__('Send a file')?>',
+                    title: '<?php echo  $tr->__('Send a file')?>',
                     button: {
-                        text: '<?= $tr->__('Select a file')?>'
+                        text: '<?php echo  $tr->__('Select a file')?>'
                     },
                     multiple: false
                 })
@@ -267,10 +267,10 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
                 var td = $(this).parent(".td-post");
                 td.html("");
-                td.css('background', "url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
+                td.css('background', "url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
 
                 //Envoyer la requête ajax...
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/post-lesson.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/post-lesson.php",
                     {
                         type: "post",
                         id: id

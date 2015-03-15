@@ -185,7 +185,7 @@ class QuestionManager {
 
 
     public function getQuestionsOfQuiz($quizId){
-        $questions = [];
+        $questions = array();
         $quizId = (int) $quizId;
 
         $managerProp = new PropositionManager();

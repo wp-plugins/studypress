@@ -116,7 +116,7 @@ class RateDomainManager {
 
         $result = $this->_access->getResults($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameRateDomain() . " WHERE " . StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN . " = '%d'", $id));
 
-        $rates = [];
+        $rates = array();
 
         foreach ($result as $row) {
             $rate =  self::returnedRate($row);

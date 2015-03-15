@@ -18,7 +18,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
 </style>
 
@@ -29,7 +29,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
         <div class="col-md-8">
             <h3><?php $tr->_e('All Domains'); ?></h3>
-            <div class="alert alert-danger" role="alert" <?= ($error_domain_remove=='')?'style=\'display:none\'':'' ?>"> <?= $error_domain_remove ?> </div>
+            <div class="alert alert-danger" role="alert" <?php echo ($error_domain_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_domain_remove ?> </div>
         <form action="" method="post">
 
             <table class="table table-striped table-bordered">
@@ -52,9 +52,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 foreach ($__domains as $row) {
                     ?>
                     <tr>
-                        <td><input type='checkbox' name="id[]" value='<?= $row->getId() ?>'/></td>
-                        <td><a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?= $row->getId() ?>"><?= $row->getName() ?> </a></td>
-                        <td class="description"> <?= $row->getDescription() ?></td>
+                        <td><input type='checkbox' name="id[]" value='<?php echo $row->getId() ?>'/></td>
+                        <td><a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row->getId() ?>"><?php echo $row->getName() ?> </a></td>
+                        <td class="description"> <?php echo $row->getDescription() ?></td>
                     </tr>
 
                     <?php
@@ -69,7 +69,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tfoot>
                 <tr>
                     <td colspan="4">
-                        <button type="submit" name="remove" <?= $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
+                        <button type="submit" name="remove" <?php echo $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
                     </td>
                 </tr>
                 </tfoot>
@@ -87,7 +87,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?= ($error_domain_add=='')?'style=\'display:none\'':'' ?>"> <?= $error_domain_add ?>
+                    <div class="alert alert-danger" role="alert" <?php echo ($error_domain_add=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_domain_add ?>
                 </div>
                 <div class="form-group">
                     <label for="name"><?php $tr->_e('Name'); ?>*</label>
@@ -150,7 +150,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 </div>
 </div>
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 <script>
 
     (function($) {
@@ -195,7 +195,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 var id = modal.find('input[name=id]').val();
 
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/domain.controller.php",
+                $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/domain.controller.php",
                     {
                         type: "update-ajax",
                         name: name,

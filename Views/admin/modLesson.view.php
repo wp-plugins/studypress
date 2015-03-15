@@ -17,7 +17,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
     .float-left{
         float: left;
@@ -82,28 +82,28 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8">
-            <h3><?= $lesson->getName() ?></h3>
+            <h3><?php echo  $lesson->getName() ?></h3>
 
             <form action="" method="post" enctype="multipart/form-data" >
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="alert alert-danger" role="alert"
-                        <?= ($error_lesson_update=='')?'style=\'display:none\'':'' ?>"> <?= $error_lesson_update ?> </div>
+                        <?php echo  ($error_lesson_update=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_lesson_update ?> </div>
                     <div class="form-group">
                         <label for="name"><?php $tr->_e("The name of the lesson"); ?>* :  </label>
                         <input type="text" autocomplete="off" class="form-control" id="name" name="lesson[name]" required="required"
-                               value="<?= $lesson->getName() ?>"/>
+                               value="<?php echo  $lesson->getName() ?>"/>
                     </div>
 
                     <div class="form-group">
                         <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
                         <input type="number" class="form-control" id="duree" name="lesson[duree]"
-                               value="<?= $lesson->getDuration() ?>"/>
+                               value="<?php echo  $lesson->getDuration() ?>"/>
                     </div>
 
                     <div class="form-group">
                         <label for="description"><?php $tr->_e("Description"); ?> </label>
-                        <textarea  class="form-control" id="description" name="lesson[description]"><?=  trim($lesson->getDescription()) ?></textarea>
+                        <textarea  class="form-control" id="description" name="lesson[description]"><?php echo   trim($lesson->getDescription()) ?></textarea>
                     </div>
 
 
@@ -111,8 +111,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                         <label for="picture"><?php $tr->_e("Associate an image"); ?></label>
                         <div>
                             <a href="#" class="button select-picture"><?php $tr->_e("Browse"); ?></a>
-                            <input type="text" id="picture" value="<?= wp_get_attachment_url( $lesson->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
-                            <input type="hidden" name="lesson[pictureurl]" value="<?= $lesson->getPictureUrl()?>"/>
+                            <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $lesson->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
+                            <input type="hidden" name="lesson[pictureurl]" value="<?php echo  $lesson->getPictureUrl()?>"/>
 
                         </div>
 
@@ -154,7 +154,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                                     <?php
 
                                     foreach ($lesson->getNote() as $note) : ?>
-                                        <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?= str_replace('"',' ',$note)?>"><?= substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id="red" aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='lesson[note][]' value="<?= str_replace('"',' ',$note)?>" /></li>
+                                        <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?php echo  str_replace('"',' ',$note)?>"><?php echo  substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id="red" aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='lesson[note][]' value="<?php echo  str_replace('"',' ',$note)?>" /></li>
                                     <?php endforeach;  ?>
 
 
@@ -184,10 +184,10 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                                     $g = $lesson->getGlossary();
                                     for ($i=0;$i<count($g->name);$i++) : ?>
                                         <li id='li-non-sortable' class='ui-state-default btn btn-default sp-glossary'>
-                                            <span class='float-left' title="<?= str_replace('"',' ', $g->name[$i]. " : ".$g->desc[$i])?>"><?= substr("<b>" . $g->name[$i]. "</b>" .": ".$g->desc[$i],0,35)?>...</span>
+                                            <span class='float-left' title="<?php echo  str_replace('"',' ', $g->name[$i]. " : ".$g->desc[$i])?>"><?php echo  substr("<b>" . $g->name[$i]. "</b>" .": ".$g->desc[$i],0,35)?>...</span>
                                             <a href=''><span class='glyphicon glyphicon-remove float-right delete-glossary' id="red" aria-hidden='true' title='<?php $tr->_e("Delete"); ?>'></span></a>
-                                            <input type='hidden' name='lesson[glossary][name][]' value="<?= str_replace('"',' ',$g->name[$i])?>" />
-                                            <input type='hidden' name='lesson[glossary][desc][]' value="<?= str_replace('"',' ',$g->desc[$i])?>" />
+                                            <input type='hidden' name='lesson[glossary][name][]' value="<?php echo  str_replace('"',' ',$g->name[$i])?>" />
+                                            <input type='hidden' name='lesson[glossary][desc][]' value="<?php echo  str_replace('"',' ',$g->desc[$i])?>" />
                                         </li>
                                     <?php endfor;  ?>
                                 </ul>
@@ -196,7 +196,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <input type="hidden" name="lesson[id]" value="<?= $_GET['id'] ?>" />
+                    <input type="hidden" name="lesson[id]" value="<?php echo  $_GET['id'] ?>" />
                     <button type="submit" name="update" class="btn btn-primary center-block"><?php $tr->_e("Save changes"); ?></button>
                 </div>
         </div>
@@ -213,7 +213,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?= ($error_lesson_add_slide=='')?'style=\'display:none\'':'' ?>"> <?= $error_lesson_add_slide ?> </div>
+                    <div class="alert alert-danger" role="alert" <?php echo  ($error_lesson_add_slide=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_lesson_add_slide ?> </div>
 
                 <ul id="sortable-slide">
 
@@ -268,8 +268,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
     </div>
 </div>
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 
 
 
@@ -340,7 +340,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
             var name = modal.find('input[name=name]').val();
             var content = tinymce.activeEditor.getContent();
             var id_lesson = $('input[name="lesson[id]"]').val();
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
                 {
                     type : type_modal_sp+"-slide",
                     name: name,
@@ -388,7 +388,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                 order[index]  = $(element).data("id");
                 console.log(index);
             });
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
                 {
                     type: "order-slide",
                     order: order
@@ -415,11 +415,11 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 
 
         $('#sortable-slide').on("click",".glyphicon-remove",function(){
-            if(confirm("<?= "Do you want to delete this slide?" ?>")) {
+            if(confirm("<?php echo  "Do you want to delete this slide?" ?>")) {
                 var id_slide = $(this).data("id");
                 var id_lesson = $('input[name="lesson[id]"]').val();
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
                     {
                         type: "remove-slide",
                         id_slide: id_slide,
@@ -459,7 +459,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
         function getContentSlide(id_slide,id_lesson){
             $(".loading").removeClass('hide');
 
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
                 {
                     type: "get-slide",
                     id_slide: id_slide,
@@ -484,12 +484,12 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 
         function reload_slides(){
             var ul =$("#sortable-slide");
-            ul.css('background',"url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
+            ul.css('background',"url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
             ul.html("");
 
             var id_lesson = $('input[name="lesson[id]"]').val();
 
-            $.post("<?= __ROOT_PLUGIN__2 ?>Views/reload/slides.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>Views/reload/slides.php",
                 {
                     id_lesson: id_lesson
                 }
@@ -528,7 +528,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 
         $("#sortable-note").on("click","li .delete-note",function(e){
             e.preventDefault();
-            if(confirm("<?= $tr->__("Do you want to delete this note ?") ?>"))
+            if(confirm("<?php echo  $tr->__("Do you want to delete this note ?") ?>"))
             {
                 $(this).parent().parent().remove();
             }
@@ -559,7 +559,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 
         $("#sortable-glossary").on("click","li .delete-glossary",function(e){
             e.preventDefault();
-            if(confirm("<?= $tr->__("Do you want to delete this glossary ?") ?>"))
+            if(confirm("<?php echo  $tr->__("Do you want to delete this glossary ?") ?>"))
             {
                 $(this).parent().parent().remove();
             }
@@ -572,9 +572,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
             e.preventDefault();
             console.log('test');
             var uploader=wp.media({
-                title : '<?=  $tr->__('Upload an image') ?>',
+                title : '<?php echo   $tr->__('Upload an image') ?>',
                 button : {
-                    text: '<?= $tr->__('Select an image') ?>'
+                    text: '<?php echo  $tr->__('Select an image') ?>'
                 },
                 library :{
                     type : 'image'

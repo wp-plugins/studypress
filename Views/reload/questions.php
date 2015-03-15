@@ -37,14 +37,14 @@ if(isset($_POST['id_quiz'])) {
                 foreach ($quiz->getQuestions() as $question) : ?>
 
                     <li id="li-sotable" class="ui-state-default btn btn-default"
-                        data-id="<?= $question->getId() ?>">
+                        data-id="<?php echo  $question->getId() ?>">
                                 <span class="float-left">
                                     <span class="glyphicon glyphicon-resize-vertical " aria-hidden="true"></span>
-                                    <?= $question->getNiceContent() ?>
+                                    <?php echo  $question->getNiceContent() ?>
                                 </span>
-                        <a href=""  ><span class="glyphicon glyphicon-remove float-right" id="red" aria-hidden="true" data-id="<?= $question->getId() ?>" title="<?php $tr->_e("Delete"); ?>" ></span></a>
+                        <a href=""  ><span class="glyphicon glyphicon-remove float-right" id="red" aria-hidden="true" data-id="<?php echo  $question->getId() ?>" title="<?php $tr->_e("Delete"); ?>" ></span></a>
                         <a href="" data-toggle="modal" data-target="#myModal"
-                           data-id="<?= $question->getId() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?= $question->getId() ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
+                           data-id="<?php echo  $question->getId() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?php echo  $question->getId() ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
                     </li>
                 <?php
                 endforeach;

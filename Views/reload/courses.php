@@ -37,13 +37,13 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
     foreach ($__courses as $row) {
         ?>
         <tr>
-            <td><input type='checkbox' name="id[]" value='<?= $row->getId() ?>'/></td>
-            <td> <a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?= $row->getId() ?>"><?= $row->getName() ?> </a></td>
-            <td> <?= $row->getDescription() ?></td>
-            <td> <?= $row->getStringCategories() ?></td>
-            <td> <?= $row->getStringAuthors() ?></td>
-            <td> <?= $row->getNbreLessons() ?></td>
-            <td> <?= $row->getNbrequizs() ?></td>
+            <td><input type='checkbox' name="id[]" value='<?php echo  $row->getId() ?>'/></td>
+            <td> <a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo  $row->getId() ?>"><?php echo  $row->getName() ?> </a></td>
+            <td> <?php echo  $row->getDescription() ?></td>
+            <td> <?php echo  $row->getStringCategories() ?></td>
+            <td> <?php echo  $row->getStringAuthors() ?></td>
+            <td> <?php echo  $row->getNbreLessons() ?></td>
+            <td> <?php echo  $row->getNbrequizs() ?></td>
         </tr>
 
     <?php
@@ -55,7 +55,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
     <tfoot>
     <tr>
         <td colspan="7">
-            <button type="submit" name="remove" <?= $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
+            <button type="submit" name="remove" <?php echo  $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
         </td>
     </tr>
     </tfoot>

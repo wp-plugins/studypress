@@ -50,7 +50,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-question" )) {
         }
 
 
-        $checked= [];
+        $checked= array();
 
         foreach ($_POST['checked'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key))
@@ -296,7 +296,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-question" )) {
         }
 
 
-        $checked= [];
+        $checked= array();
 
         foreach ($_POST['checked'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key))
@@ -388,7 +388,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "order-question")) {
             echo $v->getMessageErrors();
 
         } else {
-            $re = [];
+            $re = array();
             foreach ($v->sanitized as $ordre => $id) {
                 $re[$id] = $ordre+1;
             }

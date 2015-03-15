@@ -5,7 +5,7 @@
 class Quiz extends AbstractActivity
 {
 
-    private $_questions = [];
+    private $_questions = array();
 
 
     public function __construct(array $d){
@@ -41,7 +41,7 @@ class Quiz extends AbstractActivity
     }
 
     public function removeQuestion($id){
-        $newQuestions = [];
+        $newQuestions = array();
         foreach($this->_questions as $q){
             if($id != $q->getId()) $newQuestions[] = $q;
         }

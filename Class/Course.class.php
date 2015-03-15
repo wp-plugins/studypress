@@ -8,9 +8,9 @@ class Course
     private $_name;
     private $_description;
     private $_avancement;
-    private $_categories = [];
-    private $_lessons= [];
-    private $_authors = [];
+    private $_categories = array();
+    private $_lessons= array();
+    private $_authors = array();
     private $_nbreLessons = 0;
     private $_nbrequizs = 0;
     private $_postId;
@@ -152,7 +152,7 @@ class Course
     }
 
     public function removeLesson($id){
-        $newLesson = [];
+        $newLesson = array();
         foreach ($this->_lessons as $LessonSelected) {
             if($id != $LessonSelected->getId()) $newLesson[] = $LessonSelected;
         }

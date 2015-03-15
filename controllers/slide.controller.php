@@ -315,7 +315,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "order-slide")) {
             echo $v->getMessageErrors();
 
         } else {
-            $re = [];
+            $re = array();
             foreach ($v->sanitized as $ordre => $id) {
                 $re[$id] = $ordre+1;
             }

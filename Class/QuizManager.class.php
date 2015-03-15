@@ -109,7 +109,7 @@ class QuizManager extends AbstractActivityManager {
 
         $result = parent::getAllWithout();
 
-        $quizs = [];
+        $quizs = array();
 
         foreach ($result as $row) {
 
@@ -273,7 +273,7 @@ class QuizManager extends AbstractActivityManager {
 
     public static function returnedResponseToQuestions($response){
 
-        $questions = [];
+        $questions = array();
         if($response)
         {
             foreach ($response as $r) {
@@ -281,7 +281,7 @@ class QuizManager extends AbstractActivityManager {
                     'id' => $r['id'],
                     'content' => $r['title']
                 ));
-                $props = [];
+                $props = array();
                 foreach ($r['props'] as $key => $p) {
                     $prop = new Proposition(array(
                         'id' => $p['id'],
@@ -319,7 +319,7 @@ class QuizManager extends AbstractActivityManager {
             'dateResult'         =>       $row[StudyPressDB::COL_DATE_RESULT],
             'validate'           =>       $row[StudyPressDB::COL_VALIDATE_RESULT],
             'dateBegin'          =>       $row[StudyPressDB::COL_DATE_BEGIN_RESULT],
-            'questions'          =>       ($chargeResponse)?self::returnedResponseToQuestions(json_decode($row[StudyPressDB::COL_RESPONSE_RESULT],true)):[]
+            'questions'          =>       ($chargeResponse)?self::returnedResponseToQuestions(json_decode($row[StudyPressDB::COL_RESPONSE_RESULT],true)):array()
 
         )) : null );
 

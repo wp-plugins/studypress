@@ -22,7 +22,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
 
     .sp-cat{
@@ -47,7 +47,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
         <div class="col-md-12">
             <h3><?php $tr->_e('All courses'); ?></h3>
-            <div class="alert alert-danger" role="alert" <?= ($error_course_remove=='')?'style=\'display:none\'':'' ?>"> <?= $error_course_remove ?> </div>
+            <div class="alert alert-danger" role="alert" <?php echo ($error_course_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_course_remove ?> </div>
             <form action="" method="post" id="sp-reload">
 
             <table class="table table-striped table-bordered">
@@ -74,13 +74,13 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 foreach ($__courses as $row) {
                     ?>
                     <tr>
-                        <td><input type='checkbox' name="id[]" value='<?= $row->getId() ?>'/></td>
-                        <td> <a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?= $row->getId() ?>"><?= $row->getName() ?> </a></td>
-                        <td> <?= $row->getDescription() ?></td>
-                        <td> <?= $row->getStringCategories() ?></td>
-                        <td> <?= $row->getStringAuthors() ?></td>
-                        <td> <?= $row->getNbreLessons() ?></td>
-                        <td> <?= $row->getNbrequizs() ?></td>
+                        <td><input type='checkbox' name="id[]" value='<?php echo $row->getId() ?>'/></td>
+                        <td> <a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row->getId() ?>"><?php echo $row->getName() ?> </a></td>
+                        <td> <?php echo $row->getDescription() ?></td>
+                        <td> <?php echo $row->getStringCategories() ?></td>
+                        <td> <?php echo $row->getStringAuthors() ?></td>
+                        <td> <?php echo $row->getNbreLessons() ?></td>
+                        <td> <?php echo $row->getNbrequizs() ?></td>
                     </tr>
 
                     <?php
@@ -92,7 +92,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tfoot>
                 <tr>
                     <td colspan="7">
-                        <button type="submit" name="remove" <?= $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
+                        <button type="submit" name="remove" <?php echo $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
                     </td>
                 </tr>
                 </tfoot>
@@ -121,7 +121,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
             <div class="modal-body">
                 <div class="loading hide"></div>
 
-                <div class="alert alert-danger" role="alert" <?= ($error_course_add=='')?'style=\'display:none\'':'' ?>"> <?= $error_course_add ?> </div>
+                <div class="alert alert-danger" role="alert" <?php echo ($error_course_add=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_course_add ?> </div>
 
                 <div class="alert alert-danger alert-dismissible hide" role="alert">
                     <p></p>
@@ -250,7 +250,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
 
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 
 
 <script>
@@ -303,7 +303,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
             function getContentCourse(courseId) {
                 $(".loading").removeClass('hide');
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
+                $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
                     {
                         type: "get-course-ajax",
                         courseId: courseId
@@ -369,7 +369,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                         return this.value;
                     }).get();
 
-                    $.post("<?= __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
+                    $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
                         {
                             type: "update-course-ajax",
                             courseId: id,
@@ -384,7 +384,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                             if (trimStr(data) === "true") {
                                 modal.modal('hide');
                                 $.ajax({
-                                    url: "<?= __ROOT_PLUGIN__2 ?>Views/reload/courses.php",
+                                    url: "<?php echo __ROOT_PLUGIN__2 ?>Views/reload/courses.php",
                                     context: document.body,
                                     success: function (s, x) {
                                         $("#sp-reload").html(s);

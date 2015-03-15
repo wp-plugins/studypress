@@ -88,13 +88,13 @@ global $tr;
         <div class="sp-btn-rater"></div>
             <div class="sp-content-rater hide">
                 <div class="sp-rater-quality">
-                    <h2><?= $tr->__("Quality") ?></h2>
+                    <h2><?php echo  $tr->__("Quality") ?></h2>
                     <?php
                     $managerRate = new RateQualityManager();
                     $user =  new StudyPressUserWP();
 
                     ?>
-                    <div class="sp-rate-quality" data-id="<?= $id ?>"  data-user="<?= $user->id() ?>" ></div>
+                    <div class="sp-rate-quality" data-id="<?php echo  $id ?>"  data-user="<?php echo  $user->id() ?>" ></div>
                     <?php
                     echo $tr->__("Number of raters") . ": " . $managerRate->countRate($id) ."<br/>";
                     echo $tr->__("Average") . ": " . round((float) $managerRate->AVG($id),2) ."<br/>";
@@ -115,8 +115,8 @@ global $tr;
 
                 <div class="div-rate-domain">
 
-                    <?= $domain->getName() ?>
-                    <div class="sp-rate-domain" data-average="<?= ($user->isLoggedIn())?(($managerRateDomain->voteExist($id,$user->id(),$domain->getId()))?$managerRateDomain->voteExist($id,$user->id(),$domain->getId())->getValue():"0"):"0" ?>" data-id="<?= $id ?>" data-domain="<?= $domain->getId() ?>" data-user="<?= $user->id() ?>"></div>
+                    <?php echo  $domain->getName() ?>
+                    <div class="sp-rate-domain" data-average="<?php echo  ($user->isLoggedIn())?(($managerRateDomain->voteExist($id,$user->id(),$domain->getId()))?$managerRateDomain->voteExist($id,$user->id(),$domain->getId())->getValue():"0"):"0" ?>" data-id="<?php echo  $id ?>" data-domain="<?php echo  $domain->getId() ?>" data-user="<?php echo  $user->id() ?>"></div>
                     <?php
                     echo $tr->__("Number of raters") . ": " . $managerRateDomain->countRate($id,$domain->getId()) ."<br/>";
                     echo $tr->__("Average") . ": " . round((float) $managerRateDomain->AVG($id,$domain->getId()),2) ."<br/>";
@@ -139,12 +139,12 @@ global $tr;
 
 
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/owl.carousel.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/owl.carousel.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/cbpFWTabs.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/cbpFWTabs.js" ?>"></script>
 
 
 <script>
@@ -152,11 +152,11 @@ global $tr;
         $(document).ready(function () {
 
 
-            var pathQuality = "<?= __ROOT_PLUGIN__2 ?>controllers/ratingQuality.controller.php";
+            var pathQuality = "<?php echo  __ROOT_PLUGIN__2 ?>controllers/ratingQuality.controller.php";
 
             var rateQuality = $(".sp-rate-quality").rateYo({
                 starWidth: "40px",
-                rating: "<?= ($user->isLoggedIn())?(($managerRate->voteExist($id,$user->id()))?$managerRate->voteExist($id,$user->id())->getValue():"0"):"0" ?>",
+                rating: "<?php echo  ($user->isLoggedIn())?(($managerRate->voteExist($id,$user->id()))?$managerRate->voteExist($id,$user->id())->getValue():"0"):"0" ?>",
                 fullStar: true,
                 onChange: function (rating, rateYoInstance) {
 
@@ -168,7 +168,7 @@ global $tr;
             });
 
 
-            var pathDomain = "<?= __ROOT_PLUGIN__2 ?>controllers/ratingDomain.controller.php";
+            var pathDomain = "<?php echo  __ROOT_PLUGIN__2 ?>controllers/ratingDomain.controller.php";
 
             $(".sp-rate-domain").each(function () {
                 var item = $(this);
@@ -229,7 +229,7 @@ global $tr;
                 var sp_owl = $(".sp-player #carousel");
 
                 var optionsOwl = {
-                    jsonPath: "<?= __ROOT_PLUGIN__2 . "Public/Lesson/" . sha1($lesson->getId()).".json" ?>",
+                    jsonPath: "<?php echo  __ROOT_PLUGIN__2 . "Public/Lesson/" . sha1($lesson->getId()).".json" ?>",
                     jsonSuccess: setSlides,
                     singleItem: true,
                     lazyLoad: true,

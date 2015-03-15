@@ -41,7 +41,7 @@ class Collection implements ArrayAccess,IteratorAggregate{
 
     public function  lists($key,$value)
     {
-        $result=[];
+        $result=array();
 
         foreach($this->items as $item)
 
@@ -55,7 +55,7 @@ class Collection implements ArrayAccess,IteratorAggregate{
 
     public function extract($key)
     {
-        $result=[];
+        $result=array();
         foreach($this->items as $item)
             $result[]=$item[$key];
 

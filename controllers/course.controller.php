@@ -210,13 +210,13 @@ else {
                 $error_course_add = $v1->getMessageErrors() . "<br/>";
                 $error_course_add .= $v2->getMessageErrors();
             } else {
-                $cats = [];
+                $cats = array();
                 foreach ($v1->sanitized as $key => $value) {
                     if ((preg_match('/^[0-9]{1,}$/', $key)) && (isIdCategoryWpExist($value)))
                         $cats[] = $value;
                 }
 
-                $users = [];
+                $users = array();
                 foreach ($v2->sanitized as $key => $authorId) {
 
                     if ((preg_match('/^[0-9]{1,}$/', $key)) && (StudyPressUserWP::exist($authorId)))
@@ -256,7 +256,7 @@ else {
         if ((isset($_POST['id'])) && (!empty($_POST['id']))) {
 
             $v1 = new validation();
-            $rules = [];
+            $rules = array();
 
             $v1->addSource($_POST['id']);
             for ($i = 0; $i < count($_POST['id']); ++$i) {

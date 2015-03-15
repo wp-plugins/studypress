@@ -113,7 +113,7 @@ abstract class AbstractActivity {
 
         }
 
-        return [];
+        return array();
     }
 
     public function getNoteJson() {
@@ -130,11 +130,11 @@ abstract class AbstractActivity {
     public function getGlossary() {
 
 
-        if(($glossaries = (array) json_decode($this->_glossary)) !== [])
+        if(($glossaries = (array) json_decode($this->_glossary)) !== array())
         {
 
 
-            $n = [];
+            $n = array();
             foreach ($glossaries['name'] as $k => $g)
             {
                 $n['name'][$k] = stripslashes($g);
@@ -148,7 +148,7 @@ abstract class AbstractActivity {
             return  (object) $n;
 
         }
-        return (object) array('name' => [],'desc' => []);
+        return (object) array('name' => array(),'desc' => array());
     }
 
     public function getGlossaryJson() {

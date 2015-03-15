@@ -90,7 +90,7 @@ class CourseManager
 
 
 
-        $ids = [];
+        $ids = array();
         foreach ($result as $row) {
             $ids[] = $row[StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE];
         }
@@ -134,7 +134,7 @@ class CourseManager
 
 
 
-        $ids = [];
+        $ids = array();
         foreach ($result as $row) {
             $ids[] = $row[StudyPressDB::COL_ID_USERS_USERS_N_COURSE];
         }

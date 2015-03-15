@@ -19,7 +19,7 @@ if($sp_user->isAdministrator())
 
             <div class="update-nag">
                 <p>
-                    <?= $tr->__("This is a fresh installation of StudyPress. Don't forget to go to Appearance -> Menus -> Screen Options, and activate 'Course' option. ") . " | <a href='?page=id_Cours&sp_nag_ignore=0'>". $tr->__('Hide Notice') ."</a>" ?>
+                    <?php echo $tr->__("This is a fresh installation of StudyPress. Don't forget to go to Appearance -> Menus -> Screen Options, and activate 'Course' option. ") . " | <a href='?page=id_Cours&sp_nag_ignore=0'>". $tr->__('Hide Notice') ."</a>" ?>
 
                 </p>
             </div>
@@ -72,7 +72,7 @@ function sp_notice_sp_migrate()
 
         <div class="error">
             <p>
-                <?= $tr->__("This is a fresh installation of StudyPress. Since the version 1.0 contains multiple new functionalities and has a new way to organize lessons and courses, all courses that you have created were assigned to one category. Don't forget to reorganize your courses. ") ." | <a href='?page=id_Cours&sp_ignore_migrate=0'>". $tr->__('Hide Notice') ."</a>" ?>
+                <?php echo $tr->__("This is a fresh installation of StudyPress. Since the version 1.0 contains multiple new functionalities and has a new way to organize lessons and courses, all courses that you have created were assigned to one category. Don't forget to reorganize your courses. ") ." | <a href='?page=id_Cours&sp_ignore_migrate=0'>". $tr->__('Hide Notice') ."</a>" ?>
 
             </p>
         </div>

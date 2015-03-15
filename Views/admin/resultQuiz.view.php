@@ -8,7 +8,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 
 ?>
 
-<input type="hidden" name="quiz[id]" value="<?= $_GET['id'] ?>"/>
+<input type="hidden" name="quiz[id]" value="<?php echo  $_GET['id'] ?>"/>
 
 <style>
 
@@ -33,7 +33,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
 
     .red,
@@ -137,12 +137,12 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
                     $user = new StudyPressUserWP($row->getUserId());
                     ?>
                     <tr>
-                        <td> <?= $user->displayName() ?> </a></td>
-                        <td class="<?= ($row->getNote()>50)?"green":"red"?>"> <?= $row->getNote() ?>%</td>
-                        <td> <?= $row->getNbrCorrectResponse() ."/". $row->getNbrQuestions() ?></td>
-                        <td> <?= $row->getDateResult() ?></td>
+                        <td> <?php echo  $user->displayName() ?> </a></td>
+                        <td class="<?php echo  ($row->getNote()>50)?"green":"red"?>"> <?php echo  $row->getNote() ?>%</td>
+                        <td> <?php echo  $row->getNbrCorrectResponse() ."/". $row->getNbrQuestions() ?></td>
+                        <td> <?php echo  $row->getDateResult() ?></td>
                         <td>
-                            <a id="get-responses" data-id ="<?= $user->id() ?>" href="#">
+                            <a id="get-responses" data-id ="<?php echo  $user->id() ?>" href="#">
                                 <span class="glyphicon glyphicon-new-window"  data-toggle="modal" data-target="#myModal" aria-hidden="true" title="Afficher"></span>
                             </a>
                         </td>
@@ -182,7 +182,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?= $tr->__("Close") ?></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo  $tr->__("Close") ?></button>
 
             </div>
         </div>
@@ -193,7 +193,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 
 
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 <script>
 
     (function($) {
@@ -231,7 +231,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
             function getResponses(quizId, userId) {
                 $(".loading").removeClass('hide');
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/resultQuiz.controller.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/resultQuiz.controller.php",
                     {
                         type: "get-responses",
                         quizId: quizId,

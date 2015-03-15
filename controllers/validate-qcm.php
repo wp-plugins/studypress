@@ -26,11 +26,11 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
             $quiz = $managerQuiz->getById((int)$quizId);
 
 
-            $origin = [];
+            $origin = array();
 
-            $response = [];
+            $response = array();
 
-            $ResponseSave = [];
+            $ResponseSave = array();
 
 
             if ($quiz) {

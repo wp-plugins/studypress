@@ -95,7 +95,7 @@ class LessonManager extends AbstractActivityManager {
 
         $result = parent::getAllWithout();
 
-        $lessons = [];
+        $lessons = array();
 
 
         foreach ($result as $row) {

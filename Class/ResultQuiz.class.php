@@ -11,7 +11,7 @@ class ResultQuiz {
     private $_nbrCorrectResponse;
     private $_validate;
     private $_dateBegin;
-    private $_questions = [];
+    private $_questions = array();
 
 
 

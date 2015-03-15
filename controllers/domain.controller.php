@@ -132,7 +132,7 @@ else
 
     if (isset($_POST['remove'])) {
         if ((isset($_POST['id'])) && (!empty($_POST['id']))) {
-            $rules = [];
+            $rules = array();
 
             $validation->addSource($_POST['id']);
             for ($i = 0; $i < count($_POST['id']); ++$i) {

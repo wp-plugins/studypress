@@ -62,17 +62,17 @@ foreach ($get_children_array as $value):
 
 
                         <div class="thumb">
-                            <img src="<?= $med_image_url[0] ?>" width="150" height="150" />
+                            <img src="<?php echo $med_image_url[0] ?>" width="150" height="150" />
                         </div>
 
                         <div class="details">
-                            <a href="<?= $value['guid'] ?>"><?= $study->getName() ?></a>
-                            <p class="description"><?=$study->getNiceDescription() ?></p>
-                            <span>Rater(s) : <?= $managerRate->countRate($study->getId()) ?></span>
-                            <div id="sp-rate-id" class="sp-rate-quality" data-average="<?= $managerRate->AVG($study->getId()) ?>"></div>
+                            <a href="<?php echo $value['guid'] ?>"><?php echo $study->getName() ?></a>
+                            <p class="description"><?php echo $study->getNiceDescription() ?></p>
+                            <span>Rater(s) : <?php echo $managerRate->countRate($study->getId()) ?></span>
+                            <div id="sp-rate-id" class="sp-rate-quality" data-average="<?php echo $managerRate->AVG($study->getId()) ?>"></div>
                         </div>
 
-                        <p class="sp-type"><?= $type ?></p>
+                        <p class="sp-type"><?php echo $type ?></p>
                     </div>
             </li>
 
@@ -85,9 +85,9 @@ endforeach;
 echo "</ul></div>";
 ?>
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
+<script src="<?php echo __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
+<script src="<?php echo __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
+<script src="<?php echo __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>
 <script>
     $(function () {
 

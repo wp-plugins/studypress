@@ -30,23 +30,21 @@ if($access->getVar("SHOW TABLES LIKE '$tableCat'") == $tableCat) {
         $resultLesson = $access->getResults("SELECT * FROM $tableCourse");
 
 
-        $authors = [];
+        $authors = array();
 
 
         foreach ($resultLesson as $lesson) {
             $managerLesson= new LessonManager();
             $lessonId= $managerLesson->add(new Lesson(array(
-                'name'       => ($lesson['nom'] != "")?$lesson['nom']:"Course",
-                'author'     => $lesson['author'],
-                'description'=> $lesson['cours_des'],
-                'duration'   => $lesson['duration'],
-                'courseId'   => $courseId
+                'name'         => ($lesson['nom'] != "")?$lesson['nom']:"Course",
+                'author'       => $user->displayName(),
+                'authorId'     => $user->id(),
+                'description'  => $lesson['cours_des'],
+                'duration'     => $lesson['duration'],
+                'courseId'     => $courseId
             )));
 
-            if($a = get_user_by('login',$lesson['author']))
-            {
-                $authors[] = $a->ID;
-            }
+
             if( !in_array( $user->id(),$authors ) )
             {
                 $authors[] = $user->id();

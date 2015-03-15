@@ -38,14 +38,14 @@ if(isset($_POST['id_lesson'])) {
                 foreach ($lesson->getSlides() as $slide) : ?>
 
                     <li id="li-sotable" class="ui-state-default btn btn-default"
-                        data-id="<?= $slide->id() ?>">
+                        data-id="<?php echo  $slide->id() ?>">
                                 <span class="float-left">
                                     <span class="glyphicon glyphicon-resize-vertical " aria-hidden="true"></span>
-                                     <?= $slide->getNiceName() ?>
+                                     <?php echo  $slide->getNiceName() ?>
                                 </span>
-                        <a href=""  ><span class="glyphicon glyphicon-remove float-right" id="red" aria-hidden="true" data-id="<?= $slide->id() ?>" title="<?php $tr->_e("Delete"); ?>" ></span></a>
+                        <a href=""  ><span class="glyphicon glyphicon-remove float-right" id="red" aria-hidden="true" data-id="<?php echo  $slide->id() ?>" title="<?php $tr->_e("Delete"); ?>" ></span></a>
                         <a href="" data-toggle="modal" data-target="#myModal"
-                           data-id="<?= $slide->id() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?= $slide->id() ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
+                           data-id="<?php echo  $slide->id() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?php echo  $slide->id() ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
                     </li>
                 <?php
                 endforeach;

@@ -96,6 +96,9 @@ if(isset($_GET['id']) && !empty($_GET['id']))
 
 
 
+
+
+
                 $notes = (isset($_POST['lesson']['note']))?json_encode($_POST['lesson']['note']):"";
                 $glossaires = (isset($_POST['lesson']['glossary']))?json_encode($_POST['lesson']['glossary']):"";
 

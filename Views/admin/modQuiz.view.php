@@ -18,7 +18,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
     .float-left{
         float: left;
@@ -83,28 +83,28 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8">
-            <h3><?= $quiz->getName() ?></h3>
+            <h3><?php echo  $quiz->getName() ?></h3>
 
         <form action="" method="post" enctype="multipart/form-data" >
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="alert alert-danger" role="alert"
-                    <?= ($error_quiz_update=='')?'style=\'display:none\'':'' ?>"> <?= $error_quiz_update ?> </div>
+                    <?php echo  ($error_quiz_update=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_quiz_update ?> </div>
                 <div class="form-group">
                     <label for="name"><?php $tr->_e("Name of the Quiz"); ?>* :  </label>
                     <input type="text" autocomplete="off" class="form-control" id="name" name="quiz[name]" required="required"
-                        value="<?= $quiz->getName() ?>"/>
+                        value="<?php echo  $quiz->getName() ?>"/>
                 </div>
 
                 <div class="form-group">
                     <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
                     <input type="number" class="form-control" id="duree" name="quiz[duree]"
-                           value="<?= $quiz->getDuration() ?>"/>
+                           value="<?php echo  $quiz->getDuration() ?>"/>
                 </div>
 
                 <div class="form-group">
                     <label for="description"><?php $tr->_e("Description"); ?> </label>
-                    <textarea  class="form-control" id="description" name="quiz[description]"><?=  trim($quiz->getDescription()) ?></textarea>
+                    <textarea  class="form-control" id="description" name="quiz[description]"><?php echo   trim($quiz->getDescription()) ?></textarea>
                 </div>
 
 
@@ -112,8 +112,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                     <label for="picture"><?php $tr->_e("Associate an image"); ?></label>
                     <div>
                         <a href="#" class="button select-picture"><?php $tr->_e("Browse"); ?></a>
-                        <input type="text" id="picture" value="<?= wp_get_attachment_url( $quiz->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
-                        <input type="hidden" name="quiz[pictureurl]" value="<?= $quiz->getPictureUrl()?>"/>
+                        <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $quiz->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
+                        <input type="hidden" name="quiz[pictureurl]" value="<?php echo  $quiz->getPictureUrl()?>"/>
                     </div>
 
 
@@ -155,7 +155,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                                 <?php
 
                                 foreach ($quiz->getNote() as $note) : ?>
-                                <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?= str_replace('"',' ',$note)?>"><?= substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id='red' aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='quiz[note][]' value="<?= str_replace('"',' ',$note)?>" /></li>
+                                <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?php echo  str_replace('"',' ',$note)?>"><?php echo  substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id='red' aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='quiz[note][]' value="<?php echo  str_replace('"',' ',$note)?>" /></li>
                                 <?php endforeach;  ?>
 
 
@@ -185,10 +185,10 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                                 $g = $quiz->getGlossary();
                                 for ($i=0;$i<count($g->name);$i++) : ?>
                                     <li id='li-non-sortable' class='ui-state-default btn btn-default sp-glossary'>
-                                        <span class='float-left' title="<?= str_replace('"',' ', $g->name[$i]. " : ".$g->desc[$i])?>"><?= substr("<b>" . $g->name[$i]. "</b>" .": ".$g->desc[$i],0,35)?>...</span>
+                                        <span class='float-left' title="<?php echo  str_replace('"',' ', $g->name[$i]. " : ".$g->desc[$i])?>"><?php echo  substr("<b>" . $g->name[$i]. "</b>" .": ".$g->desc[$i],0,35)?>...</span>
                                         <a href=''><span class='glyphicon glyphicon-remove float-right delete-glossary' id='red' aria-hidden='true' title='<?php $tr->_e("Delete"); ?>'></span></a>
-                                        <input type='hidden' name='quiz[glossary][name][]' value="<?= str_replace('"',' ',$g->name[$i])?>" />
-                                        <input type='hidden' name='quiz[glossary][desc][]' value="<?= str_replace('"',' ',$g->desc[$i])?>" />
+                                        <input type='hidden' name='quiz[glossary][name][]' value="<?php echo  str_replace('"',' ',$g->name[$i])?>" />
+                                        <input type='hidden' name='quiz[glossary][desc][]' value="<?php echo  str_replace('"',' ',$g->desc[$i])?>" />
                                     </li>
                                 <?php endfor;  ?>
                             </ul>
@@ -197,7 +197,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                 </div>
             </div>
             <div class="panel-footer">
-                <input type="hidden" name="quiz[id]" value="<?= $_GET['id'] ?>" />
+                <input type="hidden" name="quiz[id]" value="<?php echo  $_GET['id'] ?>" />
                 <button type="submit" name="update" class="btn btn-primary center-block"><?php $tr->_e("Save changes"); ?></button>
             </div>
     </div>
@@ -214,7 +214,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?= ($error_quiz_add_question=='')?'style=\'display:none\'':'' ?>"> <?= $error_quiz_add_question ?> </div>
+                    <div class="alert alert-danger" role="alert" <?php echo  ($error_quiz_add_question=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_quiz_add_question ?> </div>
 
                 <ul id="sortable-question">
 
@@ -301,8 +301,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
     </div>
 </div>
 
-<script src="<?= __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?= __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
+<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 
 
 
@@ -379,7 +379,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                 value.push($(this).find("input[name='prop[]']").val());
             });
 
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
                 {
                     type: type_modal_sp + "-question",
                     question: question,
@@ -425,7 +425,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
             $("#sortable-question li").each(function (index, element) {
                 order[index] = $(element).data("id");
             });
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
                 {
                     type: "order-question",
                     order: order
@@ -456,7 +456,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                 var id_question = $(this).data("id");
                 var id_quiz = $('input[name="quiz[id]"]').val();
 
-                $.post("<?= __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
                     {
                         type: "remove-question",
                         id_question: id_question,
@@ -492,7 +492,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
         function getContentSlide(id_question, id_quiz) {
             $(".loading").removeClass('hide');
 
-            $.post("<?= __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
                 {
                     type: "get-question",
                     id_question: id_question,
@@ -530,12 +530,12 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 
         function reload_slides() {
             var ul = $("#sortable-question");
-            ul.css('background', "url('<?= __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
+            ul.css('background', "url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
             ul.html("");
 
             var id_quiz = $('input[name="quiz[id]"]').val();
 
-            $.post("<?= __ROOT_PLUGIN__2 ?>Views/reload/questions.php",
+            $.post("<?php echo  __ROOT_PLUGIN__2 ?>Views/reload/questions.php",
                 {
                     id_quiz: id_quiz
                 }
@@ -600,7 +600,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 
         $("#sortable-glossary").on("click", "li .delete-glossary", function (e) {
             e.preventDefault();
-            if(confirm("<?= $tr->__("Do you want to delete this glossary ?") ?>"))
+            if(confirm("<?php echo  $tr->__("Do you want to delete this glossary ?") ?>"))
             {
                 $(this).parent().parent().remove();
             }
@@ -613,9 +613,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
             e.preventDefault();
             console.log('test');
             var uploader = wp.media({
-                title: '<?=  $tr->__('Upload an image') ?>',
+                title: '<?php echo   $tr->__('Upload an image') ?>',
                 button: {
-                    text: '<?= $tr->__('Select an image') ?>'
+                    text: '<?php echo  $tr->__('Select an image') ?>'
                 },
                 library: {
                     type: 'image'

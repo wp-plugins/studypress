@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: studypress\n"
-"POT-Creation-Date: 2015-03-15 14:29+0100\n"
-"PO-Revision-Date: 2015-03-15 14:30+0100\n"
+"POT-Creation-Date: 2015-03-15 23:47+0100\n"
+"PO-Revision-Date: 2015-03-15 23:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -15,99 +15,98 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../Class/Course.class.php:218 ../Class/Course.class.php:262
+#: ../Class/Course.class.php:175 ../Class/Course.class.php:213
 msgid "None"
 msgstr "Aucun"
 
-#: ../Study-press.php:455 ../Study-press.php:456
-#: ../Views/admin/course.view.php:68 ../Views/admin/lesson.view.php:45
-#: ../Views/reload/courses.php:30
+#: ../Study-press.php:251 ../Study-press.php:252
+#: ../Views/admin/course.view.php:61 ../Views/admin/lesson.view.php:38
+#: ../Views/reload/courses.php:24
 msgid "Lessons"
 msgstr "Leçon"
 
-#: ../Study-press.php:550 ../Study-press.php:551
+#: ../Study-press.php:309 ../Study-press.php:310
 msgid "Courses"
 msgstr "Cours"
 
-#: ../Study-press.php:598 ../Study-press.php:599
+#: ../Study-press.php:337 ../Study-press.php:338
 #: ../Views/admin/domain.view.php:25
 msgid "Domains"
 msgstr "Domaines"
 
-#: ../Views/admin/course.view.php:16 ../Views/reload/courses.php:16
+#: ../Views/admin/course.view.php:9 ../Views/reload/courses.php:10
 msgid "Do you want to delete this / these Course(s)?"
 msgstr "Voulez vous supprimer ce/ces Cours ?"
 
-#: ../Views/admin/course.view.php:47 ../Views/admin/lesson.view.php:76
-#: ../Views/admin/quiz.view.php:82 ../actions-studypress.php:161
-#: ../actions-studypress.php:162
-#: ../controllers/player-lesson.controller.php:22
-#: ../controllers/player-quiz.controller.php:23
+#: ../Views/admin/course.view.php:40 ../Views/admin/lesson.view.php:69
+#: ../Views/admin/quiz.view.php:75 ../actions-studypress.php:91
+#: ../actions-studypress.php:92 ../controllers/player-lesson.controller.php:15
+#: ../controllers/player-quiz.controller.php:16
 msgid "Course"
 msgstr "Cours"
 
-#: ../Views/admin/course.view.php:48
+#: ../Views/admin/course.view.php:41
 msgid "Add New"
 msgstr "Ajouter"
 
-#: ../Views/admin/course.view.php:56 ../actions-studypress.php:164
+#: ../Views/admin/course.view.php:49 ../actions-studypress.php:94
 msgid "All courses"
 msgstr "Tous les cours"
 
-#: ../Views/admin/course.view.php:64 ../Views/admin/course.view.php:147
-#: ../Views/admin/domain.view.php:93 ../Views/admin/domain.view.php:136
-#: ../Views/admin/lesson.view.php:75 ../Views/admin/modLesson.view.php:278
-#: ../Views/admin/quiz.view.php:81 ../Views/reload/courses.php:26
+#: ../Views/admin/course.view.php:57 ../Views/admin/course.view.php:132
+#: ../Views/admin/domain.view.php:93 ../Views/admin/domain.view.php:128
+#: ../Views/admin/lesson.view.php:68 ../Views/admin/modLesson.view.php:252
+#: ../Views/admin/quiz.view.php:74 ../Views/reload/courses.php:20
 msgid "Name"
 msgstr "Nom"
 
-#: ../Views/admin/course.view.php:65 ../Views/admin/course.view.php:152
+#: ../Views/admin/course.view.php:58 ../Views/admin/course.view.php:137
 #: ../Views/admin/domain.view.php:40 ../Views/admin/domain.view.php:98
-#: ../Views/admin/domain.view.php:142 ../Views/admin/modLesson.view.php:111
-#: ../Views/admin/modLesson.view.php:190 ../Views/admin/modQuiz.view.php:112
-#: ../Views/admin/modQuiz.view.php:189 ../Views/reload/courses.php:27
+#: ../Views/admin/domain.view.php:134 ../Views/admin/modLesson.view.php:105
+#: ../Views/admin/modLesson.view.php:175 ../Views/admin/modQuiz.view.php:106
+#: ../Views/admin/modQuiz.view.php:176 ../Views/reload/courses.php:21
 msgid "Description"
-msgstr "Déscription"
+msgstr "Description"
 
-#: ../Views/admin/course.view.php:66 ../Views/admin/course.view.php:159
-#: ../Views/reload/courses.php:28
+#: ../Views/admin/course.view.php:59 ../Views/admin/course.view.php:144
+#: ../Views/reload/courses.php:22
 msgid "Categories"
 msgstr "Catégories"
 
-#: ../Views/admin/course.view.php:67 ../Views/admin/course.view.php:207
-#: ../Views/reload/courses.php:29
+#: ../Views/admin/course.view.php:60 ../Views/admin/course.view.php:192
+#: ../Views/reload/courses.php:23
 msgid "Authors"
 msgstr "Auteurs"
 
-#: ../Views/admin/course.view.php:69 ../Views/admin/quiz.view.php:51
-#: ../Views/course-page.php:54 ../Views/reload/courses.php:31
+#: ../Views/admin/course.view.php:62 ../Views/admin/quiz.view.php:44
+#: ../Views/course-page.php:47 ../Views/reload/courses.php:25
 msgid "Quiz"
 msgstr "Quiz"
 
-#: ../Views/admin/course.view.php:78 ../Views/reload/courses.php:40
+#: ../Views/admin/course.view.php:71 ../Views/reload/courses.php:34
 msgid "No Courses"
 msgstr "Aucun Cours"
 
-#: ../Views/admin/course.view.php:102 ../Views/admin/domain.view.php:72
-#: ../Views/admin/lesson.view.php:119 ../Views/admin/lesson.view.php:143
-#: ../Views/admin/modLesson.view.php:203 ../Views/admin/modQuiz.view.php:202
-#: ../Views/admin/quiz.view.php:127 ../Views/admin/quiz.view.php:156
-#: ../Views/reload/courses.php:64 ../Views/reload/questions.php:58
-#: ../Views/reload/slides.php:57
+#: ../Views/admin/course.view.php:95 ../Views/admin/domain.view.php:72
+#: ../Views/admin/lesson.view.php:112 ../Views/admin/lesson.view.php:136
+#: ../Views/admin/modLesson.view.php:188 ../Views/admin/modQuiz.view.php:189
+#: ../Views/admin/quiz.view.php:120 ../Views/admin/quiz.view.php:149
+#: ../Views/reload/courses.php:58 ../Views/reload/questions.php:45
+#: ../Views/reload/slides.php:46
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../Views/admin/course.view.php:133
+#: ../Views/admin/course.view.php:118
 msgid "Add a new course"
 msgstr "Ajouter un nouveau cours"
 
-#: ../Views/admin/course.view.php:255 ../Views/admin/modLesson.view.php:290
-#: ../Views/admin/modQuiz.view.php:320 ../Views/admin/resultQuiz.view.php:192
+#: ../Views/admin/course.view.php:240 ../Views/admin/modLesson.view.php:264
+#: ../Views/admin/modQuiz.view.php:297 ../Views/admin/resultQuiz.view.php:185
 msgid "Close"
 msgstr "Fermer"
 
-#: ../Views/admin/course.view.php:256 ../Views/admin/domain.view.php:103
-#: ../Views/admin/quiz.view.php:212
+#: ../Views/admin/course.view.php:241 ../Views/admin/domain.view.php:103
+#: ../Views/admin/quiz.view.php:205
 msgid "Validate"
 msgstr "Valider"
 
@@ -135,276 +134,276 @@ msgstr "Nouveau domaine"
 msgid "Optional"
 msgstr "Facultatif"
 
-#: ../Views/admin/domain.view.php:123
+#: ../Views/admin/domain.view.php:115
 msgid "Change domain"
 msgstr "Modifier le domaine"
 
-#: ../Views/admin/domain.view.php:149 ../Views/admin/modLesson.view.php:243
-#: ../Views/admin/modLesson.view.php:291 ../Views/admin/modQuiz.view.php:242
-#: ../Views/admin/modQuiz.view.php:321
+#: ../Views/admin/domain.view.php:141 ../Views/admin/modLesson.view.php:225
+#: ../Views/admin/modLesson.view.php:265 ../Views/admin/modQuiz.view.php:226
+#: ../Views/admin/modQuiz.view.php:298
 msgid "Loading..."
 msgstr "Charegement..."
 
-#: ../Views/admin/domain.view.php:149 ../Views/admin/modLesson.view.php:243
-#: ../Views/admin/modLesson.view.php:291 ../Views/admin/modQuiz.view.php:242
-#: ../Views/admin/modQuiz.view.php:321
+#: ../Views/admin/domain.view.php:141 ../Views/admin/modLesson.view.php:225
+#: ../Views/admin/modLesson.view.php:265 ../Views/admin/modQuiz.view.php:226
+#: ../Views/admin/modQuiz.view.php:298
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../Views/admin/lesson.view.php:14
+#: ../Views/admin/lesson.view.php:7
 msgid "Do you want to delete this / these Lesson(s)?"
 msgstr "Voulez vous supprimer cette/ces leçons ?"
 
-#: ../Views/admin/lesson.view.php:58 ../Views/admin/quiz.view.php:64
+#: ../Views/admin/lesson.view.php:51 ../Views/admin/quiz.view.php:57
 msgid "Please contact your administrator for created a course"
 msgstr "Veuillez contacter votre administrateur pour qu'il vous créé un cours"
 
-#: ../Views/admin/lesson.view.php:66
+#: ../Views/admin/lesson.view.php:59
 msgid "All lessons"
 msgstr "Totes les leçons"
 
-#: ../Views/admin/lesson.view.php:77 ../Views/admin/quiz.view.php:83
-#: ../controllers/player-lesson.controller.php:21
-#: ../controllers/player-quiz.controller.php:22
+#: ../Views/admin/lesson.view.php:70 ../Views/admin/quiz.view.php:76
+#: ../controllers/player-lesson.controller.php:14
+#: ../controllers/player-quiz.controller.php:15
 msgid "Author"
 msgstr "Auteur"
 
-#: ../Views/admin/lesson.view.php:78 ../Views/admin/quiz.view.php:84
+#: ../Views/admin/lesson.view.php:71 ../Views/admin/quiz.view.php:77
 msgid "Publication"
 msgstr "Publication"
 
-#: ../Views/admin/lesson.view.php:104
+#: ../Views/admin/lesson.view.php:97
 msgid "No lessons"
 msgstr "Aucune leçon"
 
-#: ../Views/admin/lesson.view.php:118 ../Views/admin/quiz.view.php:126
-#: ../Views/reload/questions.php:60 ../Views/reload/slides.php:59
+#: ../Views/admin/lesson.view.php:111 ../Views/admin/quiz.view.php:119
+#: ../Views/reload/questions.php:47 ../Views/reload/slides.php:48
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../Views/admin/lesson.view.php:129 ../Views/admin/quiz.view.php:137
-#: ../controllers/post-lesson.php:52 ../controllers/post-quiz.php:52
+#: ../Views/admin/lesson.view.php:122 ../Views/admin/quiz.view.php:130
+#: ../controllers/post-lesson.php:42 ../controllers/post-quiz.php:41
 msgid "Publish"
 msgstr "Publier"
 
-#: ../Views/admin/lesson.view.php:131 ../Views/admin/quiz.view.php:139
-#: ../controllers/post-lesson.php:54 ../controllers/post-quiz.php:54
+#: ../Views/admin/lesson.view.php:124 ../Views/admin/quiz.view.php:132
+#: ../controllers/post-lesson.php:44 ../controllers/post-quiz.php:43
 msgid "Remove"
 msgstr "Retirer"
 
-#: ../Views/admin/lesson.view.php:156
+#: ../Views/admin/lesson.view.php:149
 msgid "New Lesson"
 msgstr "Nouvlle leçon"
 
-#: ../Views/admin/lesson.view.php:166 ../Views/admin/modLesson.view.php:99
+#: ../Views/admin/lesson.view.php:159 ../Views/admin/modLesson.view.php:93
 msgid "The name of the lesson"
 msgstr "Le nom de la leçon"
 
-#: ../Views/admin/lesson.view.php:172 ../Views/admin/modLesson.view.php:130
-#: ../Views/admin/modQuiz.view.php:129 ../Views/admin/quiz.view.php:185
+#: ../Views/admin/lesson.view.php:165 ../Views/admin/modLesson.view.php:124
+#: ../Views/admin/modQuiz.view.php:123 ../Views/admin/quiz.view.php:178
 msgid "Associate to a course"
 msgstr "Associer à un cours"
 
-#: ../Views/admin/lesson.view.php:187 ../Views/admin/modLesson.view.php:117
-#: ../Views/admin/modQuiz.view.php:118 ../Views/admin/quiz.view.php:200
+#: ../Views/admin/lesson.view.php:180 ../Views/admin/modLesson.view.php:111
+#: ../Views/admin/modQuiz.view.php:112 ../Views/admin/quiz.view.php:193
 msgid "Associate an image"
 msgstr "Associer à une image"
 
-#: ../Views/admin/lesson.view.php:189 ../Views/admin/lesson.view.php:200
-#: ../Views/admin/modLesson.view.php:119 ../Views/admin/modQuiz.view.php:120
-#: ../Views/admin/quiz.view.php:202
+#: ../Views/admin/lesson.view.php:182 ../Views/admin/lesson.view.php:193
+#: ../Views/admin/modLesson.view.php:113 ../Views/admin/modQuiz.view.php:114
+#: ../Views/admin/quiz.view.php:195
 msgid "Browse"
 msgstr "Parcourir"
 
-#: ../Views/admin/lesson.view.php:198
+#: ../Views/admin/lesson.view.php:191
 msgid "Associate a file (PDF, PTTX ...)"
 msgstr "Associer un Fichier (PDF,PTTX,...)"
 
-#: ../Views/admin/lesson.view.php:208
+#: ../Views/admin/lesson.view.php:201
 msgid "OK"
 msgstr "Valider"
 
-#: ../Views/admin/lesson.view.php:229
+#: ../Views/admin/lesson.view.php:222
 msgid "Upload an Image"
 msgstr "Envoyer une image"
 
-#: ../Views/admin/lesson.view.php:231
+#: ../Views/admin/lesson.view.php:224
 msgid "Select an Image"
 msgstr "Sélectionner une image"
 
-#: ../Views/admin/lesson.view.php:252
+#: ../Views/admin/lesson.view.php:245
 msgid "Send a file"
 msgstr "Envoyer un fichier"
 
-#: ../Views/admin/lesson.view.php:254
+#: ../Views/admin/lesson.view.php:247
 msgid "Select a file"
 msgstr "Sélectionner un fichier"
 
-#: ../Views/admin/modLesson.view.php:14
+#: ../Views/admin/modLesson.view.php:8
 msgid "Do you want to delete this slide?"
 msgstr "Voulez vous supprimer ce slide ?"
 
-#: ../Views/admin/modLesson.view.php:86
+#: ../Views/admin/modLesson.view.php:80
 msgid "Edit the lesson"
 msgstr "Modifier la leçon"
 
-#: ../Views/admin/modLesson.view.php:105 ../Views/admin/modQuiz.view.php:106
+#: ../Views/admin/modLesson.view.php:99 ../Views/admin/modQuiz.view.php:100
 msgid "Duration (Min)"
 msgstr "Durée (Min)"
 
-#: ../Views/admin/modLesson.view.php:152 ../Views/admin/modQuiz.view.php:151
+#: ../Views/admin/modLesson.view.php:141 ../Views/admin/modQuiz.view.php:142
 msgid "Notes"
 msgstr "Notes"
 
-#: ../Views/admin/modLesson.view.php:158 ../Views/admin/modLesson.view.php:193
-#: ../Views/admin/modQuiz.view.php:157 ../Views/admin/modQuiz.view.php:192
+#: ../Views/admin/modLesson.view.php:147 ../Views/admin/modLesson.view.php:178
+#: ../Views/admin/modQuiz.view.php:148 ../Views/admin/modQuiz.view.php:179
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../Views/admin/modLesson.view.php:184 ../Views/admin/modQuiz.view.php:183
+#: ../Views/admin/modLesson.view.php:169 ../Views/admin/modQuiz.view.php:170
 msgid "Glossary"
 msgstr "Glossaire"
 
-#: ../Views/admin/modLesson.view.php:187 ../Views/admin/modQuiz.view.php:186
+#: ../Views/admin/modLesson.view.php:172 ../Views/admin/modQuiz.view.php:173
 msgid "Term"
 msgstr "Terme"
 
-#: ../Views/admin/modLesson.view.php:215 ../Views/admin/modQuiz.view.php:214
+#: ../Views/admin/modLesson.view.php:200 ../Views/admin/modQuiz.view.php:201
 msgid "Save changes"
 msgstr "Enregistrer les changements"
 
-#: ../Views/admin/modLesson.view.php:226
+#: ../Views/admin/modLesson.view.php:211
 msgid "The slides"
 msgstr "Les slides"
 
-#: ../Views/admin/modLesson.view.php:242 ../Views/admin/modLesson.view.php:340
+#: ../Views/admin/modLesson.view.php:224 ../Views/admin/modLesson.view.php:313
 msgid "Create a new slide"
 msgstr "Créer un nouveau slide"
 
-#: ../Views/admin/modLesson.view.php:284
+#: ../Views/admin/modLesson.view.php:258
 msgid "Content"
 msgstr "Contenu"
 
-#: ../Views/admin/modLesson.view.php:487
+#: ../Views/admin/modLesson.view.php:450
 msgid "Edit slide"
 msgstr "Modifier le slide"
 
-#: ../Views/admin/modLesson.view.php:572 ../Views/admin/modQuiz.view.php:609
+#: ../Views/admin/modLesson.view.php:531 ../Views/admin/modQuiz.view.php:573
 msgid "Do you want to delete this note ?"
 msgstr "Voulez vous supprimer cette note?"
 
-#: ../Views/admin/modLesson.view.php:605 ../Views/admin/modQuiz.view.php:641
+#: ../Views/admin/modLesson.view.php:562 ../Views/admin/modQuiz.view.php:603
 msgid "Do you want to delete this glossary ?"
 msgstr "Voulez vous supprimer ce terme ?"
 
-#: ../Views/admin/modLesson.view.php:618 ../Views/admin/modQuiz.view.php:654
-#: ../Views/admin/quiz.view.php:232
+#: ../Views/admin/modLesson.view.php:575 ../Views/admin/modQuiz.view.php:616
+#: ../Views/admin/quiz.view.php:225
 msgid "Upload an image"
 msgstr "Envoyer une image"
 
-#: ../Views/admin/modLesson.view.php:620 ../Views/admin/modQuiz.view.php:656
-#: ../Views/admin/quiz.view.php:234
+#: ../Views/admin/modLesson.view.php:577 ../Views/admin/modQuiz.view.php:618
+#: ../Views/admin/quiz.view.php:227
 msgid "Select an image"
 msgstr "Selectionner une image"
 
-#: ../Views/admin/modQuiz.view.php:14 ../Views/admin/modQuiz.view.php:488
+#: ../Views/admin/modQuiz.view.php:8 ../Views/admin/modQuiz.view.php:455
 msgid "Do you want to delete this question ?"
 msgstr "Voulez vous supprimer cette question?"
 
-#: ../Views/admin/modQuiz.view.php:87
+#: ../Views/admin/modQuiz.view.php:81
 msgid "Edit the Quiz"
 msgstr "Modifier le quiz"
 
-#: ../Views/admin/modQuiz.view.php:100
+#: ../Views/admin/modQuiz.view.php:94
 msgid "Name of the Quiz"
 msgstr "Le nom du Quiz"
 
-#: ../Views/admin/modQuiz.view.php:225
+#: ../Views/admin/modQuiz.view.php:212
 msgid "The Questions"
 msgstr "Les questions"
 
-#: ../Views/admin/modQuiz.view.php:241
+#: ../Views/admin/modQuiz.view.php:225
 msgid "Add new question"
 msgstr "Ajouter nouvelle question"
 
-#: ../Views/admin/modQuiz.view.php:277
+#: ../Views/admin/modQuiz.view.php:254
 msgid "Question"
 msgstr "Question"
 
-#: ../Views/admin/modQuiz.view.php:286
+#: ../Views/admin/modQuiz.view.php:263
 msgid "True"
 msgstr "Vrai"
 
-#: ../Views/admin/modQuiz.view.php:287
+#: ../Views/admin/modQuiz.view.php:264
 msgid "Proposition"
 msgstr "Proposition"
 
-#: ../Views/admin/modQuiz.view.php:312
+#: ../Views/admin/modQuiz.view.php:289
 msgid "Add a proposition"
 msgstr "Ajouter une proposition"
 
-#: ../Views/admin/modQuiz.view.php:375
+#: ../Views/admin/modQuiz.view.php:350
 msgid "Add a new question"
 msgstr "Ajouter une question"
 
-#: ../Views/admin/modQuiz.view.php:516
+#: ../Views/admin/modQuiz.view.php:483
 msgid "Edit Question"
 msgstr "Modifier la question"
 
-#: ../Views/admin/quiz.view.php:14
+#: ../Views/admin/quiz.view.php:7
 msgid "Do you want to delete this / these Quiz(zes) ?"
 msgstr "Voulez vous supprimer ce Quiz ?"
 
-#: ../Views/admin/quiz.view.php:72
+#: ../Views/admin/quiz.view.php:65
 msgid "All quizzes"
 msgstr "Tous les quiz"
 
-#: ../Views/admin/quiz.view.php:85
+#: ../Views/admin/quiz.view.php:78
 msgid "Result"
 msgstr "Résultat"
 
-#: ../Views/admin/quiz.view.php:111
+#: ../Views/admin/quiz.view.php:104
 msgid "No quizzes"
 msgstr "Aucun quiz"
 
-#: ../Views/admin/quiz.view.php:169
+#: ../Views/admin/quiz.view.php:162
 msgid "New Quiz"
 msgstr "Nouveau quiz"
 
-#: ../Views/admin/quiz.view.php:179
+#: ../Views/admin/quiz.view.php:172
 msgid "Name of the quiz"
 msgstr "Le nom du quiz"
 
-#: ../Views/admin/resultQuiz.view.php:114
+#: ../Views/admin/resultQuiz.view.php:107
 msgid "Quiz Results"
 msgstr "Résultat du quiz"
 
-#: ../Views/admin/resultQuiz.view.php:127
-#: ../controllers/resultQuiz.controller.php:70
+#: ../Views/admin/resultQuiz.view.php:120
+#: ../controllers/resultQuiz.controller.php:59
 msgid "User"
 msgstr "Utilisateur"
 
-#: ../Views/admin/resultQuiz.view.php:128
+#: ../Views/admin/resultQuiz.view.php:121
 msgid "Percentage"
 msgstr "Pourcentage"
 
-#: ../Views/admin/resultQuiz.view.php:129
+#: ../Views/admin/resultQuiz.view.php:122
 msgid "Ratio"
 msgstr "Ratio"
 
-#: ../Views/admin/resultQuiz.view.php:130
+#: ../Views/admin/resultQuiz.view.php:123
 msgid "Date"
 msgstr "Date"
 
-#: ../Views/admin/resultQuiz.view.php:131
+#: ../Views/admin/resultQuiz.view.php:124
 msgid "Details"
 msgstr "Réponses"
 
-#: ../Views/admin/resultQuiz.view.php:140
+#: ../Views/admin/resultQuiz.view.php:133
 msgid "No results"
 msgstr "Aucun résultat"
 
-#: ../Views/course-page.php:48
+#: ../Views/course-page.php:41
 msgid "Lesson"
 msgstr "Leçon"
 
@@ -412,93 +411,93 @@ msgstr "Leçon"
 msgid "Glossaries"
 msgstr "Glossaire"
 
-#: ../Views/player/player-lesson.php:95 ../Views/player/player-quiz.php:97
+#: ../Views/player/player-lesson.php:91 ../Views/player/player-quiz.php:93
 msgid "Quality"
 msgstr "Qualité"
 
-#: ../Views/player/player-lesson.php:103 ../Views/player/player-lesson.php:125
-#: ../Views/player/player-quiz.php:105 ../Views/player/player-quiz.php:128
+#: ../Views/player/player-lesson.php:99 ../Views/player/player-lesson.php:121
+#: ../Views/player/player-quiz.php:101 ../Views/player/player-quiz.php:124
 msgid "Number of raters"
 msgstr "Nombre d’évaluateurs"
 
-#: ../Views/player/player-lesson.php:104 ../Views/player/player-lesson.php:126
-#: ../Views/player/player-quiz.php:106 ../Views/player/player-quiz.php:129
+#: ../Views/player/player-lesson.php:100 ../Views/player/player-lesson.php:122
+#: ../Views/player/player-quiz.php:102 ../Views/player/player-quiz.php:125
 msgid "Average"
 msgstr "Moyenne"
 
-#: ../Views/player/player-lesson.php:114 ../Views/player/player-quiz.php:117
+#: ../Views/player/player-lesson.php:110 ../Views/player/player-quiz.php:113
 msgid "Utility"
 msgstr "Utilité"
 
-#: ../Views/player/player-quiz.php:83
+#: ../Views/player/player-quiz.php:80
 msgid "Start the Quiz"
 msgstr "Commencer le quiz"
 
-#: ../Views/player/player-quiz.php:88
+#: ../Views/player/player-quiz.php:85
 msgid "Full screen"
 msgstr "Plein écran"
 
-#: ../Views/reload/questions.php:65
+#: ../Views/reload/questions.php:52
 msgid "No questions..."
 msgstr "Aucune question"
 
-#: ../Views/reload/slides.php:64
+#: ../Views/reload/slides.php:53
 msgid "No slides..."
 msgstr "Aucun slide"
 
-#: ../actions-studypress.php:163 ../actions-studypress.php:165
+#: ../actions-studypress.php:93 ../actions-studypress.php:95
 msgid "Add course"
 msgstr "Ajouter un cours"
 
-#: ../actions-studypress.php:166
+#: ../actions-studypress.php:96
 msgid "Edit course"
 msgstr "Modifier un cours"
 
-#: ../actions-studypress.php:167
+#: ../actions-studypress.php:97
 msgid "New course"
 msgstr "Nouveau cours"
 
-#: ../actions-studypress.php:168
+#: ../actions-studypress.php:98
 msgid "View course"
 msgstr "Voir le cours"
 
-#: ../actions-studypress.php:169
+#: ../actions-studypress.php:99
 msgid "Search courses"
 msgstr "Rechercher le cours"
 
-#: ../actions-studypress.php:170
+#: ../actions-studypress.php:100
 msgid "No courses found"
 msgstr "Aucun cours retrouvé"
 
-#: ../actions-studypress.php:171
+#: ../actions-studypress.php:101
 msgid "No courses found in trash"
 msgstr "Aucun cours retrouvé dans la corbeille"
 
-#: ../actions-studypress.php:172
+#: ../actions-studypress.php:102
 msgid "Parent course"
 msgstr "Cours parent"
 
-#: ../controllers/course.controller.php:115
-#: ../controllers/course.controller.php:158
-#: ../controllers/course.controller.php:272
+#: ../controllers/course.controller.php:102
+#: ../controllers/course.controller.php:142
+#: ../controllers/course.controller.php:243
 msgid "Please select at least one category"
 msgstr "Veuillez sélectionner au moins une catégorie"
 
-#: ../controllers/course.controller.php:121
-#: ../controllers/course.controller.php:156
-#: ../controllers/course.controller.php:269
+#: ../controllers/course.controller.php:108
+#: ../controllers/course.controller.php:140
+#: ../controllers/course.controller.php:240
 msgid "Please select at least one author"
 msgstr "Veuillez sélectionner au moins un auteur"
 
-#: ../controllers/course.controller.php:160
+#: ../controllers/course.controller.php:144
 msgid "Please enter a valid name"
 msgstr "Veuillez renseigner un nom correct"
 
-#: ../controllers/course.controller.php:278
+#: ../controllers/course.controller.php:249
 msgid "Please select a category"
 msgstr "Veuillez sélectionner une catégorie"
 
-#: ../controllers/course.controller.php:322
+#: ../controllers/course.controller.php:281
 msgid ""
 "The course you want to remove is attached to one or more lessons. Please, "
 "first delete these lessons"
@@ -506,103 +505,103 @@ msgstr ""
 "Le cours que vous voulez supprimer est attaché à une ou plusieurs leçons. "
 "Veuillez tout d'abord supprimer ces leçons"
 
-#: ../controllers/course.controller.php:341
-#: ../controllers/lesson.controller.php:209
+#: ../controllers/course.controller.php:297
+#: ../controllers/lesson.controller.php:156
 msgid "Please select the fields to delete"
 msgstr "Veuillez sélectionner le/les champs à supprimer"
 
-#: ../controllers/domain.controller.php:63
-#: ../controllers/domain.controller.php:169
+#: ../controllers/domain.controller.php:50
+#: ../controllers/domain.controller.php:124
 msgid "This name already exist"
 msgstr "Ce nom est déjà utilisé"
 
-#: ../controllers/domain.controller.php:233
+#: ../controllers/domain.controller.php:169
 msgid "Please select field(s) to delete"
 msgstr "Veuillez sélectionner le/les champs à supprimer"
 
-#: ../controllers/lesson.controller.php:113
-#: ../controllers/quiz.controller.php:109
+#: ../controllers/lesson.controller.php:80
+#: ../controllers/quiz.controller.php:73
 msgid "You must create a course"
 msgstr "Vous devez créer un cours"
 
-#: ../controllers/lesson.controller.php:152
+#: ../controllers/lesson.controller.php:106
 msgid "Download the file"
 msgstr "Télécharger le fichier"
 
-#: ../controllers/modLesson.controller.php:169
-#: ../controllers/modQuiz.controller.php:164
+#: ../controllers/modLesson.controller.php:154
+#: ../controllers/modQuiz.controller.php:147
 msgid "Page not found"
 msgstr "Page introuvable"
 
-#: ../controllers/player-lesson.controller.php:23
-#: ../controllers/player-quiz.controller.php:24
+#: ../controllers/player-lesson.controller.php:16
+#: ../controllers/player-quiz.controller.php:17
 msgid "Duration"
 msgstr "Durée"
 
-#: ../controllers/player-lesson.controller.php:55
-#: ../controllers/player-lesson.controller.php:132
-#: ../controllers/player-quiz.controller.php:58
-#: ../controllers/player-quiz.controller.php:194
+#: ../controllers/player-lesson.controller.php:45
+#: ../controllers/player-lesson.controller.php:114
+#: ../controllers/player-quiz.controller.php:46
+#: ../controllers/player-quiz.controller.php:177
 msgid "The value of the identifier of the shortcode is incorrect"
 msgstr "La valeur de l'identifiant du shortcode est incorrecte"
 
-#: ../controllers/player-lesson.controller.php:91
-#: ../controllers/player-quiz.controller.php:92
+#: ../controllers/player-lesson.controller.php:73
+#: ../controllers/player-quiz.controller.php:76
 msgid "Presentation"
 msgstr "Présentation"
 
-#: ../controllers/player-lesson.controller.php:141
-#: ../controllers/player-quiz.controller.php:203
+#: ../controllers/player-lesson.controller.php:121
+#: ../controllers/player-quiz.controller.php:186
 msgid "Please indicate the identifier of the shortcode"
 msgstr "Veuillez indiquer l'identifiant du shortcode"
 
-#: ../controllers/question.controller.php:88
-#: ../controllers/question.controller.php:130
-#: ../controllers/question.controller.php:355
-#: ../controllers/question.controller.php:399
-#: ../controllers/slide.controller.php:76
+#: ../controllers/question.controller.php:75
+#: ../controllers/question.controller.php:117
+#: ../controllers/question.controller.php:319
+#: ../controllers/question.controller.php:363
+#: ../controllers/slide.controller.php:60
 msgid "Please fill in all fields"
 msgstr "Veuillez renseigner tous les champs"
 
-#: ../controllers/question.controller.php:95
-#: ../controllers/question.controller.php:362
+#: ../controllers/question.controller.php:82
+#: ../controllers/question.controller.php:326
 msgid "Please select at least one correct answer"
 msgstr "Veuillez sélectionner au moins une bonne réponse"
 
-#: ../controllers/ratingDomain.controller.php:69
-#: ../controllers/ratingDomain.controller.php:72
-#: ../controllers/ratingQuality.controller.php:69
+#: ../controllers/ratingDomain.controller.php:59
+#: ../controllers/ratingDomain.controller.php:61
+#: ../controllers/ratingQuality.controller.php:57
 msgid "Your rating has been recorded"
 msgstr "Votre évaluation a été enregistrée"
 
-#: ../controllers/ratingDomain.controller.php:81
-#: ../controllers/ratingQuality.controller.php:78
+#: ../controllers/ratingDomain.controller.php:69
+#: ../controllers/ratingQuality.controller.php:64
 msgid "ERROR"
 msgstr "ERREUR"
 
-#: ../controllers/ratingDomain.controller.php:81
-#: ../controllers/ratingQuality.controller.php:78
+#: ../controllers/ratingDomain.controller.php:69
+#: ../controllers/ratingQuality.controller.php:64
 msgid "Try Again"
 msgstr "Veuillez réessayer"
 
-#: ../controllers/ratingDomain.controller.php:104
-#: ../controllers/ratingQuality.controller.php:101
+#: ../controllers/ratingDomain.controller.php:91
+#: ../controllers/ratingQuality.controller.php:84
 msgid "You must be logged in to rate"
 msgstr "Vous devez être connecté pour pouvoir évaluer"
 
-#: ../controllers/resultQuiz.controller.php:66
+#: ../controllers/resultQuiz.controller.php:55
 msgid "Note"
 msgstr "Note"
 
-#: ../controllers/resultQuiz.controller.php:67
+#: ../controllers/resultQuiz.controller.php:56
 msgid "Name of quiz"
 msgstr "Le nom du quiz"
 
-#: ../controllers/validate-qcm.php:165
+#: ../controllers/validate-qcm.php:133
 msgid "You obtained"
 msgstr "Vous avez obtenu"
 
-#: ../notices.php:30
+#: ../notices.php:22
 msgid ""
 "This is a fresh installation of StudyPress. Don't forget to go to Appearance "
 "-> Menus -> Screen Options, and activate 'Course' option. "
@@ -610,11 +609,11 @@ msgstr ""
 "C’est une nouvelle installation de StudyPress. N'oubliez pas d'aller sur "
 "Apparence -> Menus -> Options de l'écran, et activer l'option 'Cours'."
 
-#: ../notices.php:30 ../notices.php:86
+#: ../notices.php:22 ../notices.php:75
 msgid "Hide Notice"
 msgstr "Masquer le message"
 
-#: ../notices.php:86
+#: ../notices.php:75
 msgid ""
 "This is a fresh installation of StudyPress. Since the version 1.0 contains "
 "multiple new functionalities and has a new way to organize lessons and "
@@ -627,47 +626,47 @@ msgstr ""
 "créés ont été affectés à une catégorie. N’oubliez pas de réorganiser vos "
 "cours."
 
-#: ../validation/validation.class.php:196
+#: ../validation/validation.class.php:134
 msgid " is not indicated"
 msgstr " est non renseigné"
 
-#: ../validation/validation.class.php:222
+#: ../validation/validation.class.php:148
 msgid " is not a valid IPv4"
 msgstr " est un IPv4 invalide"
 
-#: ../validation/validation.class.php:247
+#: ../validation/validation.class.php:162
 msgid " is not a valid IPv6"
 msgstr " est un IPv6 invalide"
 
-#: ../validation/validation.class.php:270
+#: ../validation/validation.class.php:176
 msgid " is an invalid float"
 msgstr " un un float invalide"
 
-#: ../validation/validation.class.php:301
+#: ../validation/validation.class.php:192
 msgid " is too short"
 msgstr " est trop court"
 
-#: ../validation/validation.class.php:305
+#: ../validation/validation.class.php:196
 msgid " is too long"
 msgstr " est trop long"
 
-#: ../validation/validation.class.php:309
+#: ../validation/validation.class.php:200
 msgid " is invalid"
 msgstr " est invalide"
 
-#: ../validation/validation.class.php:338
+#: ../validation/validation.class.php:215
 msgid " is an invalid number"
 msgstr " est un nombre invalide"
 
-#: ../validation/validation.class.php:362
+#: ../validation/validation.class.php:229
 msgid " is an invalid URL"
 msgstr " est un URL invalide"
 
-#: ../validation/validation.class.php:387
+#: ../validation/validation.class.php:244
 msgid " is an invalid email address"
 msgstr " une adresse email invalide"
 
-#: ../validation/validation.class.php:411
+#: ../validation/validation.class.php:258
 msgid " is Invalid"
 msgstr " est invalide"
 

@@ -1,146 +1,349 @@
 <?php
+
 /*
-Plugin Name: StudyPress
-Description: StudyPress is an elearning authoring tool. With this plugin you can easily create a learning content and publish it as slides in your wordpress pages and posts. If you use BuddyPress, you can also share the course in your BuddyPress activity page.
-Version: 0.12
-Author: Tadlaoui mohammed | Bensmaine yasser | Bouacha oussama
+Plugin Name:  StudyPress
 
+Text Domain:  studypress
 
+Plugin URI:   https://wordpress.org/plugins/StudyPress
+
+Description:  StudyPress is an elearning authoring tool. With this plugin you can easily create multimedia learning content and publish it as slides in your wordpress pages and posts. It can manage courses, lessons and quizzes. 
+
+Version:      1.0
+
+Author:       Mohammed Tadlaoui, Salim Mohamed Saïdi, Meryem Bendella, Bensmaine yasser, Bouacha oussama
+
+License:      GPLv2 or later
 
 */
 
-add_action('admin_menu', 'notre_plugin');
 
-   $studi_courses = $wpdb->prefix . 'studi_course';
-   $studi_slides = $wpdb->prefix . 'studi_slides';
-   $studi_category = $wpdb->prefix . 'studi_category';
-   $studi_categ_cours = $wpdb->prefix . 'studi_categ_cours';
- //  $studi_quiz = $wpdb->prefix . 'studi_quiz';
-  // $studi_categ_quiz = $wpdb->prefix . 'studi_categ_quiz';
- //  $studi_question = $wpdb->prefix . 'studi_question';
-  // $studi_reponses = $wpdb->prefix . 'studi_reponse';
-
-function notre_plugin() {
-   global $studi_courses;
-   global $studi_slides;
-   global $studi_category;
-   global $studi_categ_cours;
-  // global $studi_quiz;
-  // global $studi_categ_quiz;
-  // global $studi_question;
-  // global $studi_reponses;
+if ( !defined( 'ABSPATH' ) ) exit;
 
 
-  global $wpdb;
-  $table_name = $studi_category;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql2 = "CREATE TABLE $table_name (
-                    `cat_id` INT UNSIGNED AUTO_INCREMENT ,
-                    `cat_name` VARCHAR(100) UNIQUE ,
-                    `cat_des` longtext ,
-                    `cat_parent` INT UNSIGNED,
-                    `courses_nbr` INT,
-                     PRIMARY KEY (cat_id),
-                     FOREIGN KEY ( `cat_parent` ) REFERENCES $studi_category (`cat_id`)
-)";
-                     $wpdb->query($sql2);
-                   }
+add_action('admin_menu', 'activate_studypress_plugin');
+
+$sp_lecteur = 0;
+
+define('__ROOT_PLUGIN__',trailingslashit(dirname(__FILE__)));
+
+define('__ROOT_PLUGIN__2',plugin_dir_url(__FILE__));
+
+require_once '_AutoloadClass.php';
+
+require_once 'actions-studypress.php';
 
 
-  $table_name = $studi_courses;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                    $sql = "CREATE TABLE $table_name (
-                    `course_id` INT UNSIGNED AUTO_INCREMENT ,
-                    `nom` VARCHAR(100) UNIQUE ,
-                    `duration` INT NOT NULL,
-                    `author` VARCHAR(30),
-					`cours_des` longtext ,
-					 `cours_picture` text,
-                    `shortcode` VARCHAR(40),
-                     PRIMARY KEY (course_id))";
-                    $wpdb->query($sql);}
-                     
-  $table_name = $studi_slides;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql1 = "CREATE TABLE $table_name (
-                    `slides_id` INT UNSIGNED AUTO_INCREMENT ,
-                    `course_id` INT UNSIGNED,
-                    `slides_name` VARCHAR(100) ,
-                    `slides_content` longtext ,
-                    `slides_order` INT NOT NULL,                    
-                     PRIMARY KEY (slides_id),
-                     FOREIGN KEY ( `course_id` ) REFERENCES $studi_courses (`course_id`))";
-                     $wpdb->query($sql1);}
-					 
-  $table_name = $studi_categ_cours;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql3 = "CREATE TABLE $table_name (
-                    `course_id` INT UNSIGNED,
-                    `cat_id` INT UNSIGNED,                 
-                     PRIMARY KEY (course_id,cat_id),
-                     FOREIGN KEY ( `course_id` ) REFERENCES $studi_courses (`course_id`),
-                     FOREIGN KEY ( `cat_id` ) REFERENCES $studi_category (`cat_id`))";
-                     $wpdb->query($sql3);}
-					 
- /* $table_name = $studi_quiz;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                    $sql4 = "CREATE TABLE $table_name (
-                    `quiz_id` INT UNSIGNED AUTO_INCREMENT ,
-                    `name` VARCHAR(100) UNIQUE ,
-                    `duration` INT NOT NULL,
-                    `author` VARCHAR(30),
-                    `quiz_des` longtext ,
-					 `quiz_picture` text,
-                    `shortcode` VARCHAR(40),
-                    `nbre_quest` INT,					
-                     PRIMARY KEY (quiz_id))";
-                    $wpdb->query($sql4);}
+$tr = SpTranslate::getInstance();
 
-  $table_name = $studi_categ_quiz;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql5 = "CREATE TABLE $table_name (
-                    `quiz_id` INT UNSIGNED,
-                    `cat_id` INT UNSIGNED,                 
-                     PRIMARY KEY (quiz_id,cat_id),
-                     FOREIGN KEY ( `quiz_id` ) REFERENCES $studi_quiz (`quiz_id`),
-                     FOREIGN KEY ( `cat_id` ) REFERENCES $studi_category (`cat_id`))";
-                     $wpdb->query($sql5);}
-					 
-  $table_name = $studi_question;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql6 = "CREATE TABLE $table_name (
-                    `quest_id` INT UNSIGNED AUTO_INCREMENT,
-                    `quiz_id` INT UNSIGNED,
-                    `quest_text` longtext ,
-                    `quest_order` INT NOT NULL,
-                    `reponse_nbre` INT, 					
-                    `quest_picture` longtext ,					
-                     PRIMARY KEY (quest_id),
-                     FOREIGN KEY ( `quiz_id` ) REFERENCES $studi_quiz (`quiz_id`))";
-                     $wpdb->query($sql6);}
-					 
-  $table_name = $studi_reponses;
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-                     $sql7 = "CREATE TABLE $table_name (
-                    `reponse_id` INT UNSIGNED AUTO_INCREMENT,
-                    `quest_id` INT UNSIGNED,
-                    `reponse_text` longtext ,
-                    `type` VARCHAR(10),	
-                    `reponse_order` INT NOT NULL,                    					
-                     PRIMARY KEY (reponse_id),
-                     FOREIGN KEY ( `quest_id` ) REFERENCES $studi_question (`quest_id`))";
-                     $wpdb->query($sql7); }*/
-  add_menu_page('Cours', 'StudyPress', 'manage_options', 'id_Cours', 'sub1',plugins_url( 'studypress/images/logologo.png' ) , '30');
-  add_submenu_page('id_Cours', 'All courses','All courses', 'manage_options', 'id_Cours','');
-  add_submenu_page('id_Cours', 'Create a course','Create a course', 'manage_options', 'id_sub1','sub2');
-  add_submenu_page('id_Cours', 'Categories','Categories', 'manage_options', 'id_sub2','sub3');
-   //add_submenu_page('id_Cours', 'All Quizs','All Quizs', 'manage_options', 'id_sub3','sub4');
-  //add_submenu_page('id_Cours', 'Create a quiz','Create a quiz', 'manage_options', 'id_sub4','sub5');
+function activate_studypress_plugin() {
 
- }
-//include_once("Quiz.php");
-//include_once("quiz_shortcode.php");
-include_once("cours_shortcode.php");
-include_once("Course.php");
-include_once("Categories.php");
-?>
+    global $tr;
+
+    $access = new AccessData;
+
+    require_once 'notices.php';
+
+    $table = StudyPressDB::getTableNameCourse();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_COURSE ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_NAME_COURSE ." VARCHAR(200),
+                    ". StudyPressDB::COL_DESCRIPTION_COURSE ." LONGTEXT ,
+                    ". StudyPressDB::COL_AVANCEMENT_COURSE ." VARCHAR(255) DEFAULT '0',
+                    ". StudyPressDB::COL_ID_POST_COURSE ." BIGINT DEFAULT NULL,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_COURSE .")
+                     )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameActivity();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_ACTIVITY ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_ID_COURSE_ACTIVITY ." BIGINT UNSIGNED ,
+                    ". StudyPressDB::COL_NAME_ACTIVITY ." VARCHAR(200),
+                    ". StudyPressDB::COL_DURATION_ACTIVITY ." INT NOT NULL,
+                    ". StudyPressDB::COL_AUTEUR_ACTIVITY ." VARCHAR(200),
+                    ". StudyPressDB::COL_DESCRIPTION_ACTIVITY ." longtext ,
+                    ". StudyPressDB::COL_NOTES_ACTIVITY ." longtext ,
+                    ". StudyPressDB::COL_GLOSSARY_ACTIVITY ." longtext ,
+                    ". StudyPressDB::COL_PICTURE_ACTIVITY ." text,
+                    ". StudyPressDB::COL_SHORT_CODE_ACTIVITY ." VARCHAR(50),
+                    ". StudyPressDB::COL_ID_AUTEUR_ACTIVITY ." BIGINT,
+                    ". StudyPressDB::COL_ID_POST_ACTIVITY ." BIGINT DEFAULT NULL,
+                    ". StudyPressDB::COL_TYPE_ACTIVITY ." VARCHAR(10),
+                     PRIMARY KEY (". StudyPressDB::COL_ID_ACTIVITY ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_COURSE_ACTIVITY .") REFERENCES ". StudyPressDB::getTableNameCourse() ." (". StudyPressDB::COL_ID_COURSE .")
+                     )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameSlide();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_SLIDE ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_ID_LESSON_SLIDE ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_NAME_SLIDE ." VARCHAR(200) ,
+                    ". StudyPressDB::COL_CONTENT_SLIDE ." longtext ,
+                    ". StudyPressDB::COL_ORDER_SLIDE ." INT NOT NULL,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_SLIDE ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_LESSON_SLIDE .") REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY .")
+                     )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableName_CourseCategory();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_COURSE_CAT_N_COURSE ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE ." BIGINT UNSIGNED,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_COURSE_CAT_N_COURSE .",". StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE .") REFERENCES
+                       ". StudyPressDB::getTableNameCategoryWP() ." (". StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_COURSE_CAT_N_COURSE .") REFERENCES
+                      ". StudyPressDB::getTableNameCourse() ." (". StudyPressDB::COL_ID_COURSE .")
+                      )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableName_CourseUsers();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_COURSE_CAT_N_COURSE ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_ID_USERS_USERS_N_COURSE ." BIGINT UNSIGNED,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_COURSE_ACTIVITY .",". StudyPressDB::COL_ID_USERS_USERS_N_COURSE ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_USERS_USERS_N_COURSE .") REFERENCES
+                       ". StudyPressDB::getTableNameUsersWP() ." (". StudyPressDB::COL_ID_USERS_USERS_N_COURSE ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_COURSE_CAT_N_COURSE .") REFERENCES
+                      ". StudyPressDB::getTableNameCourse() ." (". StudyPressDB::COL_ID_COURSE .")
+                      )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameVisite();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql= "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_VISITE ." BIGINT UNSIGNED AUTO_INCREMENT,
+  					". StudyPressDB::COL_ID_LESSON_VISITE ." BIGINT UNSIGNED,
+ 					". StudyPressDB::COL_IP_VISITE ." VARCHAR(40),
+  					". StudyPressDB::COL_DATE_VISITE ." datetime NOT NULL,
+					". StudyPressDB::COL_USER_VISITE ." VARCHAR(200) NOT NULL,
+ 					 PRIMARY KEY (". StudyPressDB::COL_ID_VISITE ."),
+					 FOREIGN KEY ( ". StudyPressDB::COL_ID_LESSON_VISITE ." ) REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY .")
+					 )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameDomain();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql= "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_DOMAIN ." BIGINT UNSIGNED AUTO_INCREMENT,
+                    ". StudyPressDB::COL_NAME_DOMAIN ." VARCHAR(200) UNIQUE,
+ 					". StudyPressDB::COL_DESCRIPTION_DOMAIN ." LONGTEXT,
+ 					PRIMARY KEY (". StudyPressDB::COL_ID_DOMAIN .")
+					 )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameRateQuality();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql= "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_RATE_QUALITY ." BIGINT UNSIGNED AUTO_INCREMENT,
+  					". StudyPressDB::COL_ID_ACTIVITY_RATE_QUALITY ." BIGINT UNSIGNED ,
+ 					". StudyPressDB::COL_VALUE_RATE_QUALITY ." INT NULL,
+  					". StudyPressDB::COL_DATE_RATE_QUALITY ." DATETIME,
+					". StudyPressDB::COL_ID_USER_RATE_QUALITY ." BIGINT UNSIGNED,
+					". StudyPressDB::COL_IP_RATE_QUALITY ." INT UNSIGNED,
+ 					 PRIMARY KEY (". StudyPressDB::COL_ID_RATE_QUALITY ."),
+ 					 FOREIGN KEY ( ". StudyPressDB::COL_ID_ACTIVITY_RATE_QUALITY ." ) REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY ."),
+					 FOREIGN KEY ( ". StudyPressDB::COL_ID_USER_RATE_QUALITY ." ) REFERENCES ". StudyPressDB::getTableNameUsersWP() ." (". StudyPressDB::COL_ID_USER_RATE_QUALITY .")
+					 )";
+        $access->query($sql);
+    }
+
+
+    $table = StudyPressDB::getTableNameRateDomain();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql= "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_RATE_DOMAIN ." BIGINT UNSIGNED AUTO_INCREMENT,
+  					". StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN ." BIGINT UNSIGNED ,
+ 					". StudyPressDB::COL_VALUE_RATE_DOMAIN ." INT NULL,
+  					". StudyPressDB::COL_DATE_RATE_DOMAIN ." DATETIME,
+					". StudyPressDB::COL_ID_USER_RATE_DOMAIN ." BIGINT UNSIGNED,
+					". StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN ." BIGINT UNSIGNED,
+					". StudyPressDB::COL_IP_RATE_DOMAIN ." INT UNSIGNED,
+ 					 PRIMARY KEY (". StudyPressDB::COL_ID_RATE_DOMAIN ."),
+					 UNIQUE ( ". StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN .",". StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN .",". StudyPressDB::COL_ID_USER_RATE_DOMAIN ." ),
+					 FOREIGN KEY ( ". StudyPressDB::COL_ID_ACTIVITY_RATE_QUALITY ." ) REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY ."),
+					 FOREIGN KEY ( ". StudyPressDB::COL_ID_USER_RATE_QUALITY ." ) REFERENCES ". StudyPressDB::getTableNameUsersWP() ." (". StudyPressDB::COL_ID_USER_RATE_QUALITY ."),
+					 FOREIGN KEY ( ". StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN ." ) REFERENCES ". StudyPressDB::getTableNameDomain() ." (". StudyPressDB::COL_ID_DOMAIN .")
+					 )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameQuestions();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_QUESTION ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_ID_QUIZ_QUESTION ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_CONTENT_QUESTION ." TEXT,
+                    ". StudyPressDB::COL_ORDER_QUESTION ." INT NOT NULL,
+                    ". StudyPressDB::COL_COL_QUESTION ." VARCHAR(255) ,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_QUESTION ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_QUIZ_QUESTION .") REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY .")
+                     )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNamePropositions();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_PROPOSITION ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_ID_QUESTION_PROPOSITION ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_CONTENT_PROPOSITION ." TEXT ,
+                    ". StudyPressDB::COL_TYPE_PROPOSITION ." VARCHAR(10),
+                    ". StudyPressDB::COL_ORDER_PROPOSITION ." INT NOT NULL,
+                    ". StudyPressDB::COL_COL_PROPOSITION ." VARCHAR(255) ,
+                     PRIMARY KEY (". StudyPressDB::COL_ID_PROPOSITION ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_QUESTION_PROPOSITION .") REFERENCES ". StudyPressDB::getTableNameQuestions() ." (". StudyPressDB::COL_ID_QUESTION .")
+                     )";
+        $access->query($sql);
+    }
+
+    $table = StudyPressDB::getTableNameResultQuiz();
+    if($access->getVar("SHOW TABLES LIKE '$table'") != $table) {
+        $sql = "CREATE TABLE $table (
+                    ". StudyPressDB::COL_ID_RESULT ." BIGINT UNSIGNED AUTO_INCREMENT ,
+                    ". StudyPressDB::COL_ID_QUIZ_RESULT ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_ID_USER_RESULT ." BIGINT UNSIGNED,
+                    ". StudyPressDB::COL_DATE_RESULT ." DATETIME,
+                    ". StudyPressDB::COL_RESPONSE_RESULT ." LONGTEXT,
+                    ". StudyPressDB::COL_NOTE_RESULT ." INT,
+                    ". StudyPressDB::COL_NBR_QUESTIONS_RESULT ." INT,
+                    ". StudyPressDB::COL_NBR_CORRECTS_RESULT ." INT,
+                    ". StudyPressDB::COL_DATE_BEGIN_RESULT ." VARCHAR(30),
+                    ". StudyPressDB::COL_VALIDATE_RESULT ." VARCHAR(6),
+                     PRIMARY KEY (". StudyPressDB::COL_ID_RESULT ."),
+                     UNIQUE (". StudyPressDB::COL_ID_QUIZ_RESULT .",". StudyPressDB::COL_ID_USER_RESULT ."),
+                     FOREIGN KEY (". StudyPressDB::COL_ID_QUIZ_RESULT .") REFERENCES ". StudyPressDB::getTableNameActivity() ." (". StudyPressDB::COL_ID_ACTIVITY .")
+                     )";
+        $access->query($sql);
+    }
+
+    require_once 'Migration/v0.12tov1.0.php';
+
+
+    add_menu_page(
+        'Cours',
+        'studypress',
+        'publish_posts',
+        'id_Cours',
+        'display_courses',
+        __ROOT_PLUGIN__2 . 'images/logo.png' ,
+        '30'
+    );
+
+    add_submenu_page(
+        'id_Cours',
+        $tr->__("Lessons"),
+        $tr->__("Lessons"),
+        'publish_posts',
+        'id_Cours',
+        'display_courses'
+    );
+
+    function display_courses(){
+
+        require_once __ROOT_PLUGIN__ . 'controllers/lesson.controller.php';
+    }
+
+    add_submenu_page(
+        'id_Cours',
+        'Quizs',
+        'Quizs',
+        'publish_posts',
+        'quizs',
+        'display_quizs'
+    );
+
+    function display_quizs(){
+        require_once __ROOT_PLUGIN__ . 'controllers/quiz.controller.php';
+    }
+
+
+    add_submenu_page(
+        null,
+        'Modifier Quiz',
+        'Modifier Quiz',
+        'publish_posts',
+        'mod-quiz',
+        'display_mod_quiz'
+    );
+
+
+    function display_mod_quiz(){
+        require_once __ROOT_PLUGIN__ . 'controllers/modQuiz.controller.php';
+    }
+
+
+
+    add_submenu_page(
+        null, // Null pour cacher le menu
+        'Result Quiz',
+        'Result Quiz',
+        'publish_posts',
+        'result-quiz',
+        'display_result_quiz'
+    );
+
+
+    function display_result_quiz(){
+        require_once __ROOT_PLUGIN__ . 'controllers/resultQuiz.controller.php';
+    }
+
+    add_submenu_page(
+        'id_Cours',
+        $tr->__('Courses'),
+        $tr->__('Courses'),
+        'manage_options',
+        'courses',
+        'display_categories'
+    );
+
+    function display_categories(){
+        require_once __ROOT_PLUGIN__ . 'controllers/course.controller.php';
+    }
+
+
+    add_submenu_page(
+        null,
+        'Modifier Leçon',
+        'Modifier Leçon',
+        'publish_posts',
+        'mod-lesson',
+        'display_mod_lesson'
+    );
+
+
+    function display_mod_lesson(){
+        require_once __ROOT_PLUGIN__ . 'controllers/modLesson.controller.php';
+    }
+
+    add_submenu_page(
+        'id_Cours',
+        $tr->__('Domains'),
+        $tr->__('Domains'),
+        'manage_options',
+        'domains',
+        'display_domains'
+    );
+
+    function display_domains(){
+        require_once __ROOT_PLUGIN__ . 'controllers/domain.controller.php';
+    }
+
+
+} 
+
+

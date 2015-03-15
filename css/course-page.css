@@ -1,0 +1,88 @@
+.sp-courses *
+{
+    margin: 0;
+    padding: 0;
+    line-height: 1.43;
+    font-size: 15px;
+}
+.sp-courses li
+{
+    margin-bottom: 20px;
+    height: 150px;
+    width: 600px;
+    background: #FFF;
+    border-radius: 0;
+}
+
+.sp-courses ul
+{
+    list-style: none;
+}
+
+.sp-courses li > div > .thumb
+{
+    background: #EEEEEE;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    float: left;
+}
+
+.sp-courses li > div > .details
+{
+    width: 430px;
+    height: 130px;
+    padding: 10px;
+    display: inline-block;
+    float: right;
+}
+.sp-courses li > div > .details span
+{
+    font: bold 0.8em "Calibri";
+    margin: 1px 2px;
+}
+
+
+.sp-courses li > div
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 4px #111;
+}
+
+.sp-courses li > div p.description
+{
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.sp-courses li a
+{
+    color: #245269;
+    text-decoration: none;
+}
+
+.sp-courses li a:hover
+{
+    text-decoration: underline;
+}
+
+.sp-courses li > div:hover
+{
+    box-shadow: 0 0 7px #111;
+}
+
+.sp-type
+{
+    position: absolute;
+        bottom: 5px;
+        right: 5px;
+    font-size: 10px;
+    color: #cccccc;
+    border-bottom: none;
+    margin: 0;
+}
+

@@ -6,7 +6,7 @@ Tested up to: 4.1.1
 Stable tag: 1.0
 License: GPLv2 or later
 
-An easy elearning authoring tool.
+The easy way to create courses and quizzes.
 
 == Description ==
 

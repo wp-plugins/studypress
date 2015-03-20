@@ -6,7 +6,7 @@ Tested up to: 4.1.1
 Stable tag: 1.0
 License: GPLv2 or later
 
-The easy way to create courses and quizzes.
+The easy way to create pretty multimedia lessons and quizzes.
 
 == Description ==
 

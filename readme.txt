@@ -36,14 +36,14 @@ With the help of StudyPress you can easily turns your WordPress into a powerfull
 
 == Frequently Asked Questions ==
 
-= How I can include a lesson or a quiz that I created in a post or a page? =
+= How I can include a lesson or a quiz in a post or a page? =
 
 Clic on the publish button in the lessons or quizzes list, a post will be created automatically.
 If you want to integrate a lesson or a quiz in a page you can copy the short code, present in the created post, and past it in a page.
 
-= How I can include the course that I created in a page or a post? =
+= How I can include a course in a post or a page? =
 
-A course is a set of lessons and quizzes. You don't have to integrate it in a page or a post. You have just to add it into your menu as a menu element. Go to "Appearance" -> "Menu" -> "Course", check your course and clic "Add to Menu"
+A course is a set of lessons and quizzes. You don't have to integrate it in a page or a post. You have just to add it into your site menu as a menu element. Go to "Appearance" -> "Menus" -> "Course", check your course and clic "Add to Menu".
 
 = How I can add the course element in "Dashboard" -> "Appearance" -> "Menus"? =
 

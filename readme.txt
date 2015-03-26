@@ -39,11 +39,11 @@ With the help of StudyPress you can easily turns your WordPress into a powerfull
 = How I can include a lesson or a quiz in my web site? =
 
 StudyPress offers several ways to integrate lessons and quizzes on your web site
-1- To include a lesson on a post, you have to click on the publish button in the lessons or quizzes list, and a post will be created automatically.
-2- If you want to integrate a lesson or a quiz in a page you can copy the short code, present in the created post and past it in your page.
-3- Since a course is a set of lessons and quizzes, you don't have to integrate it in a page or a post. You have just to add it into your site menu as a menu element. Go to "Appearance" -> "Menus" -> "Course", check your course and click "Add to Menu".
+<br>1- To include a lesson on a post, you have to click on the publish button in the lessons or quizzes list, and a post will be created automatically.
+<br>2- If you want to integrate a lesson or a quiz in a page you can copy the short code, present in the created post and past it in your page.
+<br>3- Since a course is a set of lessons and quizzes, you don't have to integrate it in a page or a post. You have just to add it into your site menu as a menu element. Go to "Appearance" -> "Menus" -> "Course", check your course and click "Add to Menu".
 
-If you have not activated yet the course option in the menu dashboard, you have to go to "Dashboard" -> "Appearance" -> "Menus" -> "Screen options" -> and check "Course"
+<br>If you have not activated yet the course option in the menu dashboard, you have to go to "Dashboard" -> "Appearance" -> "Menus" -> "Screen options" -> and check "Course"
 
 == Screenshots ==
 

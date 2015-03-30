@@ -13,6 +13,7 @@ global $tr;
 
 
 <div id="fullscreen-sp-player" class="sp-player">
+    <span class="sp-powered">Powered by StudyPress</span>
 	<div class="sp-player-left">
 		<div class="sp-player-profil">
             <a href="" class="sp-img-profil"></a>

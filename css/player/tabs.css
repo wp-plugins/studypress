@@ -125,5 +125,12 @@ color: #EFEFEF;
 color: #5DB2FF;
 
 }
+.sp-player span.sp-powered
+{
+    color: #323232;
+    position: absolute;
+    bottom: 2px;
+    left : 2px;
+}
 
 

@@ -7,6 +7,7 @@ require_once __ROOT_PLUGIN__ .'Views/player/includeCSSPlayer.php';
 ?>
 
 <div id="fullscreen-sp-player" class="sp-player">
+    <span class="sp-powered">Powered by StudyPress</span>
 	<div class="sp-player-left hide">
 		<div class="sp-player-profil">
             <a href="" class="sp-img-profil"></a>

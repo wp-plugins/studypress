@@ -1,6 +1,6 @@
 === StudyPress ===
 Contributors: mtadlaoui, salim1202, Meryem Bendella, Yasser Bensmaine, os-roxx
-Tags: Authoring Tool, e-learning, elearning, education, learning, online courses, lms, lcms, quiz, course, lesson, interactive, interactive course, interative slider, studypress, slider, content slider, text slider, image slider, picture slider, video slider, youtube slider, media slider, responsive slider, slideshow
+Tags: Authoring Tool, authoring, e-learning, elearning, education, learning, online courses, lms, lcms, quiz, timed quiz, course, lesson, interactive, interactive course, interative slider, studypress, slider, content slider, text slider, image slider, picture slider, video slider, youtube slider, media slider, responsive slider, slideshow
 Requires at least: 3.6.1
 Tested up to: 4.1.1
 Stable tag: 1.0

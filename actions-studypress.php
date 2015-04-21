@@ -25,20 +25,22 @@ function studypress_load_plugin_textdomain()
     load_plugin_textdomain( SpTranslate::getDomain(), false, SpTranslate::getPath() );
 }
 
-add_action( 'delete_term_taxonomy', function( $tt_id )
+add_action( 'delete_term_taxonomy', 'sp_delete_course_categories' );
+function sp_delete_course_categories( $tt_id )
 {
 
     $access = new AccessData();
     $access->delete(StudyPressDB::getTableName_CourseCategory(),
         array(StudyPressDB::COL_ID_CATEGORY_CAT_N_COURSE => $tt_id));
-});
+};
 
 
-add_action( 'delete_user',function( $userId ) {
+add_action( 'delete_user', 'sp_delete_course_users');
+function sp_delete_course_users( $userId ) {
     $access = new AccessData();
     $access->delete(StudyPressDB::getTableName_CourseUsers(),
         array(StudyPressDB::COL_ID_USERS_USERS_N_COURSE => $userId));
-});
+};
 
 
 add_shortcode('studypress_lesson','studypress_shortcode_lesson');

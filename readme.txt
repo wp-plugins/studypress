@@ -13,6 +13,8 @@ The easy way to create pretty multimedia lessons, quizzes and sliders.
 StudyPress is an elearning authoring tool. With this plugin you can easily create multimedia learning content and publish it as slides in your wordpress pages and posts. It can manage courses, lessons and quizzes.<br> 
 With the help of StudyPress you can easily turns your WordPress into a powerfull learning management system.
 
+<br>For more details please visit our web site : <a href="http://study-press.com/">study-press.com</a>
+
 <br>Features:</b><br>
 - Create an unlimited number of courses, lessons and quizzes<br>
 - Drag and drop functions that makes easy the creation of lessons and quizzes<br>

@@ -1,8 +1,11 @@
 <?php
 
+
 global $tr;
 
 require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
+require_once  __ROOT_PLUGIN__ ."Views/inc/html/help.php";
+
 
 
 
@@ -22,7 +25,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
         bottom: 0;
         opacity: 0.9;
         z-index: 1060;
-        background: url('<?php echo __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
+        background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
 
     .sp-cat{
@@ -38,22 +41,30 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
 <h1>
     <?php $tr->_e("Course"); ?>
-    <button type="button" id="addNewCourse" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><?php $tr->_e("Add New"); ?></button>
+
 
 </h1>
 
 <div class="container-fluid">
+
+<?php
+sp_display_link_help();
+$user = new StudyPressUserWP();
+?>
+
+
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="<?php echo ($user->isAdministrator())?"col-md-8":"col-md-12" ?>">
             <h3><?php $tr->_e('All courses'); ?></h3>
-            <div class="alert alert-danger" role="alert" <?php echo ($error_course_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_course_remove ?> </div>
+            <div class="alert alert-danger" role="alert" <?php echo  ($error_course_remove=='')?'style=\'display:none\'':'' ?>> <?php echo  $error_course_remove ?> </div>
             <form action="" method="post" id="sp-reload">
+
 
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <?php echo ($user->isAdministrator())?"<th>#</th>":"" ?>
                     <th><?php $tr->_e('Name'); ?></th>
                     <th><?php $tr->_e('Description'); ?></th>
                     <th><?php $tr->_e('Categories'); ?></th>
@@ -65,22 +76,30 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tbody>
                 
                 <?php
-                $__courses = $managerCourse->getAll();
+
+                $__courses = $managerCourse->getCoursesByAuthor($user->id());
+
+                $colSpan = ($user->isAdministrator())?"7":"6";
+
                 if(empty($__courses))
                 {
-                    echo "<tr><td colspan='7'>". $tr->__('No Courses') ."</td></tr>";
+                    echo "<tr><td colspan='".$colSpan."'>". $tr->__('No Courses') ."</td></tr>";
                 }
                 else {
                 foreach ($__courses as $row) {
+                    $url_mod_course = "?page=mod-course&id=" . $row->getId();
+
                     ?>
                     <tr>
-                        <td><input type='checkbox' name="id[]" value='<?php echo $row->getId() ?>'/></td>
-                        <td> <a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row->getId() ?>"><?php echo $row->getName() ?> </a></td>
-                        <td> <?php echo $row->getDescription() ?></td>
-                        <td> <?php echo $row->getStringCategories() ?></td>
-                        <td> <?php echo $row->getStringAuthors() ?></td>
-                        <td> <?php echo $row->getNbreLessons() ?></td>
-                        <td> <?php echo $row->getNbrequizs() ?></td>
+                        <?php if($user->isAdministrator()): ?>
+                        <td><input type='checkbox' name="id[]" value='<?php echo  $row->getId() ?>'/></td>
+                        <?php endif; ?>
+                        <td> <a class="update" href="<?php echo  $url_mod_course ?>"><?php echo  $row->getName() ?> </a></td>
+                        <td> <?php echo  $row->getNiceDescription() ?></td>
+                        <td> <?php echo  $row->getStringCategories() ?></td>
+                        <td> <?php echo  $row->getStringAuthors() ?></td>
+                        <td> <?php echo  $row->getNbreLessons() ?></td>
+                        <td> <?php echo  $row->getNbrequizs() ?></td>
                     </tr>
 
                     <?php
@@ -89,14 +108,16 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
                 ?>
                 </tbody>
+                <?php if($user->isAdministrator()): ?>
                 <tfoot>
                 <tr>
-                    <td colspan="7">
-                        <button type="submit" name="remove" <?php echo $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
+                    <td colspan="<?php echo $colSpan ?>">
+                        <button type="submit" name="remove" <?php echo  $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
                     </td>
                 </tr>
                 </tfoot>
                 <?php
+                endif;
                 }
                 ?>
 
@@ -105,27 +126,20 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
         </div>
 
-    </div>
 
 
-<form action="" method="post">
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">
-                    <?php $tr->_e("Add a new course"); ?>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="loading hide"></div>
 
-                <div class="alert alert-danger" role="alert" <?php echo ($error_course_add=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_course_add ?> </div>
 
-                <div class="alert alert-danger alert-dismissible hide" role="alert">
-                    <p></p>
-                </div>
+
+
+        <?php if($user->isAdministrator()) : ?>
+    <div class="col-md-4">
+    <h3><?php $tr->_e('Quick creation of Course'); ?></h3>
+    <form method="post" action="">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <div class="alert alert-danger" role="alert" <?php echo  ($error_course_add=='')?'style=\'display:none\'':'' ?>> <?php echo  $error_course_add ?> </div>
 
                 <div class="form-group">
                     <input type="hidden" name="id" value=""/>
@@ -137,6 +151,17 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                     <label for="desc"><?php $tr->_e("Description"); ?></label>
                     <textarea class="form-control" rows="3" id="desc" name="course[desc]"></textarea>
 
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="picture"><?php $tr->_e("Associate an image"); ?></label>
+                    <div>
+                        <a href="#" class="button select-picture"><?php $tr->_e("Browse"); ?></a>
+                        <input type="text" id="picture" value=""  disabled />
+                        <input type="hidden" name="course[pictureId]" value="" />
+                    </div>
                 </div>
 
 
@@ -210,7 +235,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                         'who'          => 'authors'
                     );
                     $blogusers = get_users($args);
-
+                    // Array of WP_User objects.
                     echo "<div class='sp-cat'>";
                     $droite = "";
                     $gauche = "";
@@ -236,181 +261,64 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?php $tr->_e("Close")?></button>
-                <button type="submit" id="validate" name="add" class="btn btn-primary"><?php $tr->_e("Validate"); ?></button>
+            <div class="panel-footer">
+                <button type="submit" name="add" class="btn btn-primary center-block"><?php $tr->_e('Validate'); ?></button>
+
             </div>
         </div>
+        </form>
     </div>
-</div>
-</form>
+
+        <?php endif; ?>
 
 
 
 
 
+    </div>
 
-<script src="<?php echo __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+
+
+<?php
+$content = "<p>This page contains the list of all courses that you have the right to access. This page contains also a quick course creator, in which you can fill in the course name and description, associate an image, categories and authors.</p>
+<p>Categories present in this page are the categories that you have defined as post categories on Wordpress. The link between them and courses can help the creation of the web site menu.</p>
+<p>Authors list present in this page contains all Wordpress users that have administrator, editor or author rights. Associated authors to the course will have the rights to see, modify, delete and publish lessons and quizzes associated to this course.</p>";
+
+$msg = "This feature is available for users who have <b>administrator</b>, <b>editor</b> or <b>author</b> rights.";
+sp_display_modal_help($content,$msg);
+?>
+
+
+
+
+
 
 
 <script>
-
     (function($) {
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-
-            <?php
-            if($error_course_add !== "")
-                echo "$('#myModal').modal('show') ";
-
-            ?>
-
-            var type_modal_sp = "add";
-            var trSelected;
-            var modal = $("#myModal");
-            var alert = modal.find(".alert");
-
-
-            function reinitialiserModal() {
-                //Reinitialiser
-                alert.find("p").html("");
-                alert.addClass("hide");
-                modal.find("input[name='course[name]']").val("");
-                modal.find("textarea[name='course[desc]']").val("");
-                modal.find('input:checkbox').removeAttr('checked');
-            }
-
-
-            function trimStr(str) {
-                return str.replace(/^\s+|\s+$/gm, '');
-            }
-
-
-            $("#sp-reload").on("click",".update", function (e) {
-                type_modal_sp = "update";
+            $('.select-picture').click(function (e) {
                 e.preventDefault();
-                reinitialiserModal();
-                trSelected = $(this);
-                console.log(trSelected);
-                var id = $(this).data('id');
+                var uploader = wp.media({
+                    title: '<?php echo  $tr->__('Upload an Image')?>',
+                    button: {
+                        text: '<?php echo  $tr->__('Select an Image')?>'
+                    },
+                    library: {
+                        type: 'image'
+                    },
+                    multiple: false
+                })
+                    .on('select', function () {
+                        var selection = uploader.state().get('selection');
+                        var attachment = selection.first().toJSON();
+                        $("input[name='course[pictureId]']").val(attachment.id);
+                        $('#picture').val(attachment.url);
 
-                getContentCourse(id);
-
-
+                    })
+                    .open();
             });
-
-
-            function getContentCourse(courseId) {
-                $(".loading").removeClass('hide');
-
-                $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
-                    {
-                        type: "get-course-ajax",
-                        courseId: courseId
-                    }
-
-                    , function (data) {
-
-                        if (trimStr(data.result) === "true") {
-                            modal.find("input[name='course[name]']").val(data.name);
-                            modal.find("textarea[name='course[desc]']").val(data.description);
-                            for (i = 0; i < data.categories.length; i++) {
-
-                                modal.find("input:checkbox[name='course[]'][value=" + data.categories[i] + "]").prop("checked", "true");
-                            }
-
-                            for (i = 0; i < data.authors.length; i++) {
-
-                                modal.find("input:checkbox[name='course[users][]'][value=" + data.authors[i] + "]").prop("checked", "true");
-                            }
-
-
-                        }
-                        else {
-                            alert.find("p").html("Une erreur s'est produite !");
-                            alert.removeClass("hide");
-                        }
-                    }, 'json').error(function () {
-
-                        alert.find("p").html("Une erreur s'est produite !");
-                        alert.removeClass("hide");
-
-                    }).always(function () {
-                        $(".loading").addClass('hide');
-                    });
-            }
-
-
-            $("#addNewCourse").on("click", function () {
-                reinitialiserModal();
-                type_modal_sp = "add";
-            });
-
-
-            $("#validate").on("click", function (e) {
-                if (type_modal_sp === "add") {
-                    return true;
-                }
-                else {
-                    $(".loading").removeClass('hide');
-
-                    e.preventDefault();
-                    var id = trSelected.data('id');
-                    var name = modal.find("input[name='course[name]']").val();
-                    var desc = modal.find("textarea[name='course[desc]']").val();
-
-
-                    var categories = $("input:checkbox[name='course[]']:checked").map(function () {
-                        return this.value;
-                    }).get();
-
-
-                    var authors = $("input:checkbox[name='course[users][]']:checked").map(function () {
-                        return this.value;
-                    }).get();
-
-                    $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/course.controller.php",
-                        {
-                            type: "update-course-ajax",
-                            courseId: id,
-                            name: name,
-                            desc: desc,
-                            categories: categories,
-                            authors: authors
-
-                        }
-                        , function (data) {
-
-                            if (trimStr(data) === "true") {
-                                modal.modal('hide');
-                                $.ajax({
-                                    url: "<?php echo __ROOT_PLUGIN__2 ?>Views/reload/courses.php",
-                                    context: document.body,
-                                    success: function (s, x) {
-                                        $("#sp-reload").html(s);
-                                    }
-                                });
-
-                            }
-                            else {
-                                alert.find("p").html(data);
-                                alert.removeClass("hide");
-                            }
-
-                        }
-                    ).error(function (data) {
-
-                            alert.find("p").html(data.responseText);
-                            alert.removeClass("hide");
-
-                        }).always(function () {
-                            $(".loading").addClass('hide');
-                        });
-
-
-                }
-            })
         })
-
     })(jQuery);
 </script>

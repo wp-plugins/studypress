@@ -2,33 +2,27 @@
 
 class validation{
 
-
     public $errors = array();
-
 
     private $validation_rules = array();
 
-
     public $sanitized = array();
-     
-
+    
     private $source = array();
 
     public function __construct()
     {
     }
 
-
+    
     public function addSource($source, $trim=false)
     {
         $this->source = $source;
     }
 
 
-
     public function run()
     {
-
         foreach( new ArrayIterator($this->validation_rules) as $var=>$opt)
         {
             if($opt['required'] == true)
@@ -111,7 +105,6 @@ class validation{
     }
 
 
-
     public function addRule($varname, $type, $required=false, $min=0, $max=0, $trim=false)
     {
         $this->validation_rules[$varname] = array('type'=>$type, 'required'=>$required, 'min'=>$min, 'max'=>$max, 'trim'=>$trim);
@@ -124,7 +117,6 @@ class validation{
     {
         $this->validation_rules = array_merge($this->validation_rules, $rules_array);
     }
-
 
     private function is_set($var)
     {
@@ -149,6 +141,7 @@ class validation{
         }
     }
 
+    
     public function validateIpv6($var, $required=false)
     {
         global $tr;
@@ -163,7 +156,7 @@ class validation{
         }
     }
 
-
+    
     private function validateFloat($var, $required=false)
     {
         global $tr;
@@ -177,6 +170,7 @@ class validation{
         }
     }
 
+   
     private function validateString($var, $min=0, $max=0, $required=false)
     {
         global $tr;
@@ -202,7 +196,7 @@ class validation{
         }
     }
 
-
+    
     private function validateNumeric($var, $min=0, $max=0, $required=false)
     {
         global $tr;
@@ -216,7 +210,6 @@ class validation{
         }
     }
 
-
     private function validateUrl($var, $required=false)
     {
         global$tr;
@@ -229,7 +222,6 @@ class validation{
             $this->errors[$var] = $var . $tr->__(' is an invalid URL');
         }
     }
-
 
 
     private function validateEmail($var, $required=false)
@@ -246,6 +238,7 @@ class validation{
     }
 
 
+   
     private function validateBool($var, $required=false)
     {
         global $tr;
@@ -259,29 +252,25 @@ class validation{
         }
     }
 
-
-    public function sanitizeEmail($var)
-    {
-        $email = preg_replace( '((?:\n|\r|\t|%0A|%0D|%08|%09)+)i' , '', $this->source[$var] );
-        $this->sanitized[$var] = (string) filter_var($email, FILTER_SANITIZE_EMAIL);
-    }
-
-
+  
     private function sanitizeUrl($var)
     {
         $this->sanitized[$var] = (string) filter_var($this->source[$var],  FILTER_SANITIZE_URL);
     }
 
+    
     private function sanitizeNumeric($var)
     {
         $this->sanitized[$var] = (int) filter_var($this->source[$var], FILTER_SANITIZE_NUMBER_INT);
     }
+
 
     private function sanitizeFloat($var)
     {
         $this->sanitized[$var] = (float) filter_var($this->source[$var], FILTER_SANITIZE_NUMBER_FLOAT);
     }
 
+    
     private function sanitizeString($var)
     {
         $this->sanitized[$var] = (string) filter_var($this->source[$var], FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES );
@@ -298,5 +287,5 @@ class validation{
 
     }
 
-}
+} 
 

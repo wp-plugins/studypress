@@ -1,5 +1,6 @@
 <?php
 
+
 class StudyPressDB {
 
     public static function getPrefix(){
@@ -14,12 +15,12 @@ class StudyPressDB {
 
 
 
-
     private static $tableCategoryWP = "terms";
 
     public static function getTableNameCategoryWP(){
         return self::getPrefix() . self::$tableCategoryWP;
     }
+
 
     private static $tablePostWP = "posts";
 
@@ -29,11 +30,22 @@ class StudyPressDB {
 
 
 
+    //=================================================== Table
+
     private static $tableUsersWP = "users";
 
     public static function getTableNameUsersWP(){
         return self::getPrefix() . self::$tableUsersWP;
     }
+
+
+    /**
+     *
+     */
+    const COL_ID_USER_WP = "ID";
+
+
+    //=================================================== Table
 
         private static $tableCourse = "studypress_course";
 
@@ -41,6 +53,10 @@ class StudyPressDB {
             return self::getPrefix() . self::$tableCourse;
         }
 
+    //================================================== Columns
+    /**
+     *
+     */
     const COL_ID_COURSE = "course_id";
     /**
      *
@@ -57,7 +73,17 @@ class StudyPressDB {
     /**
      *
      */
+    const COL_PICTURE_COURSE = "picture_id";
+    /**
+     *
+     */
     const COL_ID_POST_COURSE = "post_id";
+
+
+
+
+
+    //=================================================== Table
 
         private static  $tableActivity = "studypress_activity" ;
 
@@ -65,7 +91,11 @@ class StudyPressDB {
             return self::getPrefix() . self::$tableActivity;
         }
 
-        const COL_ID_ACTIVITY = "activity_id";
+    //================================================== Columns
+        /**
+         *
+         */
+        const COL_ID_ACTIVITY = "id";
         /**
          *
          */
@@ -89,7 +119,7 @@ class StudyPressDB {
         /**
          *
          */
-        const COL_NOTES_ACTIVITY = "notes";
+        const COL_TAGS_ACTIVITY = "tags";
         /**
          *
          */
@@ -97,7 +127,7 @@ class StudyPressDB {
         /**
          *
          */
-        const COL_PICTURE_ACTIVITY = "picture_url";
+        const COL_PICTURE_ACTIVITY = "picture_id";
         /**
          *
          */
@@ -114,7 +144,10 @@ class StudyPressDB {
          *
          */
         const COL_TYPE_ACTIVITY = "type";
-
+        /**
+         *
+         */
+        const COL_ORDER_ACTIVITY = "order_activity";
 
 
         private static $tableSlide = "studypress_slide";
@@ -123,8 +156,11 @@ class StudyPressDB {
                 return self::getPrefix() . self::$tableSlide;
             }
 
-
-        const COL_ID_SLIDE = "slide_id";
+    //================================================== Columns
+        /**
+         *
+         */
+        const COL_ID_SLIDE = "id";
         /**
          *
          */
@@ -143,19 +179,30 @@ class StudyPressDB {
         const COL_ORDER_SLIDE = "order_slide";
 
 
+
     private static $tableCourseCategory = "studypress_course_category";
 
     public static function getTableName_CourseCategory(){
         return self::getPrefix() . self::$tableCourseCategory;
     }
 
+    /**
+     *
+     */
+    const COL_ID_CATEGORY_WP = "term_id";
 
+    //================================================== Columns
+    /**
+     *
+     */
     const COL_ID_CATEGORY_CAT_N_COURSE = "term_id";
     /**
      *
      */
     const COL_ID_COURSE_CAT_N_COURSE = "course_id";
 
+
+    //=================================================== Table
 
     private static $tableCourseUsers = "studypress_course_users";
 
@@ -164,25 +211,35 @@ class StudyPressDB {
     }
 
 
-    const COL_ID_USERS_USERS_N_COURSE = "ID";
+
+
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_USERS_USERS_N_COURSE = "user_id";
     /**
      *
      */
     const COL_ID_COURSE_USERS_N_COURSE = "course_id";
 
 
+    
     private static $tableVisite = "studypress_visite";
 
     public static function getTableNameVisite(){
         return self::getPrefix() . self::$tableVisite;
     }
 
-
-    const COL_ID_VISITE = "visite_id";
+    //================================================== Columns
     /**
      *
      */
-    const COL_ID_LESSON_VISITE = "lesson_id";
+    const COL_ID_VISITE = "id";
+    /**
+     *
+     */
+    const COL_ID_ACTIVITY_VISITE = "activity_id";
     /**
      *
      */
@@ -194,16 +251,20 @@ class StudyPressDB {
     /**
      *
      */
-    const COL_USER_VISITE = "user_visite";
+    const COL_ID_USER_VISITE = "user_id";
 
-
+   
     private static $tableDomain = "studypress_domain";
 
     public static function getTableNameDomain(){
         return self::getPrefix() . self::$tableDomain;
     }
 
-    const COL_ID_DOMAIN = "domain_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_DOMAIN = "id";
     /**
      *
      */
@@ -214,13 +275,19 @@ class StudyPressDB {
     const COL_DESCRIPTION_DOMAIN = "description";
 
 
+
+
     private static $tableRateQuality = "studypress_rate_quality";
 
     public static function getTableNameRateQuality(){
         return self::getPrefix() . self::$tableRateQuality;
     }
 
-    const COL_ID_RATE_QUALITY = "rate_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_RATE_QUALITY = "id";
     /**
      *
      */
@@ -236,19 +303,26 @@ class StudyPressDB {
     /**
      *
      */
-    const COL_ID_USER_RATE_QUALITY = "ID";
+    const COL_ID_USER_RATE_QUALITY = "user_id";
     /**
      *
      */
     const COL_IP_RATE_QUALITY = "ip";
 
+
+
+   
     private static $tableRateDomain = "studypress_rate_domain";
 
     public static function getTableNameRateDomain(){
         return self::getPrefix() . self::$tableRateDomain;
     }
 
-    const COL_ID_RATE_DOMAIN = "rate_domain_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_RATE_DOMAIN = "id";
     /**
      *
      */
@@ -264,7 +338,7 @@ class StudyPressDB {
     /**
      *
      */
-    const COL_ID_USER_RATE_DOMAIN = "ID";
+    const COL_ID_USER_RATE_DOMAIN = "user_id";
     /**
      *
      */
@@ -274,6 +348,7 @@ class StudyPressDB {
      */
     const COL_IP_RATE_DOMAIN = "ip";
 
+   
 
     private static $tableQuestions = "studypress_questions";
 
@@ -281,8 +356,11 @@ class StudyPressDB {
         return self::getPrefix() . self::$tableQuestions;
     }
 
-
-    const COL_ID_QUESTION = "question_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_QUESTION = "id";
     /**
      *
      */
@@ -298,8 +376,10 @@ class StudyPressDB {
     /**
      *
      */
-    const COL_COL_QUESTION = "col";
+    const COL_TYPE_QUESTION = "type_question";
 
+
+   
 
     private static $tablePropositions = "studypress_propositions";
 
@@ -307,7 +387,11 @@ class StudyPressDB {
         return self::getPrefix() . self::$tablePropositions;
     }
 
-    const COL_ID_PROPOSITION = "proposition_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_PROPOSITION = "id";
     /**
      *
      */
@@ -329,15 +413,18 @@ class StudyPressDB {
      */
     const COL_COL_PROPOSITION = "col";
 
-
+   
     private static $tableResultQuiz = "studypress_quiz_result";
 
     public static function getTableNameResultQuiz(){
         return self::getPrefix() . self::$tableResultQuiz;
     }
 
-
-    const COL_ID_RESULT = "result_id";
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_RESULT = "id";
     /**
      *
      */
@@ -345,7 +432,7 @@ class StudyPressDB {
     /**
      *
      */
-    const COL_ID_USER_RESULT = "ID";
+    const COL_ID_USER_RESULT = "user_id";
     /**
      *
      */
@@ -374,5 +461,57 @@ class StudyPressDB {
      *
      */
     const COL_VALIDATE_RESULT = "validate";
+
+    
+
+    private static $tableConfiguration = "studypress_configuration";
+
+    public static function getTableNameConfiguration(){
+        return self::getPrefix() . self::$tableConfiguration;
+    }
+
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_CONFIG = "id";
+    /**
+     *
+     */
+    const COL_NAME_CONFIG = "name";
+    /**
+     *
+     */
+    const COL_VALUE_CONFIG= "value";
+
+    
+
+    private static $tableGroupCourse = "studypress_gcourse";
+
+    public static function getTableName_GroupCourse(){
+        return self::getPrefix() . self::$tableGroupCourse;
+    }
+
+    //================================================== Columns
+    /**
+     *
+     */
+    const COL_ID_GROUP = "id";
+    /**
+     *
+     */
+    const COL_ID_COURSE_GROUP = "course_id";
+    /**
+     *
+     */
+    const COL_ID_GROUP_BP= "group_bp_id";
+
+
+
+
+
+
+
+
 
 } 

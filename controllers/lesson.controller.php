@@ -11,13 +11,10 @@ $managerLesson = new LessonManager();
 $managerCourse = new CourseManager();
 
 
-
 $error_lesson_add = "";
 
 
-
 $error_lesson_remove = "";
-
 
 
 if((isset($_GET['type'])) && ($_GET['type'] === "delete") && (isset($_GET['id']))){
@@ -55,7 +52,6 @@ if(isset($_POST['add'])) {
         $v->addSource($_POST['lesson']);
 
 
-
         $v->addRule('name', 'string', true, 1, 200, true);
 
 
@@ -66,11 +62,9 @@ if(isset($_POST['add'])) {
 
 
         if (isset($_POST['lesson']['file']) && !empty($_POST['lesson']['file'])) {
-            $v->addRule('file', 'url', true, 1, 9000, true);
+            $v->addRule('file', 'numeric', true, 1, 99999, true);
 
         }
-
-
 
         if (isset($_POST['lesson']['courseId']) && !empty($_POST['lesson']['courseId'])) {
             $v->addRule('courseId', 'numeric', true, 1, 99999, true);
@@ -82,7 +76,7 @@ if(isset($_POST['add'])) {
 
         $v->run();
 
-
+        
         if ((sizeof($v->errors)) > 0)
             $error_lesson_add = $v->getMessageErrors();
         else {
@@ -100,17 +94,31 @@ if(isset($_POST['add'])) {
 
 
             if (isset($v->sanitized['file']) && !empty($v->sanitized['file'])) {
+
+                $urlFile =  wp_get_attachment_url( $v->sanitized['file']);
+               
                 $managerSlide = new SlideManager();
                 $slide = new Slide(array(
                         'courseId' => $id_lesson,
                         'name' => $tr->__("Download the file"),
-                        'content' => "<a href='" . $v->sanitized['file'] . "'>" . basename($v->sanitized['file'], pathinfo($v->sanitized['file'], PATHINFO_EXTENSION)) . "</a>",
+                        'content' => "<a href='" . $urlFile . "'>" . basename($urlFile, pathinfo($urlFile, PATHINFO_EXTENSION)) . "</a>",
                     )
 
                 );
                 $managerSlide->add($slide);
 
-                $managerLesson->post($managerLesson->getById($id_lesson));
+               
+                $lesson = $managerLesson->getById($id_lesson);
+                $postId = $managerLesson->post($lesson);
+
+                $permalink = get_permalink($postId);
+                $action = $lesson->getAuthor() . " " . $tr->__("shared a lesson") . " : " . "<a href='$permalink'>" . $lesson->getName() . "</a>";
+
+
+                $imageUrl = $lesson->getPicture();
+                $content = "<a href='$permalink'><img src='$imageUrl' width='150' height='150' /></a>";
+
+                $managerLesson->shareOnGroupsBP($lesson,$action,$content);
             }
 
 
@@ -124,7 +132,13 @@ if(isset($_POST['add'])) {
 
 
 
-
+/*
+|---------------------------------------------------------------------
+| Supression de plusieurs Leçon
+|---------------------------------------------------------------------
+|
+|
+*/
 if(isset($_POST['remove'])){
     if(isset($_POST['id']) && !empty($_POST['id']))
     {

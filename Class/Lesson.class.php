@@ -5,7 +5,7 @@
 class Lesson extends AbstractActivity
 {
 
-    private $_slides =array();
+    private $_slides = array();
 
 
     public function __construct(array $d){
@@ -13,18 +13,17 @@ class Lesson extends AbstractActivity
     }
 
 
-
+    
     public function setSlides($slides)
     {
         $this->_slides = $slides;
     }
 
-
+    
     public function getSlides()
     {
         return $this->_slides;
     }
-
 
     public function addSlide(Slide $slide)
     {
@@ -49,6 +48,8 @@ class Lesson extends AbstractActivity
 
         $this->_slides = $newSlide;
     }
+
+
 
 
 

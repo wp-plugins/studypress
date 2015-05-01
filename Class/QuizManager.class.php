@@ -1,6 +1,5 @@
 <?php
 
-
 class QuizManager extends AbstractActivityManager {
 
     private $type = "quiz";
@@ -9,8 +8,6 @@ class QuizManager extends AbstractActivityManager {
     public function __construct(){
         parent::__construct($this->type);
     }
-
-
 
 
 
@@ -23,7 +20,6 @@ class QuizManager extends AbstractActivityManager {
 
         $quiz->setShortCode("[studypress_quiz id=" . $idQuiz . "]");
 
-
         $this->update($idQuiz,$quiz);
 
 
@@ -33,7 +29,6 @@ class QuizManager extends AbstractActivityManager {
     }
 
 
-
     public static function returnedQuiz($row)
     {
         return ( ( !empty($row) )? new Quiz(parent::returnedArrayActivity($row)) : null );
@@ -41,13 +36,12 @@ class QuizManager extends AbstractActivityManager {
     }
 
 
-
+   
     public function delete($id)
     {
         $id = (int)$id;
-
+        
         $this->_access->query("START TRANSACTION");
-
 
 
 
@@ -59,19 +53,13 @@ class QuizManager extends AbstractActivityManager {
 
 
 
-
-
         $manageQuestion = new QuestionManager();
         $questions = $manageQuestion->getQuestionsOfQuiz($id);
         foreach ($questions as $q) {
             $manageQuestion->delete($q->getId());
         }
 
-
         $this->deleteResultByQuiz($id);
-
-
-
 
 
 
@@ -81,10 +69,15 @@ class QuizManager extends AbstractActivityManager {
         }
 
 
+        $this->_access->delete(
+            StudyPressDB::getTableNameVisite(), 
+            array(StudyPressDB::COL_ID_ACTIVITY_VISITE => $id)  
+        );
+
 
         $this->_access->delete(
-            StudyPressDB::getTableNameActivity(),
-            array(StudyPressDB::COL_ID_ACTIVITY => $id)
+            StudyPressDB::getTableNameActivity(), 
+            array(StudyPressDB::COL_ID_ACTIVITY => $id)  
         );
 
 
@@ -94,14 +87,13 @@ class QuizManager extends AbstractActivityManager {
 
         if($this->isError()) {
 
-            $m = $this->getMessageError();
-            $this->_access->query("ROLLBACK");
+            $m = $this->getMessageError(); 
+            $this->_access->query("ROLLBACK"); 
             $this->_access->setMsgError($m);
         }
         else
             $this->_access->query("COMMIT");
     }
-
 
 
     public function getAllWithoutQuestions()
@@ -110,9 +102,8 @@ class QuizManager extends AbstractActivityManager {
         $result = parent::getAllWithout();
 
         $quizs = array();
-
+        
         foreach ($result as $row) {
-
 
             $quiz = self::returnedQuiz($row);
 
@@ -128,14 +119,13 @@ class QuizManager extends AbstractActivityManager {
 
     }
 
-
+    
     public function getById($id)
     {
 
         $quiz =  self::returnedQuiz(parent::getById($id));
 
-
-
+       
         if($quiz != null) {
             $managerQuestion = new QuestionManager();
             $question = $managerQuestion->getQuestionsOfQuiz($quiz->getId());
@@ -171,7 +161,7 @@ class QuizManager extends AbstractActivityManager {
             $quiz = self::returnedQuiz($row);
 
             if ($quiz) {
-
+               
 
                 array_push($quizs, $quiz);
             }
@@ -184,11 +174,10 @@ class QuizManager extends AbstractActivityManager {
 
 
 
-
     public function saveResult($quizId,$userId,$note,$response,$nbrQuestions,$nbrCorrects,$dateBegin,$valid){
 
         $this->_access->delete(
-            StudyPressDB::getTableNameResultQuiz(),
+            StudyPressDB::getTableNameResultQuiz(), //From table Quiz
             array(StudyPressDB::COL_ID_QUIZ_RESULT => $quizId,
                   StudyPressDB::COL_ID_USER_RESULT => $userId)
         );
@@ -208,7 +197,7 @@ class QuizManager extends AbstractActivityManager {
 
         $this->_access->insert(StudyPressDB::getTableNameResultQuiz(), $a);
 
-
+       
         $idResult = $this->_access->getLastInsertId();
 
 
@@ -217,6 +206,7 @@ class QuizManager extends AbstractActivityManager {
         return $idResult;
 
     }
+
 
 
 
@@ -234,9 +224,8 @@ class QuizManager extends AbstractActivityManager {
         $result = $this->_access->getResults($this->_access->prepare(
         "SELECT * FROM " .  StudyPressDB::getTableNameResultQuiz() . " WHERE " . StudyPressDB::COL_ID_QUIZ_RESULT ." = '%d' AND " .StudyPressDB::COL_VALIDATE_RESULT . " = 'true'",$quizId));
 
-
+        // Pour chaque ligne...
         foreach ($result as $row) {
-
 
             $quiz = self::returnedResultQuiz($row,false);
 
@@ -255,16 +244,16 @@ class QuizManager extends AbstractActivityManager {
 
     public function deleteResult($id){
         $this->_access->delete(
-            StudyPressDB::getTableNameResultQuiz(),
-            array(StudyPressDB::COL_ID_RESULT => $id)
+            StudyPressDB::getTableNameResultQuiz(), 
+            array(StudyPressDB::COL_ID_RESULT => $id)  
         );
     }
 
 
     public function deleteResultByQuiz($quizId){
         $this->_access->delete(
-            StudyPressDB::getTableNameResultQuiz(),
-            array(StudyPressDB::COL_ID_QUIZ_RESULT => $quizId)
+            StudyPressDB::getTableNameResultQuiz(), 
+            array(StudyPressDB::COL_ID_QUIZ_RESULT => $quizId)  
         );
 
 
@@ -305,7 +294,6 @@ class QuizManager extends AbstractActivityManager {
     }
 
 
-
     public static function returnedResultQuiz($row,$chargeResponse = true){
 
         return (
@@ -323,6 +311,12 @@ class QuizManager extends AbstractActivityManager {
 
         )) : null );
 
+    }
+
+
+    public function isDone($activityId,$userId){
+        $result = $this->_access->getVar($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameResultQuiz() . " WHERE " . StudyPressDB::COL_ID_QUIZ_RESULT . " = '%d' AND " . StudyPressDB::COL_ID_USER_RESULT . " = '$userId' AND " . StudyPressDB::COL_VALIDATE_RESULT . " = 'true' ", $activityId));
+        return ( (int) $result !== 0 ) ? true : false;
     }
 
 

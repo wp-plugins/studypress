@@ -2,6 +2,8 @@
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
+$spConfiguration = new Configuration();
+$spConfiguration = $spConfiguration->getConfig();
 
 global $tr;
 
@@ -42,6 +44,8 @@ if($id !== null){
 
     $v->run();
 
+    
+
     if ((sizeof($v->errors)) > 0) {
         $tr->_e("The value of the identifier of the shortcode is incorrect");
 
@@ -50,6 +54,12 @@ if($id !== null){
 
         $quiz = $managerQuiz->getById($v->sanitized['id']);
         if($quiz){
+            $sp_btn_share = "<button class='btn-share' title='".$tr->__("Share")."'>".$tr->__("Share")."</button>";
+            $btn_buddypress_share ="";
+            $btn_social_share ="";
+
+
+
 
             $v = ($currentUser->isLoggedIn())?sha1($currentUser->id()):"";
 
@@ -59,9 +69,6 @@ if($id !== null){
 
 
             $sp_user =  new StudyPressUserWP($quiz->getAuthorId());
-
-
-
 
 
             $sp_userName = ($sp_user->firstName() . ' ' . $sp_user->lastName());
@@ -84,13 +91,30 @@ if($id !== null){
 
             $resultContent = "";
 
+            if ($spConfiguration['share_socialNetwork']=== 'true'){
+                $btn_social_share = "<button class='btn-facebook' id='btn-social' title='Facebook'> <span>facebook</span ></button>";
+                $btn_social_share .=  "<button class='btn-twitter' id='btn-social' title='Twitter'> <span>Twitter</span></button>";
+                $btn_social_share .= "<button class='btn-google' id='btn-social'  title='Google+'> <span>Google+</span></button>";
+                $btn_social_share .= "<button class='btn-linkedin' id='btn-social' title='LinkedIn'> <span>LinkedIn</span></button>";
+            }
+
             $result = $managerQuiz->getResultOfQuizByUser($id,$currentUser->id()) ;
             if($result && $result->isValide() )
             {
 
 
+
+                if( function_exists('bp_is_active')&& (bp_is_active('groups')) && ($spConfiguration['bp_shareResult']=== 'true') && (StudyPressUserWP::isLoggedIn()))
+                {
+
+                    $btn_buddypress_share = "<button class='btn-buddypress' id='btn-social' title='BuddyPress'><span>Buddypress</span></button>";
+                }
+
+
+
+
                 $class = ((int) $result->getNote()>=50)?"green":"red";
-                $resultContent = "<div class='sp-result'><div class='sp-postit'><p>Vous avez obtenu:</p><strong class='" . $class ."'>" . $result->getNote() . "% </strong></div></div>";
+                $resultContent = "<div class='sp-result'><div class='sp-postit'><p>".$tr->__("You obtained").":</p><strong class='" . $class ."'>" . $result->getNote() . "% </strong></div></div>";
 
 
                 $i = 0;
@@ -112,7 +136,7 @@ if($id !== null){
 
 
             }
-
+        
             else
             {
 
@@ -134,7 +158,7 @@ if($id !== null){
                 }
 
 
-                $resultContent ="<div class='sp-result'><div class='loading hide'></div><button type='button' id='sp-validate'>Valider</button> </div>";
+                $resultContent ="<div class='sp-result'><div class='loading hide'></div><button type='button' id='sp-validate'>". $tr->__("Validate") . "</button> </div>";
             }
 
 
@@ -149,12 +173,14 @@ if($id !== null){
                 'content' => $resultContent,
             );
 
+            if($spConfiguration['showRate']=== 'true')
+            {
+                $owl['items'][] = array(
 
-            $owl['items'][] = array(
-
-                'name' => "",
-                'content' => "",
-            );
+                    'name' => "",
+                    'content' => "",
+                );
+            }
 
 
             $owl['title'] = $quiz->getName();

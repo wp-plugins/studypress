@@ -27,7 +27,7 @@
 
     starWidth: "32px",
     normalFill: "gray",
-    ratedFill: "#f39c12",
+    ratedFill: "#f39c12", //"#31aee0"
     numStars: 5,
     minValue: 0,
     maxValue: 5,

@@ -1,8 +1,11 @@
 <?php
 
+
 global $tr;
 
 require_once  __ROOT_PLUGIN__. 'Views/includeCSS.php';
+require_once  __ROOT_PLUGIN__ ."Views/inc/html/help.php";
+
 
 $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / these Quiz(zes) ?") ."\")' ";
 
@@ -44,7 +47,11 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 <h1><?php $tr->_e("Quiz"); ?></h1>
 
 <div class="container-fluid">
+
+
     <?php
+
+    sp_display_link_help();
 
     $currentUser = new StudyPressUserWP();
     $courses = $managerCourse->getCoursesByAuthor($currentUser->id());
@@ -159,7 +166,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
         </div>
         <div class="col-md-4">
-            <h3><?php $tr->_e("New Quiz"); ?></h3>
+            <h3><?php $tr->_e("Quick creation of Quiz"); ?></h3>
             <form method="post" action="" enctype="multipart/form-data">
             <div class="panel panel-default">
 
@@ -212,9 +219,16 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 </div>
 
 
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+<?php
+$content = "<p>This page contains the list of all quizzes that you have the right to access. This page contains also a quick quiz creator, in which you can fill in the quiz name and associate an image and a course. Courses present in the drop down list are courses for which you have access.</p>
+<p>This page allows also publishing, removing or deleting a quiz and seeing the results of users that have taken quizzes.</p>
+<p>When you publish a quiz, a post which contains this quiz is created. When you remove a quiz, the associated post is deleted. The click on Delete button will delete the quiz and the associated post.</p>";
+$msg = "This feature is available for users who have <b>administrator</b>, <b>editor</b> or <b>author</b> rights.";
+sp_display_modal_help($content,$msg);
+?>
+
+
+
 <script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap-sortable.js" ?>"></script>
 <script>
     (function($) {
@@ -260,9 +274,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 type: "post",
                 id: id
             }
-
+            
             , function (data) {
-
+                
                 console.log(data);
                 if (data.result === "true") {
 

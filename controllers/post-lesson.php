@@ -10,6 +10,8 @@ if(isset($_POST['type']) && ($_POST['type'] === "post")) {
         require_once '_AutoLoadClassAjax.php';
 
 
+
+
         $managerLesson = new LessonManager();
 
 
@@ -29,7 +31,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "post")) {
 
         $v->run();
 
-
+       
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
 
@@ -46,12 +48,22 @@ if(isset($_POST['type']) && ($_POST['type'] === "post")) {
 
                 if($lesson->getPostId() === 0) {
 
+                    $postId = $managerLesson->post($lesson);
 
 
+                    if (AbstractActivityManager::isBuddyPressActive()) {
 
-                    $managerLesson->post($lesson);
+
+                        $permalink = get_permalink($postId);
+                        $action = $lesson->getAuthor() . " " . $tr->__("shared a lesson") . " : " . "<a href='$permalink'>" . $lesson->getName() . "</a>";
+
+                        $imageUrl = $lesson->getPicture();
+                        $content = "<a href='$permalink'><img src='$imageUrl' width='150' height='150' /></a>";
+
+                        $managerLesson->shareOnGroupsBP($lesson,$action,$content);
 
 
+                    }
                     $result['result'] = "true";
                     $result['value'] = $btn_remove;
 

@@ -1,5 +1,6 @@
 <?php
 
+
 global $tr;
 
 require_once '_AutoLoadClassAjax.php';
@@ -12,6 +13,7 @@ if(StudyPressUserWP::isLoggedIn()) {
     if (isset($_POST['action'])) {
         if (htmlentities($_POST['action'], ENT_QUOTES, 'UTF-8') == 'rating') {
 
+            
             $lessonId = (int) (isset($_POST['idBox'])?$_POST['idBox']:0);
 
             $value    = (int) (isset($_POST['rate'])?$_POST['rate']:0);
@@ -43,9 +45,9 @@ if(StudyPressUserWP::isLoggedIn()) {
                 if ($managerRate->isError()) {
                     $success = false;
                 } else {
-
+                    
                     $success = true;
-
+                   
                 }
             } else {
                 $success = false;
@@ -55,14 +57,14 @@ if(StudyPressUserWP::isLoggedIn()) {
                 $aResponse['message'] = 'Your rate has been successfuly recorded. Thanks for your rate :)';
 
                 $aResponse['server'] = $tr->__('Your rating has been recorded') . '<br />';
-
+                
                 echo json_encode($aResponse);
             } else {
                 $aResponse['error'] = true;
                 $aResponse['message'] = 'An error occured during the request. Please retry';
 
                 $aResponse['server'] = '<strong>' . $tr->__('ERROR') . ' :</strong> ' . $tr->__('Try Again');
-
+               
                 echo json_encode($aResponse);
             }
         } else {

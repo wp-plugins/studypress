@@ -1,49 +1,9 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,500,700);
-@import url(http://fonts.googleapis.com/css?family=Damion);
-
-
 .hide
 {
     display: none;
 }
 
-.sp-player a {
-	color: #5DB2FF;
-	text-decoration: none;
-	outline: none;
-}
 
-.sp-player
-{
-	font-family: 'Raleway', Calibri , sans-serif;
-    font-size: 12px;
-	width: 750px;
-	height : 480px;
-	margin: 10px auto;
-	position: relative;
-	background: url(../../images/bg.png) repeat top left; /* Old browsers */
-	box-shadow: 0 0 1px #555;
-
-}
-
-.sp-player-left
-{
-	width : 30%;
-	position: absolute;
-	left:0;
-	bottom: 0;
-	top:0;
-	box-shadow: inset 0 0 3px #555; 
-	
-}
-.sp-player-right
-{
-	width : 70%;
-	position: absolute;
-	right:0;
-	bottom: 0;
-	top:0;  	
-}
 .sp-player-right-top
 {
 	height: 85%;
@@ -63,18 +23,25 @@
     right:0;
     box-shadow: 0px 0px 2px #555;
     vertical-align: middle;
-    padding: 1px 5px;
 }
 .sp-player-nbr_questions
 {
+    position: absolute;
+    top :2px ;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
     color : #EFEFEF;
-    float: left;
 
 }
 .sp-player-minuteur
 {
+    position: absolute;
+    top :0 ;
+    bottom: 0;
+    right: 5px;
+    margin: auto 0;
     color : #EFEFEF;
-    float: right;
     font-family: Calibri , sans-serif;
 }
 
@@ -84,243 +51,18 @@
     animation: animminuteur 1s infinite;
 }
 
-.sp-player-right-bottom
-{
-	height: 10%;
-	position: absolute;
-	bottom: 0;
-	left:0;
-	right:0;
-	box-shadow:inset  0px 0px 2px #555;
-}
-.sp-player .slides,
-.sp-player .slide {
-	
-	position: absolute;
-	background: #FFFFFF;
-	top: 0;
-	left:0;
-	bottom: 0;
-	right: 0;
-	
-}
-.sp-player .owl-item {
-	overflow: hidden;
-	width:100%;
-	height: 100%;
-
-}
-.sp-player .owl-item > div {
-    overflow: hidden;
-    width: 98%;
-    height: 98%;
-    color: #000000;
-    font-family: Arial, sans-serif;
-    padding: 1%;
-}
-
-.sp-player .owl-item > div ul{
-    margin-left: 4%;
-}
 
 
-/*************************
-* La partie gauche
-*
-*/
-
-.sp-player-profil{
-	width: 100%;
-	height: 15%;
-	padding: 2%;
-	position: relative;
-	color : #FFF;
-	text-decoration: none;
-}
-
-.sp-player-profil a.sp-name-profil{
-	color : #FFF;
-	font-size: 0.9em;
-    font-family:  Calibri , sans-serif;
-	text-decoration: none;
-	position : absolute;
-		top :11%;
-		left: 18%;
-
-}
-.sp-player-profil h4{
-     font: bold 1.1em 'Raleway' , calibri, sans-serif;
-     color: #EFEFEF;
-	 position : relative;
-		
-}
-.sp-player-tabs{
-	height:81%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	overflow: auto;
-	/*background: rgba(80,80,80,0.5);*/
-
-}
-
-
-.sp-player .content{
-	height: 90%;
-	overflow: auto;
-}
-
-
-
-.sp-player .hr{
-	width: 100%;
-	height:1px;
-	margin :0.4em auto;
-	background: #555;
-	box-shadow:inset  0 0 2px #555;
-}
-.sp-player .buttons-control{
-	position: absolute;
-	right: 0;
-	height: 100%;
-	width:20%;
-}
-.sp-player-right-bottom .btn-next,
-.sp-player-right-bottom .btn-prev,
-.sp-player .full-screen{
-	text-indent: -9999px;
-	outline: none;
-	width : 20px;
-	height: 20px;
-	border: none;
-	cursor: pointer;
-	float: right;
-	margin: 15% 8%;
-}
-.sp-player-right-bottom .btn-next{
-	background: url(../../images/next.png) no-repeat;
-}
-.sp-player-right-bottom .btn-prev{
-	background: url(../../images/prev.png) no-repeat;
-}
-.sp-player .btn-next:hover,
-.sp-player .btn-prev:hover,
-.sp-player .full-screen:hover{
-	opacity: 0.84;
-}
-.sp-player .btn-next:active,
-.sp-player .btn-prev:active,
-.sp-player .full-screen:active{
-	opacity: 0.2;
-}
-.sp-player .full-screen{
-	position: absolute;
-	top: 0;
-	margin: 2% 1%;
-	background: url(../../images/fullscreen_.png) no-repeat top left;
-}
-.sp-player-right-bottom .btn-begin{
+.sp-player-right-bottom .btn-begin {
     color: #EFEFEF;
     float: right;
-    padding: 5px;
+    font-size: 9px;
+    padding: 4px;
     margin: 2%;
     background: #009900;
     border-radius: 3px;
 
-
 }
-
-
-/**************QCM*******************/
-.loading{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.9;
-    z-index: 1060;
-    background: url(../../images/loading.gif) no-repeat 50% 50%,#FFF;
-}
-
-.hide
-{
-    display: none;
-}
-
-
-
-
-
-
-/****fullScreen***/
-.sp-player:-webkit-full-screen{
-    width: 98%;
-    height: 96%;
-    overflow: hidden !important;
-    font-size: 1.3em;
-}
-.sp-player:full-screen{
-    width: 98%;
-    height: 96%;
-    overflow: hidden !important;
-    font-size: 1.3em;
-}
-.sp-player:-ms-full-screen{
-    width: 98%;
-    height: 96%;
-    overflow: hidden !important;
-    font-size: 1.3em;
-}
-.sp-player:-moz-full-screen
-{
-   width: 98%;
-   height: 96%;
-   overflow: hidden !important;
-    font-size: 1.3em;
-}
-
-
-.sp-player:-webkit-full-screen .owl-item > div
-{
-    padding: 3%;
-    width: 94%;
-
-}
-.sp-player:full-screen .owl-item > div
-{
-    padding: 3%;
-    width: 94%;
-
-}
-.sp-player:-ms-full-screen .owl-item > div
-{
-    padding: 3%;
-    width: 94%;
-}
-.sp-player:-moz-full-screen .owl-item > div
-{
-    padding: 3%;
-    width: 94%;
-}
-
-/***Button****/
-.sp-player:-webkit-full-screen .full-screen{
-    background-position: bottom left;
-}
-.sp-player-player:full-screen .full-screen{
-    background-position: bottom left;
-}
-.sp-player:-ms-full-screen .full-screen{
-    background-position: bottom left;
-}
-.sp-player:-moz-full-screen .full-screen
-{
-    background-position: bottom left;
-}
-
-
 /***QCM****/
 .sp-player:-webkit-full-screen .sp-postit *{
     font-size: 0.5em;
@@ -334,56 +76,6 @@
 .sp-player:-moz-full-screen .sp-postit * {
     font-size: 0.5em;
 }
-
-
-
-
-.sp-presentation-content
-{
-    width: 100%;
-    height: 100%;
-}
-
-.sp-player .owl-item:first-child
-{
-    background: url(../../images/bg-presentation.jpg) no-repeat bottom right;
-    background-size: cover;
-    font-family: 'Raleway',sans-serif;
-}
-
-.sp-presentation-content h2
-{
-    font-weight: bold ;
-    font-size: 2em  ;
-
-    color: #444;
-    position: absolute;
-    width :60%;
-    text-align: right;
-    bottom: 10%;
-    right: 10%;
-}
-
-.sp-presentation-content div
-{
-    font-size: 1.2em;
-    color: #444;
-    position: absolute;
-    top: 10%;
-    left: 10%;
-}
-
-.sp-presentation-content h4
-{
-    line-height: 300%;
-}
-
-.sp-presentation-content h4 > strong
-{
-    text-decoration: underline;
-}
-
-
 /**************************QCM**************************************/
 
 .sp-player .sp-qcm > p
@@ -401,17 +93,14 @@
 {
     position: relative;
     padding: 10px;
+    overflow: hidden;
     border-radius: 5px;
     margin-top: 5px;
     background: #EEE;
 }
 
-.sp-player .sp-qcm ul > li .img-correct
-{
-    position: absolute;
-    right: 20px;
 
-}
+
 .sp-player .sp-qcm li.sp-checked
 {
     background: #Ded777;
@@ -453,14 +142,28 @@ top: 6px;
 
 .sp-player .sp-result .sp-postit
 {
-    width: 300px;
+    position: absolute;
+    padding-top: 10%;
+    top :0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 50%;
     display: block;
-    height: 331px;
-    padding-top: 60px;
+    height: 70%;
+    text-align: center;
+    vertical-align: middle;
+    background:#fefabc;
+    -moz-transform: rotate(7deg);
+    -webkit-transform: rotate(7deg);
+    -o-transform: rotate(7deg);
+    -ms-transform: rotate(7deg);
+    transform: rotate(7deg);
 
-    padding-left: 40px;
-    margin: 30px auto;
-    background: url(../../images/postit.png) no-repeat top left;
+    box-shadow: 0px 4px 6px #333;
+    -moz-box-shadow: 0px 4px 6px #333;
+    -webkit-box-shadow: 0px 4px 6px #333;
     font:bold 2em 'Damion', Calibri , sans-serif;
 }
 .sp-player .sp-result .sp-postit strong.green
@@ -477,82 +180,42 @@ top: 6px;
 
 
 
-/* Cachons la case à cocher */
-.sp-player .sp-qcm [type="checkbox"]:not(:checked),
-.sp-player .sp-qcm [type="checkbox"]:checked {
-    position: absolute;
-    left: -9999px;
-    vertical-align: middle;
+.sp-player .sp-qcm table
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
 }
 
-/* on prépare le label */
-.sp-player .sp-qcm [type="checkbox"]:not(:checked) + label,
-.sp-player .sp-qcm [type="checkbox"]:checked + label {
-    position: relative; /* permet de positionner les pseudo-éléments */
-    padding-left: 32px; /* fait un peu d'espace pour notre case à venir */
-    cursor: pointer;    /* affiche un curseur adapté */
+.sp-player .sp-qcm table td
+{
+    padding: 0;
+    margin: 0;
+    border: none;
+    line-height: 1.34;
 }
 
-/* Aspect des checkboxes */
-/* :before sert à créer la case à cocher */
-.sp-player .sp-qcm [type="checkbox"]:not(:checked) + label:before,
-.sp-player .sp-qcm [type="checkbox"]:checked + label:before {
-    content: '';
-    position: absolute;
-    left:0; top: 2px;
-    width: 17px; height: 17px; /* dim. de la case */
-    border: 1px solid #aaa;
-    background: #f8f8f8;
-    border-radius: 3px; /* angles arrondis */
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.3) /* légère ombre interne */
+.sp-player .sp-qcm table td:first-child
+{
+    padding: 5px 5px 0 0;
+    width: 5%;
 }
 
-/* Aspect général de la coche */
-.sp-player .sp-qcm [type="checkbox"]:not(:checked) + label:after,
-.sp-player .sp-qcm [type="checkbox"]:checked + label:after {
-    content: '✔';
-    position: absolute;
-    top: 0; left: 4px;
-    font-size: 14px;
-    color: #09ad7e;
-    transition: all .2s; /* on prévoit une animation */
+.sp-player .sp-qcm table td:nth-child(3)
+{
+    width: 5%;
+}
+.sp-player .sp-player .sp-qcm table td:nth-child(2)
+{
+    width: 90%;
+
 }
 
-/* aspect désactivée */
-[type="checkbox"]:disabled:not(:checked) + label:before,
-[type="checkbox"]:disabled:checked + label:before {
-    box-shadow: none;
-    border-color: #bbb;
-    background-color: #ddd;
-}
-/* styles de la coche (si cochée/désactivée) */
-[type="checkbox"]:disabled:checked + label:after {
-    color: #999;
-}
-/* on style aussi le label quand désactivé */
-[type="checkbox"]:disabled + label {
-    color: #aaa;
-}
-
-/* aspect au focus de l'élément */
-[type="checkbox"]:checked:focus + label:before,
-[type="checkbox"]:not(:checked):focus + label:before {
-    border: 1px dotted blue;
-}
-
-/* Aspect si "pas cochée" */
-.sp-player .sp-qcm [type="checkbox"]:not(:checked) + label:after {
-    opacity: 0; /* coche invisible */
-    transform: scale(0); /* mise à l'échelle à 0 */
-}
-/* Aspect si "cochée" */
-.sp-player .sp-qcm [type="checkbox"]:checked + label:after {
-    opacity: 1; /* coche opaque */
-    transform: scale(1); /* mise à l'échelle 1:1 */
-}
 
 .sp-player .sp-qcm li label
 {
+    text-align: left;
     font-size: 1.1em;
     vertical-align: middle;
 }
@@ -564,103 +227,4 @@ top: 6px;
 .sp-player .sp-qcm li.true
 {
     box-shadow:inset 0px 0px 3px #009900;
-}
-
-
-@media(max-width: 1000px){
-    .sp-player
-    {
-        height: 336px;
-        width: 450px;
-        margin: 10px auto;
-        position: relative;
-        background: url(../../images/bg.png) repeat cover; /* Old browsers */
-        box-shadow: 0 0 1px #555;
-        font-size: 0.8em;
-
-    }
-
-    .sp-player-left
-    {
-        display: none;
-
-    }
-    .sp-player .buttons-control
-    {
-        bottom:22%;
-    }
-    .sp-player-right
-    {
-        width : 100%;
-        position: absolute;
-        right:0;
-        bottom: 0;
-        top:0;
-        left: 0;
-    }
-
-
-
-
-    .sp-presentation-content h4
-    {
-        line-height: 200%;
-    }
-    .sp-presentation-content h2
-    {
-
-        font-size: 1.8em;
-        text-align: right;
-        bottom: 4%;
-        right: 4%;
-    }
-
-    .sp-presentation-content div
-    {
-        top: 4%;
-        left: 4%;
-    }
-
-    .sp-player .sp-result .sp-postit
-    {
-        margin: 0 auto;
-        width: 270px;
-        height: 310px;
-        font-size:  1em;
-    }
-
-
-    .sp-player .sp-player-header
-    {
-        padding: 0 3px;
-    }
-
-    .sp-player .btn-begin
-    {
-        margin: 3px;
-    }
-
-}
-
-
-/* Chrome, Safari, Opera */
-@-webkit-keyframes animminuteur {
-    from {
-        color : #EFEFEF;font-size: 1.2em
-    }
-    to {
-        color : #ac2925;font-size: 1em
-    }
-}
-
-/* Standard syntax */
-@keyframes animminuteur {
-    from {
-        color: #EFEFEF;
-        font-size: 1.2em
-    }
-    to {
-        color: #ac2925;
-        font-size: 1em
-    }
 }

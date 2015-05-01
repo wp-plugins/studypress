@@ -1,10 +1,26 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Salim
+ * Date: 01/03/2015
+ * Time: 14:30
+ */
 
+//Wordpress...
 require_once '../../../../../wp-load.php';
 
-
+/**
+ * @param string $class
+ */
 function studyPressLoadClassAjax($class)
 {
+    /*
+    |---------------------------------------------------------------------
+    | La variable oû les classes a chargées se trouvent
+    |---------------------------------------------------------------------
+    |
+    |
+    */
 
     $directories =array(
           "../Class/",
@@ -12,6 +28,8 @@ function studyPressLoadClassAjax($class)
         "../ClassWP/",
         "../Data/"
     );
+
+    ///--------------------------------------------------------------------
 
 
     foreach ($directories as $directory) {

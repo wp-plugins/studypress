@@ -8,13 +8,14 @@ class Course
     private $_name;
     private $_description;
     private $_avancement;
+    private $_pictureId;
     private $_categories = array();
     private $_lessons= array();
     private $_authors = array();
+    private $_groupsBP = array();
     private $_nbreLessons = 0;
     private $_nbrequizs = 0;
     private $_postId;
-
 
 
 
@@ -39,62 +40,95 @@ class Course
         }
     }
 
-
     public function getDescription()
     {
-        return $this->_description;
+        return stripslashes($this->_description);
     }
 
+    public function getNiceDescription(){
 
+        $points = (strlen($this->_description)>80)?"...":"";
+        return stripslashes(substr($this->_description,0,80) . $points);
+    }
+
+    
     public function setDescription($description)
     {
         $this->_description = $description;
     }
 
-
+   
     public function getId()
     {
         return $this->_id;
     }
 
-
+    
     public function setId($id)
     {
         $this->_id = $id;
     }
 
-
+    
     public function getLessons()
     {
         return $this->_lessons;
     }
 
+    
     public function setLessons($lessons)
     {
         $this->_lessons = $lessons;
     }
 
-
+    
     public function getName()
     {
         return stripcslashes($this->_name);
     }
 
+    
     public function setName($name)
     {
         $this->_name = $name;
     }
 
+   
+    public function getPictureId()
+    {
+        return $this->_pictureId;
+    }
 
+    
+    public function setPictureId($pictureId)
+    {
+        $this->_pictureId = $pictureId;
+    }
+
+
+
+
+    
     public function getAvancement()
     {
         return $this->_avancement;
     }
 
-
     public function setAvancement($avancement)
     {
         $this->_avancement = $avancement;
+    }
+
+    
+    public function getGroupsBP()
+    {
+        return $this->_groupsBP;
+    }
+
+    
+    public function setGroupsBP($groupsBP)
+    {
+        $this->_groupsBP = $groupsBP;
     }
 
 
@@ -103,12 +137,11 @@ class Course
         return $this->_nbreLessons;
     }
 
-
+   
     public function getPostId()
     {
         return $this->_postId;
     }
-
 
     public function setPostId($postId)
     {
@@ -118,18 +151,16 @@ class Course
 
 
 
-
     public function setNbreLessons($nbreLessons)
     {
         $this->_nbreLessons = $nbreLessons;
     }
 
-
+    
     public function getNbrequizs()
     {
         return $this->_nbrequizs;
     }
-
 
     public function setNbrequizs($nbrequizs)
     {
@@ -161,7 +192,7 @@ class Course
 
     }
 
-
+   
     public function getCategories()
     {
         return $this->_categories;
@@ -186,20 +217,18 @@ class Course
 
     }
 
-
-
     public function setCategories($categories)
     {
         $this->_categories = $categories;
     }
 
-
+    
     public function getAuthors()
     {
         return $this->_authors;
     }
 
-
+    
     public function setAuthors($authors)
     {
         $this->_authors = $authors;

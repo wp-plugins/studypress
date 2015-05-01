@@ -1,5 +1,6 @@
 <?php
 
+
 global $tr;
 
 require_once '_AutoLoadClassAjax.php';
@@ -11,7 +12,7 @@ if(StudyPressUserWP::isLoggedIn()) {
 
     if (isset($_POST['action'])) {
         if (htmlentities($_POST['action'], ENT_QUOTES, 'UTF-8') == 'rating') {
-
+           
             $activityId = (int) (isset($_POST['idBox'])?$_POST['idBox']:0);
 
             $value = (int)(isset($_POST['rate'])?$_POST['rate']:0);
@@ -47,9 +48,9 @@ if(StudyPressUserWP::isLoggedIn()) {
                 if ($managerRate->isError()) {
                     $success = false;
                 } else {
-
+                    
                     $success = true;
-
+                 
                 }
             } else {
                 $success = false;
@@ -59,7 +60,7 @@ if(StudyPressUserWP::isLoggedIn()) {
                 $aResponse['message'] = $tr->__('Your rating has been recorded');
 
                 $aResponse['server'] = $tr->__('Your rating has been recorded') . '<br />';
-
+                
 
                 echo json_encode($aResponse);
             } else {
@@ -67,9 +68,7 @@ if(StudyPressUserWP::isLoggedIn()) {
                 $aResponse['message'] = 'An error occured during the request. Please retry';
 
                 $aResponse['server'] = '<strong>' . $tr->__('ERROR') . ' :</strong> ' . $tr->__('Try Again');
-
-
-
+                
                 echo json_encode($aResponse);
             }
         } else {
@@ -82,7 +81,6 @@ if(StudyPressUserWP::isLoggedIn()) {
     } else {
         $aResponse['error'] = true;
         $aResponse['message'] = '$_POST[\'action\'] not found';
-
 
     }
 }

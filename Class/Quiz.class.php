@@ -13,12 +13,13 @@ class Quiz extends AbstractActivity
     }
 
 
+    
     public function getQuestions()
     {
         return $this->_questions;
     }
 
-
+   
     public function setQuestions($questions)
     {
         $this->_questions = $questions;

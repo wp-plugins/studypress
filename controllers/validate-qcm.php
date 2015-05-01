@@ -1,5 +1,6 @@
 <?php
 
+
 if(isset($_POST['type']) && $_POST['type'] === "validate") {
 
 
@@ -9,7 +10,6 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
         require_once '_AutoLoadClassAjax.php';
 
         global $tr;
-
 
 
 
@@ -25,8 +25,8 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
 
             $quiz = $managerQuiz->getById((int)$quizId);
 
-
             $origin = array();
+
 
             $response = array();
 
@@ -34,7 +34,6 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
 
 
             if ($quiz) {
-
 
                 $i = 0;
                 foreach ($quiz->getQuestions() as $q) {
@@ -51,10 +50,9 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
 
                 if (count($origin) === count($questions)) {
 
-
                     $i = 0;
                     foreach ($origin as $key => $q) {
-
+                        
                         if (($q['idQuestion'] !== (int)$questions[$key]['idQuestion']) || ($q['idProp'] !== (int)$questions[$key]['idProp']) || ($q['true'] !== trim($questions[$key]['true']))) {
                             $response[$origin[$key]['idQuestion']] = "false";
 
@@ -93,11 +91,11 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
                             );
                         }
 
-
+                       
 
                     }
 
-
+                   
                     $a = array_count_values($response);
 
 
@@ -106,19 +104,16 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
                     $nbrQuestions = count($response);
                     $nbrCorrects = isset($a['true']) ? $a['true'] : 0;
 
-
                     $poucentage = round(($nbrCorrects / $nbrQuestions) * 100);
 
                     if (StudyPressUserWP::isLoggedIn()) {
-
+                      
                         $user = new StudyPressUserWP();
                         $managerQuiz->saveResult($quiz->getId(), $user->id(), $poucentage, $ResponseSave, $nbrQuestions, $nbrCorrects, '', "true");
 
                         $result['connected'] ='true';
                     }
 
-                    else
-                    {
                         $questionsNoConnected = $managerQuiz->returnedResponseToQuestions($ResponseSave);
 
                         $responseHtml = "";
@@ -130,7 +125,7 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
                     }
 
                         $class = ((int)$poucentage >= 50) ? "green" : "red";
-                        $result['content'] =  "<div class='sp-postit'><p>".$tr->__("You obtained")." :</p><strong class='" . $class . "'>" . $poucentage . "% </strong></div>";
+                        $result['content'] =  "<div class='sp-postit'><p>".$tr->__("You obtained").":</p><strong class='" . $class . "'>" . $poucentage . "% </strong></div>";
 
                     $result['result'] = 'true';
 
@@ -148,7 +143,7 @@ if(isset($_POST['type']) && $_POST['type'] === "validate") {
 
 
 
-    }
+
 }
 
 
@@ -176,5 +171,7 @@ if(isset($_POST['type']) && $_POST['type'] === "start") {
             }
 
         }
+        else
+            echo "true";
     }
 }

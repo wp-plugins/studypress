@@ -1,6 +1,11 @@
 <?php
 
+
+
+
 require_once __ROOT_PLUGIN__ ."Views/includeCSS.php";
+require_once  __ROOT_PLUGIN__ ."Views/inc/html/help.php";
+
 
 global $tr;
 
@@ -15,7 +20,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
         left: 0;
         right: 0;
         bottom: 0;
-        opacity: 0.9;
+        opacity: 1;
         z-index: 1060;
         background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
@@ -46,8 +51,23 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
     }
 
     #li-sotable{
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        text-align: left;
+        box-shadow: 1px 1px 1px #CCC,0 0 1px #eee;
+        border-radius: 0;
+        margin: 5px 0;
+    }
+
+    #li-sotable:active
+    {
+        box-shadow: 4px 4px 3px #CCC,0 0 1px #eee;
+    }
+
+    #li-sotable{
         cursor: move;
-        background: #EEE;
+        background: #FAFAFA;
     }
 
 
@@ -80,6 +100,11 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 <h1><?php $tr->_e("Edit the lesson"); ?></h1>
 
 <div class="container-fluid">
+
+    <?php
+    sp_display_link_help();
+    ?>
+
     <div class="row">
         <div class="col-md-8">
             <h3><?php echo  $lesson->getName() ?></h3>
@@ -88,18 +113,32 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="alert alert-danger" role="alert"
-                        <?php echo  ($error_lesson_update=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_lesson_update ?> </div>
-                    <div class="form-group">
-                        <label for="name"><?php $tr->_e("The name of the lesson"); ?>* :  </label>
-                        <input type="text" autocomplete="off" class="form-control" id="name" name="lesson[name]" required="required"
-                               value="<?php echo  $lesson->getName() ?>"/>
-                    </div>
+                        <?php echo  ($error_lesson_update=='')?"style=\"display:none\"":"" ?>> <?php echo  $error_lesson_update ?> </div>
 
-                    <div class="form-group">
-                        <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
-                        <input type="number" class="form-control" id="duree" name="lesson[duree]"
-                               value="<?php echo  $lesson->getDuration() ?>"/>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                <label for="name"><?php $tr->_e("Name of the lesson"); ?>* :  </label>
+                                <input type="text" autocomplete="off" class="form-control" id="name" name="lesson[name]" required="required"
+                                       value="<?php echo  $lesson->getName() ?>"/>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
+                                    <input type="number" class="form-control" id="duree" name="lesson[duree]"
+                                           value="<?php echo  $lesson->getDuration() ?>"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><?php $tr->_e("Shortcode"); ?></div>
+                                    <div class="panel-body">
+                                        [studypress_lesson id=<?php echo $lesson->getId() ?>]
+                                        </div>
+                            </div>
+                            </div>
+                        </div>
+
+
 
                     <div class="form-group">
                         <label for="description"><?php $tr->_e("Description"); ?> </label>
@@ -111,7 +150,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                         <label for="picture"><?php $tr->_e("Associate an image"); ?></label>
                         <div>
                             <a href="#" class="button select-picture"><?php $tr->_e("Browse"); ?></a>
-                            <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $lesson->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
+                            <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $lesson->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" data-toggle="popover" data-trigger="hover"/>
+
                             <input type="hidden" name="lesson[pictureurl]" value="<?php echo  $lesson->getPictureUrl()?>"/>
 
                         </div>
@@ -136,12 +176,14 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                         </select>
                     </div>
 
+
+
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><?php $tr->_e("Notes"); ?></div>
+                            <div class="panel-heading"><?php $tr->_e("Tags"); ?></div>
                             <div class="panel-heading">
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" id="note" name="note" placeholder="Note..." />
+                                    <input type="text" autocomplete="off" class="form-control" id="note" name="note" placeholder="Tag..." />
                                 </div>
                                 <div class="form-group">
                                     <button id="add-new-note" type="button" class="btn btn-success"><?php $tr->_e("Add"); ?></button>
@@ -153,8 +195,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 
                                     <?php
 
-                                    foreach ($lesson->getNote() as $note) : ?>
-                                        <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?php echo  str_replace('"',' ',$note)?>"><?php echo  substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id="red" aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='lesson[note][]' value="<?php echo  str_replace('"',' ',$note)?>" /></li>
+                                    foreach ($lesson->getTags() as $tag) : ?>
+                                        <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?php echo  str_replace('"',' ',$tag)?>"><?php echo  substr($tag,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id="red" aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='lesson[note][]' value="<?php echo  str_replace('"',' ',$tag)?>" /></li>
                                     <?php endforeach;  ?>
 
 
@@ -213,9 +255,12 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?php echo  ($error_lesson_add_slide=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_lesson_add_slide ?> </div>
+                    <div class="alert alert-danger" role="alert" <?php echo  ($error_lesson_add_slide=='')?"style=\"display:none\"":"" ?>> <?php echo  $error_lesson_add_slide ?> </div>
 
                 <ul id="sortable-slide">
+
+                    <!-- load Slides -->
+
 
                 </ul>
 
@@ -233,6 +278,8 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
 </div>
 </div>
 
+
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -244,8 +291,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
                 <div class="loading hide"></div>
 
                 <div class="alert alert-danger alert-dismissible hide" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p></p>
+                    <p><!-- Le message d'erreur --></p>
                 </div>
 
                 <div class="form-group">
@@ -268,335 +314,36 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this sli
     </div>
 </div>
 
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 
 
+<?php
+$content = "<p>You can in this page modify the lesson name, duration, description, associated image and associated course. You can also add tags and glossary entries.</p>
+<p>Courses present in the drop down list are courses for which you have access.</p>
+<p>If you want to integrate a lesson in a Wordpress page you have to just copy past the short code into this Wordpress page.</p>
+<p>At the right of this page you can create, delete, modify and organize the slides related to the lesson. A rich text editor (WYSIWYG editor) is integrated in the slide creator. You can add multimedia files to your presentation slides as youtube videos, photos, ...</p>";
+$msg ="This feature is available for users who have <b>administrator</b>, <b>editor</b> or <b>author</b> rights.";
+sp_display_modal_help($content,$msg);
+
+?>
 
 
 <script>
-(function($) {
-    $(document).ready(function(){
-        function addslashes(str) {
-            return str.replace(/\"/g," ");
-        }
-
-        reload_slides();
-
-        var type_modal_sp = "add";
-        var modal = $('#myModal');
-        var id_slide;
-        var alert = modal.find(".alert");
-
-
-        $( "#sortable-slide" ).sortable({
-            placeholder: "ui-sortable-placeholder"
-        });
-        $( "#sortable-slide" ).disableSelection();
-        $( "#sortable-slide" ).on( "sortupdate", function( event, ui ) {
-            $("#update-order").prop("disabled", false);
-
-        } );
-
-
-        function reinitialiserModal(){
-
-            alert.find("p").html("");
-            alert.addClass("hide");
-            modal.find('input[name=name]').val("");
-            tinymce.activeEditor.setContent("");
-        }
-
-        $("#add-new-slide").on("click",function(){
-
-            type_modal_sp ="add";
-            modal.find('.modal-title').text("<?php $tr->_e("Create a new slide"); ?>");
-
-            reinitialiserModal();
-
-
-        });
-
-
-
-        function trimStr(str) {
-            return str.replace(/^\s+|\s+$/gm,'');
-        }
-
-
-
-
-
-        $('#myModal .btn-primary').on("click",function(){
-
-            $('.loading').removeClass("hide");
-
-            alert.find("p").html("");
-            alert.addClass("hide");
-
-            var btn = $(this).attr('disabled','disabled');
-
-
-            var name = modal.find('input[name=name]').val();
-            var content = tinymce.activeEditor.getContent();
-            var id_lesson = $('input[name="lesson[id]"]').val();
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
-                {
-                    type : type_modal_sp+"-slide",
-                    name: name,
-                    content: content,
-                    id_lesson : id_lesson,
-                    id_slide : id_slide
-                }
-
-                ,function(data){
-
-                    if(trimStr(data) === "true") {
-                        console.log(data);
-                        reload_slides();
-                        modal.modal('hide');
-
-
-
-                    }
-                    else{
-
-                        alert.removeClass("hide");
-                        alert.find("p").append(data);
-                    }
-
-                }).error(function(data){
-
-                    alert.removeClass("hide");
-                    alert.find("p").append(data.responseText);
-
-
-                }).always(function(){
-                    btn.removeAttr('disabled');
-                    $('.loading').addClass("hide");
-                });
-
-
-        });
-
-        $("#update-order").on("click", function ()
-        {
-            var $btn = $(this);
-            $btn.attr('disabled','disabled');
-            var order =[];
-            $("#sortable-slide li" ).each(function( index,element ) {
-                order[index]  = $(element).data("id");
-                console.log(index);
-            });
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
-                {
-                    type: "order-slide",
-                    order: order
-
-                }
-
-                , function (data) {
-                    console.log(data);
-                    if(trimStr(data) === "true") {
-                        reload_slides();
-                    }
-                }
-            ).error(function(){
-
-                }).always(function(){
-                    $btn.removeAttr('disabled');
-
-
-                });
-
-            return false;
-
-        });
-
-
-        $('#sortable-slide').on("click",".glyphicon-remove",function(){
-            if(confirm("<?php echo  "Do you want to delete this slide?" ?>")) {
-                var id_slide = $(this).data("id");
-                var id_lesson = $('input[name="lesson[id]"]').val();
-
-                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
-                    {
-                        type: "remove-slide",
-                        id_slide: id_slide,
-                        id_lesson: id_lesson
-                    }
-
-                    , function (data) {
-                        console.log(data);
-                        if(trimStr(data) === "true") {
-                            reload_slides();
-                        }
-                    }
-                ).error(function(){
-
-                    })
-            }
-            return false;
-
-        });
-
-
-
-
-
-
-        $('#sortable-slide').on("click",".glyphicon-pencil",function(){
-            type_modal_sp = "update";
-            modal.find('.modal-title').text("<?php _e("Edit slide"); ?>");
-            reinitialiserModal();
-            id_slide = $(this).data("id");
-            var id_lesson = $('input[name="lesson[id]"]').val();
-            getContentSlide(id_slide,id_lesson);
-
-        });
-
-
-        function getContentSlide(id_slide,id_lesson){
-            $(".loading").removeClass('hide');
-
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/slide.controller.php",
-                {
-                    type: "get-slide",
-                    id_slide: id_slide,
-                    id_lesson: id_lesson
-                }
-
-                , function (data) {
-
-                    if(trimStr(data.result) === "true") {
-                        modal.find('input[name=name]').val(data.nameSlide);
-                        tinymce.activeEditor.setContent(data.contentSlide);
-
-                    }
-                }
-                ,'json').error(function(){
-
-                }).always(function(){
-                    $(".loading").addClass('hide');
-                });
-        }
-
-
-        function reload_slides(){
-            var ul =$("#sortable-slide");
-            ul.css('background',"url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
-            ul.html("");
-
-            var id_lesson = $('input[name="lesson[id]"]').val();
-
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>Views/reload/slides.php",
-                {
-                    id_lesson: id_lesson
-                }
-
-                ,function(data){
-
-                    ul.html(data);
-
-                }
-
-
-            ).error(function(data){
-
-
-
-                }).always(function(){
-                    ul.css('background',"#FFF");
-                    $("#update-order").prop("disabled", true);
-                });
-        };
-
-
-        $("#add-new-note").on("click",function(){
-            var note = $("input[name=note]").val();
-            var id_lesson = $('input[name="lesson[id]"]').val();
-
-            if(trimStr(note) != "")
-            {
-                $("#sortable-note").append("<li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title=\""+addslashes(note)+"\">"+note.substring(0,35)+"...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id='red'  aria-hidden='true'></span></a>" +
-                "<input type='hidden' name='lesson[note][]' value=\""+addslashes(note)+"\"/></li>");
-
-                $("input[name=note]").val("");
-            }
-
-        });
-
-        $("#sortable-note").on("click","li .delete-note",function(e){
-            e.preventDefault();
-            if(confirm("<?php echo  $tr->__("Do you want to delete this note ?") ?>"))
-            {
-                $(this).parent().parent().remove();
-            }
-
-
-        });
-
-
-        $("#add-new-glossary").on("click",function(){
-            var name = $("input[name=glossary-name]").val();
-            var desc = $("input[name=glossary-desc]").val();
-
-            var id_lesson = $('input[name="lesson[id]"]').val();
-
-            if((trimStr(name) != "") &&(trimStr(desc) != ""))
-            {
-                $("#sortable-glossary").append("<li id='li-non-sortable' class='ui-state-default btn btn-default sp-glossary'> " +
-                "               <span class='float-left' title=\""+addslashes(name+" : "+desc)+"\">"+("<b>"+name+"</b>"+" : "+desc).substr(0,35)+"...</span>" +
-                "<a href=''><span class='glyphicon glyphicon-remove float-right delete-glossary' id='red'  aria-hidden='true'></span></a>" +
-                "<input type='hidden' name='lesson[glossary][name][]' value=\""+addslashes(name)+"\" />" +
-                "<input type='hidden' name='lesson[glossary][desc][]' value=\""+addslashes(desc)+"\" /> </li>");
-
-                $("input[name=glossary-name]").val("");
-                $("input[name=glossary-desc]").val("");
-            }
-
-        });
-
-        $("#sortable-glossary").on("click","li .delete-glossary",function(e){
-            e.preventDefault();
-            if(confirm("<?php echo  $tr->__("Do you want to delete this glossary ?") ?>"))
-            {
-                $(this).parent().parent().remove();
-            }
-
-
-        });
-
-        $('.select-picture').click(function(e){
-            var $el=$(this).parent();
-            e.preventDefault();
-            console.log('test');
-            var uploader=wp.media({
-                title : '<?php echo   $tr->__('Upload an image') ?>',
-                button : {
-                    text: '<?php echo  $tr->__('Select an image') ?>'
-                },
-                library :{
-                    type : 'image'
-                },
-                multiple: false
-            })
-                .on('select',function(){
-                    var selection=uploader.state().get('selection');
-                    var attachment=selection.first().toJSON();
-                    $("input[name='lesson[pictureurl]']").val(attachment.id);
-                    $(document.getElementById('picture'),$el).val(attachment.url);
-
-                })
-                .open();
-        })
-    })
-
-
-
-
-
-
-
-})(jQuery);
+var sp_tr_modal_new_slide= "<?php echo $tr->__("Create a new slide"); ?>";
+var sp_tr_modal_time_out= "<?php echo $tr->__("Time out ! please retry"); ?>";
+var sp_tr_alert_delete_slide= "<?php echo $tr->__("Do you want to delete this slide?"); ?>";
+var sp_tr_alert_delete_tag= "<?php echo $tr->__("Do you want to delete this tag ?"); ?>";
+var sp_tr_alert_delete_glossary= "<?php echo $tr->__("Do you want to delete this glossary ?"); ?>";
+var sp_tr_modal_edit_slide= "<?php echo $tr->__("Edit slide"); ?>";
+var sp_tr_tiny_upload_img= "<?php echo $tr->__("Upload an image"); ?>";
+var sp_tr_tiny_select_img= "<?php echo $tr->__("Select an image"); ?>";
+var sp_picture_url= "<?php echo wp_get_attachment_url( $lesson->getPictureUrl() ) ?>";
+var sp_root_plugin= "<?php echo __ROOT_PLUGIN__2 ?>";
 </script>
+
+<?php
+add_action( 'after_wp_tiny_mce', 'STPRS_after_wp_tiny_mce' );
+function STPRS_after_wp_tiny_mce() {
+    printf( '<script type="text/javascript" src="%s"></script>',  __ROOT_PLUGIN__2.'js/modLesson.js' );
+}
+
+?>

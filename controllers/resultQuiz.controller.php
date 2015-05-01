@@ -1,5 +1,6 @@
 <?php
 
+
 if(isset($_POST['type']) && $_POST['type'] === "get-responses")
 {
     if(isset($_POST['quizId']) && isset($_POST['userId']))
@@ -32,6 +33,7 @@ if(isset($_POST['type']) && $_POST['type'] === "get-responses")
         ));
 
         $v->run();
+
 
 
         if ((sizeof($v->errors)) > 0) {
@@ -75,7 +77,6 @@ if(isset($_POST['type']) && $_POST['type'] === "get-responses")
 
 else
 {
-
     if ( !defined( 'ABSPATH' ) ) exit;
 
 

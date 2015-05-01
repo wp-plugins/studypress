@@ -17,19 +17,19 @@ class QuestionManager {
 
 
 
-
     public function add(Question $question)
     {
         $a = array(
 
             StudyPressDB::COL_CONTENT_QUESTION => $question->getContent(),
             StudyPressDB::COL_ID_QUIZ_QUESTION => $question->getQuizId(),
+            StudyPressDB::COL_TYPE_QUESTION => $question->getType(),
             StudyPressDB::COL_ORDER_QUESTION => $this->getLastOrder($question->getQuizId()) + 1
         );
 
         $this->_access->insert(StudyPressDB::getTableNameQuestions(), $a);
 
-
+        
         $idQuestion = $this->_access->getLastInsertId();
 
 
@@ -55,18 +55,19 @@ class QuestionManager {
 
 
 
-
+    
     public function update($id, Question $question)
     {
         $this->_access->update(
-            StudyPressDB::getTableNameQuestions(),
+            StudyPressDB::getTableNameQuestions(), 
             array(
 
                 StudyPressDB::COL_CONTENT_QUESTION => $question->getContent(),
                 StudyPressDB::COL_ID_QUIZ_QUESTION => $question->getQuizId(),
-                StudyPressDB::COL_ORDER_QUESTION => $question->getOrder()
+                StudyPressDB::COL_TYPE_QUESTION => $question->getType(),
+                StudyPressDB::COL_ORDER_QUESTION => $question->getOrder()  
             ),
-            array(StudyPressDB::COL_ID_QUESTION => $id)
+            array(StudyPressDB::COL_ID_QUESTION => $id)  
         );
 
 
@@ -80,7 +81,6 @@ class QuestionManager {
 
 
 
-
         $managerProp = new PropositionManager();
         foreach ($question->getPropositions() as $prop) {
             $managerProp->delete($prop->getId());
@@ -88,12 +88,12 @@ class QuestionManager {
 
 
         $this->_access->delete(
-            StudyPressDB::getTableNameQuestions(),
-            array(StudyPressDB::COL_ID_QUESTION => $id)
+            StudyPressDB::getTableNameQuestions(), 
+            array(StudyPressDB::COL_ID_QUESTION => $id)  
         );
     }
 
-
+   
     public function isError()
     {
         return ($this->_access->getLastError() == '') ? false : true;
@@ -104,7 +104,7 @@ class QuestionManager {
         return $this->_access->getLastError();
     }
 
-
+    
     public function getAll()
     {
 
@@ -146,7 +146,6 @@ class QuestionManager {
 
 
 
-
     public static function returnedQuestion($row)
     {
         return (
@@ -155,13 +154,14 @@ class QuestionManager {
             new Question(array(
                 'id'          => (int) $row[StudyPressDB::COL_ID_QUESTION],
                 'quizId'      => (int) $row[StudyPressDB::COL_ID_QUIZ_QUESTION],
+                'type'        =>       $row[StudyPressDB::COL_TYPE_QUESTION],
                 'content'     =>       $row[StudyPressDB::COL_CONTENT_QUESTION],
                 'order'       =>       $row[StudyPressDB::COL_ORDER_QUESTION]
             ))
         );
     }
 
-
+    
     public function getById($id)
     {
         $result = $this->_access->getRow($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameQuestions() . " WHERE " . StudyPressDB::COL_ID_QUESTION . " = '%d'", $id));
@@ -181,7 +181,6 @@ class QuestionManager {
         return $question;
 
     }
-
 
 
     public function getQuestionsOfQuiz($quizId){
@@ -205,7 +204,6 @@ class QuestionManager {
         }
         return $questions;
     }
-
 
 
 

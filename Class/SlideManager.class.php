@@ -1,5 +1,6 @@
 <?php
 
+
 class SlideManager
 {
 
@@ -42,11 +43,12 @@ class SlideManager
 
 
 
+   
     public function update($id, Slide $slide)
     {
 
         $this->_access->update(
-            StudyPressDB::getTableNameSlide(),
+            StudyPressDB::getTableNameSlide(), 
             array(
 
                 StudyPressDB::COL_NAME_SLIDE => $slide->name(),
@@ -54,32 +56,32 @@ class SlideManager
                 StudyPressDB::COL_ID_LESSON_SLIDE => $slide->courseId(),
                 StudyPressDB::COL_ORDER_SLIDE => $slide->order()
             ),
-            array(StudyPressDB::COL_ID_SLIDE => $id)
+            array(StudyPressDB::COL_ID_SLIDE => $id) 
         );
     }
 
-
+    
     public function delete($id)
     {
         $id = (int)$id;
         $this->_access->delete(
-            StudyPressDB::getTableNameSlide(),
-            array(StudyPressDB::COL_ID_SLIDE => $id)
+            StudyPressDB::getTableNameSlide(), 
+            array(StudyPressDB::COL_ID_SLIDE => $id)  
         );
     }
 
-
+    
     public function isError()
     {
         return ($this->_access->getLastError() == '') ? false : true;
     }
 
-
+   
     public function getMessageError(){
         return $this->_access->getLastError();
     }
 
-
+    
     public function getAll()
     {
 
@@ -98,7 +100,7 @@ class SlideManager
 
     }
 
-
+    
     public static function returnedSlide($row)
     {
         return (
@@ -113,7 +115,6 @@ class SlideManager
             ))
         );
     }
-
 
     public function getById($id)
     {
@@ -136,14 +137,13 @@ class SlideManager
     }
 
 
-
     public function getCourse(Slide $slide)
     {
 
         $result = $this->_access->getRow($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameLesson() . " WHERE " . StudyPressDB::COL_ID_ACTIVITY . " = '%d'", $slide->courseId()));
         return LessonManager::returnedLesson($result);
     }
-
+    
     public function updateOrders(array $idSlideOrder){
 
 
@@ -158,3 +158,5 @@ class SlideManager
 
 
 }
+
+?>

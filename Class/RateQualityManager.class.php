@@ -1,5 +1,6 @@
 <?php
 
+
 class RateQualityManager {
 
     private $_access;
@@ -13,7 +14,6 @@ class RateQualityManager {
         $this->_access = new AccessData;
 
     }
-
 
 
     public function add(RateQuality $rate)
@@ -31,6 +31,7 @@ class RateQualityManager {
         $this->_access->insert(StudyPressDB::getTableNameRateQuality(), $a);
 
 
+       
         $idRate = $this->_access->getLastInsertId();
 
         return $idRate;
@@ -41,15 +42,15 @@ class RateQualityManager {
     public function update($id, RateQuality $rate)
     {
         $this->_access->update(
-            StudyPressDB::getTableNameRateQuality(),
+            StudyPressDB::getTableNameRateQuality(), 
             array(
 
                 StudyPressDB::COL_ID_ACTIVITY_RATE_QUALITY => $rate->getActivityId(),
-                StudyPressDB::COL_VALUE_RATE_QUALITY => $rate->getValue(),
+                StudyPressDB::COL_VALUE_RATE_QUALITY => $rate->getValue(),  
                 StudyPressDB::COL_DATE_RATE_QUALITY => $rate->getDateRate(),
                 StudyPressDB::COL_ID_USER_RATE_QUALITY => $rate->getUserId()
             ),
-            array(StudyPressDB::COL_ID_RATE_QUALITY => $id)
+            array(StudyPressDB::COL_ID_RATE_QUALITY => $id)  
         );
     }
 
@@ -58,22 +59,24 @@ class RateQualityManager {
 
         $activityId = (int)$activityId;
         $this->_access->delete(
-            StudyPressDB::getTableNameRateQuality(),
+            StudyPressDB::getTableNameRateQuality(), 
             array(StudyPressDB::COL_ID_ACTIVITY_RATE_QUALITY => $activityId)
         );
     }
 
 
+
+    
     public function delete($id)
     {
         $id = (int)$id;
         $this->_access->delete(
             StudyPressDB::getTableNameRateQuality(),
-            array(StudyPressDB::COL_ID_RATE_QUALITY => $id)
+            array(StudyPressDB::COL_ID_RATE_QUALITY => $id) 
         );
     }
 
-
+    
     public function isError()
     {
         return ($this->_access->getLastError() == '') ? false : true;
@@ -83,7 +86,6 @@ class RateQualityManager {
     public function getMessageError(){
         return $this->_access->getLastError();
     }
-
 
 
     public function getAll()
@@ -104,7 +106,7 @@ class RateQualityManager {
     }
 
 
-
+    
     public function getByElement($id)
     {
 
@@ -140,7 +142,7 @@ class RateQualityManager {
     }
 
 
-
+   
     public static function returnedRate($row)
     {
         return (

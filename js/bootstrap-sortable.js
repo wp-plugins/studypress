@@ -111,11 +111,11 @@
                 moz_arrow.parent().html(moz_arrow.html());
             }
             $this.wrapInner('<div class="mozilla"></div>');
-            $this.children().eq(0).append('<span class="sign ' + localSignClass + '"></span>');
+            //$this.children().eq(0).append('<span class="sign ' + localSignClass + '"></span>');
         }
         else {
             $table.find('span.sign').remove();
-            $this.append('<span class="sign ' + localSignClass + '"></span>');
+            //$this.append('<span class="sign ' + localSignClass + '"></span>');
         }
 
         // sort direction

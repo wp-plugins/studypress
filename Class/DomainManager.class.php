@@ -29,7 +29,7 @@ class DomainManager {
         $this->_access->insert(StudyPressDB::getTableNameDomain(), $a);
 
 
-
+        
         $idDomain = $this->_access->getLastInsertId();
 
         return $idDomain;
@@ -38,41 +38,40 @@ class DomainManager {
 
 
 
-
     public function update($id, Domain $domain)
     {
         $this->_access->update(
-            StudyPressDB::getTableNameDomain(),
+            StudyPressDB::getTableNameDomain(), 
             array(
 
                 StudyPressDB::COL_NAME_DOMAIN => $domain->getName(),
-                StudyPressDB::COL_DESCRIPTION_DOMAIN => $domain->getDescription(),
+                StudyPressDB::COL_DESCRIPTION_DOMAIN => $domain->getDescription(),  
             ),
-            array(StudyPressDB::COL_ID_DOMAIN => $id)
+            array(StudyPressDB::COL_ID_DOMAIN => $id)  //Where
         );
     }
 
 
 
-
+    
     public function delete($id)
     {
         $id = (int)$id;
 
-
-        $this->_access->delete( StudyPressDB::getTableNameRateDomain(),
-            array(StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN => $id)
+        
+        $this->_access->delete( StudyPressDB::getTableNameRateDomain(), 
+            array(StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN => $id) 
         );
 
 
-
+       
         $this->_access->delete(
-            StudyPressDB::getTableNameDomain(),
-            array(StudyPressDB::COL_ID_DOMAIN => $id)
+            StudyPressDB::getTableNameDomain(), 
+            array(StudyPressDB::COL_ID_DOMAIN => $id)  
         );
     }
 
-
+    
     public function isError()
     {
         return ($this->_access->getLastError() == '') ? false : true;
@@ -84,7 +83,7 @@ class DomainManager {
     }
 
 
-
+    
     public function getAll()
     {
 
@@ -106,7 +105,6 @@ class DomainManager {
     }
 
 
-
     public function getById($id)
     {
         $result = $this->_access->getRow($this->_access->prepare("SELECT * FROM " . StudyPressDB::getTableNameDomain() . " WHERE " . StudyPressDB::COL_ID_DOMAIN . " = '%d'", $id));
@@ -121,7 +119,7 @@ class DomainManager {
     }
 
 
-
+   
     public static function returnedDomain($row)
     {
         return (

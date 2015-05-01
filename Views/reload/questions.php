@@ -1,4 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Salim
+ * Date: 25/02/2015
+ * Time: 13:37
+ */
+
+
 
 if(isset($_POST['id_quiz'])) {
 
@@ -24,6 +32,11 @@ if(isset($_POST['id_quiz'])) {
 
     $v->run();
 
+    /*
+        * Si un/des champs ne est/sont pas valide(s)...
+        *
+        */
+
     if ((sizeof($v->errors)) > 0) {
         header("HTTP/1.0 400 Bad Request");
 
@@ -44,7 +57,7 @@ if(isset($_POST['id_quiz'])) {
                                 </span>
                         <a href=""  ><span class="glyphicon glyphicon-remove float-right" id="red" aria-hidden="true" data-id="<?php echo  $question->getId() ?>" title="<?php $tr->_e("Delete"); ?>" ></span></a>
                         <a href="" data-toggle="modal" data-target="#myModal"
-                           data-id="<?php echo  $question->getId() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?php echo  $question->getId() ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
+                           data-id="<?php echo  $question->getId() ?>"><span class="glyphicon glyphicon-pencil float-right" data-id="<?php echo  $question->getId() ?>" data-type="<?php echo $question->getType(); ?>" aria-hidden="true" title="<?php $tr->_e("Edit"); ?>"></span></a>
                     </li>
                 <?php
                 endforeach;

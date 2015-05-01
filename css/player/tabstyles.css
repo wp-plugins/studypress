@@ -1,3 +1,9 @@
+/* Individual tab styles */
+
+/*****************************/
+/* Bar */
+/*****************************/
+
 .sp-player .tabs-style-bar nav {
 	background: rgba(40,44,42,0.05);
 }
@@ -29,6 +35,14 @@
 	background: #5DB2FF;
 	color: #fff;
 }
+
+
+
+
+
+/*****************************/
+/* Top Line */
+/*****************************/
 
 .sp-player .tabs-style-topline {
 	max-width: 1200px;

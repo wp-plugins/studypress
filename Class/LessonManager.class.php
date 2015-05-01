@@ -19,7 +19,7 @@ class LessonManager extends AbstractActivityManager {
 
         $lesson->setShortCode("[studypress_lesson id=" . $idLesson . "]");
 
-
+       
         $this->update($idLesson,$lesson);
 
 
@@ -30,6 +30,7 @@ class LessonManager extends AbstractActivityManager {
 
 
 
+
     public static function returnedLesson($row)
     {
         return ( ( !empty($row) ) ? new Lesson(parent::returnedArrayActivity($row)) : null );
@@ -37,12 +38,12 @@ class LessonManager extends AbstractActivityManager {
     }
 
 
+
     public function delete($id)
     {
         $id = (int)$id;
-
+        
         $this->_access->query("START TRANSACTION");
-
 
 
         $manageRateDomain = new RateDomainManager();
@@ -53,6 +54,7 @@ class LessonManager extends AbstractActivityManager {
 
 
 
+
         $manageSlide = new SlideManager();
         $slides = $manageSlide->getSlidesOfLesson($id);
         foreach ($slides as $slide) {
@@ -60,6 +62,7 @@ class LessonManager extends AbstractActivityManager {
         }
 
 
+       
         $lesson = $this->getById($id);
         if($lesson->getPostId() !== 0){
             $this->unpost($lesson);
@@ -67,8 +70,14 @@ class LessonManager extends AbstractActivityManager {
 
 
         $this->_access->delete(
-            StudyPressDB::getTableNameActivity(),
-            array(StudyPressDB::COL_ID_ACTIVITY => $id)
+            StudyPressDB::getTableNameVisite(), 
+            array(StudyPressDB::COL_ID_ACTIVITY_VISITE => $id)  
+        );
+
+
+        $this->_access->delete(
+            StudyPressDB::getTableNameActivity(), 
+            array(StudyPressDB::COL_ID_ACTIVITY => $id)  
         );
 
 
@@ -81,15 +90,16 @@ class LessonManager extends AbstractActivityManager {
 
         if($this->isError()) {
 
-            $m = $this->getMessageError();
-            $this->_access->query("ROLLBACK");
-            $this->_access->setMsgError($m);
+            $m = $this->getMessageError(); 
+            $this->_access->query("ROLLBACK"); 
+            $this->_access->setMsgError($m); 
         }
         else
             $this->_access->query("COMMIT");
     }
 
 
+    
     public function getAllWithoutSlides()
     {
 
@@ -97,10 +107,10 @@ class LessonManager extends AbstractActivityManager {
 
         $lessons = array();
 
-
+        
         foreach ($result as $row) {
 
-
+           
             $lesson = self::returnedLesson($row);
 
             if($lesson)
@@ -115,13 +125,15 @@ class LessonManager extends AbstractActivityManager {
 
     }
 
-
+    
     public function getById($id)
     {
 
         $lesson =  self::returnedLesson(parent::getById($id));
 
-
+        /*
+         * Récupere tous les slides
+         */
         if($lesson != null) {
             $manageSlides = new SlideManager();
             $slides = $manageSlides->getSlidesOfLesson($lesson->getId());
@@ -166,6 +178,13 @@ class LessonManager extends AbstractActivityManager {
         }
         return $lessons;
 
+    }
+
+
+    public function isDone($activityId,$userId){
+        $result = $this->_access->getVar($this->_access->prepare("SELECT COUNT(*) FROM " . StudyPressDB::getTableNameVisite() . " WHERE " . StudyPressDB::COL_ID_ACTIVITY_VISITE . " = '%d' AND " . StudyPressDB::COL_ID_USER_VISITE . " = '$userId'", $activityId));
+
+        return ( (int) $result !== 0 ) ? true : false;
     }
 
 

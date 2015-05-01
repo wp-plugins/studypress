@@ -913,11 +913,7 @@ a:focus {
   color: #2a6496;
   text-decoration: underline;
 }
-a:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
+
 figure {
   margin: 0;
 }
@@ -3630,7 +3626,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #ffffff;
+  background-color: #F1F1F1;
+
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -5368,6 +5365,8 @@ button.close {
 .modal.fade .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
+    /*-webkit-transform: scale(0.1);
+    transform: scale(0.1);*/
   -webkit-transition: -webkit-transform 0.3s ease-out;
   -moz-transition: -moz-transform 0.3s ease-out;
   -o-transition: -o-transform 0.3s ease-out;
@@ -5376,6 +5375,8 @@ button.close {
 .modal.in .modal-dialog {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+    /*-webkit-transform: scale(1);
+    transform: scale(0.1);*/
 }
 .modal-open .modal {
   overflow-x: hidden;
@@ -6173,6 +6174,8 @@ button.close {
   }
 }
 
+/*******Mes ajous****/
+
 a span#red
 {
     color : #d43f3a;
@@ -6182,3 +6185,38 @@ a:hover span#red
 {
     color : #ac2925;
 }
+
+#myModal button.back:hover
+{
+    opacity: 1;
+}
+
+#myModal .h4 h4
+{
+    display: inline-block;
+}
+.sp-help
+{
+    position :absolute;
+    top : 30px ;
+    right: 25px;
+    font-weight: bold;
+    text-shadow:2px 1px 1px #FFF;
+    color : #AAA;
+}
+.sp-access-right
+{
+    border: 1px solid #AAA;
+    padding : 5px;
+    margin-top: 10px;
+}
+.sp-access-right .text-help span
+{
+    color :#555;
+    margin-left: 5px;
+}
+.glyphicon-exclamation-sign
+{
+    margin-right : 3px;
+}
+

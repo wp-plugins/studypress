@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Salim
+ * Date: 03/02/2015
+ * Time: 21:16
+ */
+
 
 if(isset($_POST['id_lesson'])) {
 
@@ -24,6 +31,10 @@ if(isset($_POST['id_lesson'])) {
 
     $v->run();
 
+    /*
+        * Si un/des champs ne est/sont pas valide(s)...
+        *
+        */
 
     if ((sizeof($v->errors)) > 0) {
         header("HTTP/1.0 400 Bad Request");

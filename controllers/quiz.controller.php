@@ -11,9 +11,7 @@ $managerQuiz = new QuizManager();
 $managerCourse = new CourseManager();
 
 
-
 $error_quiz_add = "";
-
 
 
 $error_quiz_remove = "";
@@ -54,15 +52,15 @@ if(isset($_POST['add'])) {
         $v->addSource($_POST['quiz']);
 
 
-
+        //rule Name
         $v->addRule('name', 'string', true, 1, 200, true);
 
 
+        //rule Image
         if (isset($_POST['quiz']['pictureurl']) && !empty($_POST['quiz']['pictureurl'])) {
             $v->addRule('pictureurl', 'numeric', true, 1, 999999, true);
 
         }
-
 
 
         if (isset($_POST['quiz']['courseId']) && !empty($_POST['quiz']['courseId'])) {
@@ -75,6 +73,7 @@ if(isset($_POST['add'])) {
 
         $v->run();
 
+        
 
         if ((sizeof($v->errors)) > 0)
             $error_quiz_add = $v->getMessageErrors();
@@ -98,6 +97,7 @@ if(isset($_POST['add'])) {
 
 
 }
+
 
 if(isset($_POST['remove'])){
     if(isset($_POST['id']) && !empty($_POST['id']))

@@ -1,5 +1,6 @@
 <?php
 
+
 class ResultQuiz {
 
     private $_id;
@@ -13,6 +14,7 @@ class ResultQuiz {
     private $_dateBegin;
     private $_questions = array();
 
+    
 
 
     public function __construct(array $d)
@@ -33,76 +35,84 @@ class ResultQuiz {
         }
     }
 
+   
     public function getId()
     {
         return $this->_id;
     }
-
 
     public function setId($id)
     {
         $this->_id = $id;
     }
 
-
+    
     public function getNbrCorrectResponse()
     {
         return $this->_nbrCorrectResponse;
     }
 
+    
     public function setNbrCorrectResponse($nbrCorrectResponse)
     {
         $this->_nbrCorrectResponse = $nbrCorrectResponse;
     }
 
-
+    
     public function getNbrQuestions()
     {
         return $this->_nbrQuestions;
     }
 
-
+    
     public function setNbrQuestions($nbrQuestions)
     {
         $this->_nbrQuestions = $nbrQuestions;
     }
 
+   
     public function getQuestions()
     {
         return $this->_questions;
     }
 
-
+   
     public function setQuestions($questions)
     {
         $this->_questions = $questions;
     }
 
+   
     public function getQuizId()
     {
         return $this->_quizId;
     }
 
+    
     public function setQuizId($quizId)
     {
         $this->_quizId = $quizId;
     }
 
+    
     public function getUserId()
     {
         return $this->_userId;
     }
 
+    
     public function setUserId($userId)
     {
         $this->_userId = $userId;
     }
 
+    
     public function getNote()
     {
         return $this->note;
     }
 
+    
     public function setNote($note)
     {
         $this->note = $note;
@@ -112,23 +122,21 @@ class ResultQuiz {
         return $this->_questions[$position];
     }
 
-
     public function getDateBegin()
     {
         return $this->_dateBegin;
     }
 
+    
     public function setDateBegin($dateBegin)
     {
         $this->_dateBegin = $dateBegin;
     }
 
-
     public function getDateResult()
     {
         return $this->_dateResult;
     }
-
 
     public function setDateResult($dateResult)
     {
@@ -141,6 +149,7 @@ class ResultQuiz {
         return $this->_validate;
     }
 
+    
     public function setValidate($validate)
     {
         $this->_validate = trim($validate);
@@ -151,5 +160,7 @@ class ResultQuiz {
         return ($this->_validate === "true")?true:false;
 
     }
+
+
 
 }

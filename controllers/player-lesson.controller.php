@@ -2,6 +2,11 @@
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
+
+
+$spConfiguration = new Configuration();
+$spConfiguration = $spConfiguration->getConfig();
+
 global $tr;
 
 function slide_presentation_lesson(Lesson $lesson,$name){
@@ -39,8 +44,7 @@ if($id !== null){
 
     $v->run();
 
-
-
+  
     if ((sizeof($v->errors)) > 0) {
         $tr->_e("The value of the identifier of the shortcode is incorrect");
 
@@ -49,11 +53,9 @@ if($id !== null){
 
         $lesson = $managerLesson->getById($v->sanitized['id']);
         if($lesson){
-
-
-
-
-
+            $sp_btn_share = "<button class='btn-share' title='".$tr->__("Share")."'>".$tr->__("Share")."</button>";
+            $btn_buddypress_share ="";
+            $btn_social_share ="";
 
 
             $json_file =__ROOT_PLUGIN__ . "Public/Lesson/". sha1($lesson->getId()).".json";
@@ -62,9 +64,29 @@ if($id !== null){
             $sp_user =  new StudyPressUserWP($lesson->getAuthorId());
 
 
+
+
+            
             $sp_userName = ($sp_user->firstName() . ' ' . $sp_user->lastName());
 
+
+
             $sp_userLink = StudyPressUserWP::getUserPostsLink( $lesson->getAuthorId() );
+
+
+
+            if( function_exists('bp_is_active')&& (bp_is_active('groups')) && ($spConfiguration['bp_shareResult']=== 'true') && (StudyPressUserWP::isLoggedIn()))
+            {
+
+                $btn_buddypress_share = "<button class='btn-buddypress' id='btn-social'  title='BuddyPress'><span>Buddypress</span></button>";
+            }
+
+            if ($spConfiguration['share_socialNetwork']=== 'true'){
+                $btn_social_share = "<button class='btn-facebook' id='btn-social' title='Facebook'> <span>facebook</span ></button>";
+                $btn_social_share .=  "<button class='btn-twitter' id='btn-social' title='Twitter'> <span>Twitter</span></button>";
+                $btn_social_share .= "<button class='btn-google' id='btn-social'  title='Google+'> <span>Google+</span></button>";
+                $btn_social_share .= "<button class='btn-linkedin' id='btn-social' title='LinkedIn'> <span>LinkedIn</span></button>";
+            }
 
 
             $items =array();
@@ -87,11 +109,16 @@ if($id !== null){
 
             }
 
-            $owl['items'][] = array(
+            if($spConfiguration['showRate']=== 'true')
+            {
+                $owl['items'][] = array(
 
-                'name' => "",
-                'content' => "",
-            );
+                    'name' => "",
+                    'content' => "",
+                );
+            }
+
+
 
 
             $owl['title'] = $lesson->getName();
@@ -114,6 +141,8 @@ if($id !== null){
             $tr->_e("The value of the identifier of the shortcode is incorrect");
 
     }
+
+
 
 }
 

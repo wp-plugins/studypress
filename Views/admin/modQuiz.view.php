@@ -1,6 +1,9 @@
 <?php
 
+
 require_once __ROOT_PLUGIN__ ."Views/includeCSS.php";
+require_once  __ROOT_PLUGIN__ ."Views/inc/html/help.php";
+
 
 global $tr;
 
@@ -9,6 +12,24 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 
 ?>
 <style>
+    #myModal .save-new-question
+    {
+        display: none;
+    }
+    #myModal .col-md-3 a
+    {
+        opacity: 0.8;
+        outline: none;
+    }
+    #myModal .col-md-3 a:hover
+    {
+        opacity: 1;
+    }
+    #myModal .col-md-3
+    {
+
+        text-align: center;
+    }
 
     .loading{
         position: absolute;
@@ -16,7 +37,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
         left: 0;
         right: 0;
         bottom: 0;
-        opacity: 0.9;
+        opacity: 1;
         z-index: 1060;
         background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
@@ -47,9 +68,24 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
     }
 
     #li-sotable{
-        cursor: move;
-        background: #EEE;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        text-align: left;
+        box-shadow: 1px 1px 1px #CCC,0 0 1px #eee;
+        border-radius: 0;
+        margin: 5px 0;
     }
+
+    #li-sotable:active{
+        box-shadow: 4px 4px 3px #CCC,0 0 1px #eee;
+    }
+
+    #li-sotable{
+        cursor: move;
+        background: #FAFAFA;
+    }
+
 
 
     #li-non-sortable:hover,
@@ -76,11 +112,22 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
         overflow: auto;
         padding: 0 10px;
     }
+    #myModal .modal-body h3
+    {
+        text-align: center;
+    }
+
 </style>
 
 <h1><?php $tr->_e("Edit the Quiz"); ?></h1>
 
 <div class="container-fluid">
+
+    <?php
+    sp_display_link_help();
+    ?>
+
+
     <div class="row">
         <div class="col-md-8">
             <h3><?php echo  $quiz->getName() ?></h3>
@@ -89,17 +136,28 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="alert alert-danger" role="alert"
-                    <?php echo  ($error_quiz_update=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_quiz_update ?> </div>
-                <div class="form-group">
-                    <label for="name"><?php $tr->_e("Name of the Quiz"); ?>* :  </label>
-                    <input type="text" autocomplete="off" class="form-control" id="name" name="quiz[name]" required="required"
-                        value="<?php echo  $quiz->getName() ?>"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
-                    <input type="number" class="form-control" id="duree" name="quiz[duree]"
-                           value="<?php echo  $quiz->getDuration() ?>"/>
+                    <?php echo  ($error_quiz_update=='')?"style=\"display:none\"":"" ?>> <?php echo  $error_quiz_update ?> </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name"><?php $tr->_e("Name of the quiz"); ?>* :  </label>
+                            <input type="text" autocomplete="off" class="form-control" id="name" name="quiz[name]" required="required"
+                                   value="<?php echo  $quiz->getName() ?>"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="duree"><?php $tr->_e("Duration (Min)"); ?></label>
+                            <input type="number" class="form-control" id="duree" name="quiz[duree]"
+                                   value="<?php echo  $quiz->getDuration() ?>"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><?php $tr->_e("Shortcode"); ?></div>
+                            <div class="panel-body">
+                                [studypress_quiz id=<?php echo $quiz->getId() ?>]
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -112,7 +170,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                     <label for="picture"><?php $tr->_e("Associate an image"); ?></label>
                     <div>
                         <a href="#" class="button select-picture"><?php $tr->_e("Browse"); ?></a>
-                        <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $quiz->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" disabled/>
+                        <input type="text" id="picture" value="<?php echo  wp_get_attachment_url( $quiz->getPictureUrl() )?>"  size="45" tabindex="1" autocomplete="off" data-toggle="popover" data-trigger="hover"/>
                         <input type="hidden" name="quiz[pictureurl]" value="<?php echo  $quiz->getPictureUrl()?>"/>
                     </div>
 
@@ -137,12 +195,15 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 
 
 
+
+
+                <!-- Notes -->
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><?php $tr->_e("Notes"); ?></div>
+                        <div class="panel-heading"><?php $tr->_e("Tags"); ?></div>
                         <div class="panel-heading">
                             <div class="form-group">
-                                <input type="text" autocomplete="off" class="form-control" id="note" name="note" placeholder="Note..." />
+                                <input type="text" autocomplete="off" class="form-control" id="note" name="note" placeholder="Tag..." />
                             </div>
                             <div class="form-group">
                                 <button id="add-new-note" type="button" class="btn btn-success"><?php $tr->_e("Add"); ?></button>
@@ -154,7 +215,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 
                                 <?php
 
-                                foreach ($quiz->getNote() as $note) : ?>
+                                foreach ($quiz->getTags() as $note) : ?>
                                 <li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title="<?php echo  str_replace('"',' ',$note)?>"><?php echo  substr($note,0,35)?>...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id='red' aria-hidden='true' title='Supprimer'></span></a><input type='hidden' name='quiz[note][]' value="<?php echo  str_replace('"',' ',$note)?>" /></li>
                                 <?php endforeach;  ?>
 
@@ -165,6 +226,10 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
                     </div>
                 </div>
 
+
+
+
+                <!-- Glossaire -->
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading"><?php $tr->_e("Glossary"); ?></div>
@@ -214,9 +279,12 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?php echo  ($error_quiz_add_question=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_quiz_add_question ?> </div>
+                    <div class="alert alert-danger" role="alert" <?php echo  ($error_quiz_add_question=='')?"style=\"display:none\"":"" ?>"> <?php echo  $error_quiz_add_question ?> </div>
 
                 <ul id="sortable-question">
+
+                    <!-- load Questions -->
+
 
                 </ul>
 
@@ -235,422 +303,77 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this que
 </div>
 
 
+
+
+
+
+
+
+<!-- Modal d'ajout de leçon  -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
+                <div class="h4">
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
             </div>
             <div class="modal-body">
             <div class="loading hide"></div>
-
                 <div class="alert alert-danger alert-dismissible hide" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p></p>
+                    <p><!-- Le message d'erreur --></p>
+                </div>
+                <h3><?php echo $tr->__("Select type"); ?> : </h3>
+                <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <a href="#" class="choice-type-qcm" data-value="multiple"><img src="<?php echo __ROOT_PLUGIN__2 . "images/multiple.png" ?>" alt="" class="img-thumbnail"/>
+                    <span>Multiple choice</span></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#"  class="choice-type-qcm" data-value="unique"><img src="<?php echo __ROOT_PLUGIN__2 . "images/unique.png" ?>" alt="" class="img-thumbnail"/>
+                        <span>Unique choice</span></a>
+                </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="question"><?php $tr->_e("Question"); ?></label>
-                    <input type="text" class="form-control" id="question" name="question" required="required" />
-                </div>
 
-
-                <div class="form-group">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th><?php $tr->_e("True"); ?></th>
-                            <th><?php $tr->_e("Proposition"); ?></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="col-md-1">
-                                <input type="checkbox" name="true[]"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="prop" name="prop[]"  />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td class="col-md-1">
-                                <input type="checkbox" name="true[]"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="prop" name="prop[]"/>
-                            </td>
-
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="2"><button class="btn btn-success float-right" id="add-new-proposition"><?php $tr->_e("Add a proposition"); ?></button></td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php $tr->_e("Close"); ?></button>
-                <button type="button" data-loading-text="<?php $tr->_e("Loading..."); ?>" class="btn btn-primary"><?php $tr->_e("Save"); ?></button>
+                <button type="button" class="btn btn-default back">Back</button>
+                <button type="button" data-loading-text="<?php $tr->_e("Loading..."); ?>" class="btn btn-primary save-new-question"><?php $tr->_e("Save"); ?></button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery-ui.min.js" ?>"></script>
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 
+<?php
+$content = "<p>You can in this page modify the quiz name, duration, description, associated image and associated course. You can also add tags and glossary entries.</p>
+<p>Courses present in the drop down list are courses for which you have access.</p>
+<p>If you want to integrate a quiz in a Wordpress page you have to just copy past the short code into this Wordpress page.</p>
+<p>At the right of this page you can create, delete, modify and organize the questions related to the quiz. You can create 2 types of questions: Multiple Choices Questions, and Unique Choice Questions. In both you can specify your question and multiple propositions that will be displayed to your web site user. In the first one you can select multiple possible answers and in the second you can select only one possible answer.</p>";
+$msg = "This feature is available for users who have <b>administrator</b>, <b>editor</b> or <b>author</b> rights.";
+sp_display_modal_help($content,$msg);
+?>
 
-
-
+<script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce.js"></script>
 <script>
-(function($) {
-    $(document).ready(function() {
-
-
-        function addslashes(str) {
-            return str.replace(/\"/g, " ");
-        }
-
-        reload_slides();
-
-        var type_modal_sp = "add";
-        var modal = $('#myModal');
-        var id_question;
-        var alert = modal.find(".alert");
-
-
-        $("#sortable-question").sortable({
-            placeholder: "ui-sortable-placeholder"
-        });
-        $("#sortable-question").disableSelection();
-        $("#sortable-question").on("sortupdate", function (event, ui) {
-            $("#update-order").prop("disabled", false);
-
-        });
-
-
-        function reinitialiserModal() {
-
-            alert.find("p").html("");
-            alert.addClass("hide");
-            modal.find('input[type=text]').val("");
-            modal.find(" table tbody input:checkbox").removeAttr('checked');
-
-            modal.find(" table tbody tr:gt(1)").remove();
-        }
-
-        $("#add-new-quiz").on("click", function () {
-
-            type_modal_sp = "add";
-            modal.find('.modal-title').text("<?php $tr->_e("Add a new question"); ?>");
-
-            reinitialiserModal();
-
-
-        });
-
-
-        function trimStr(str) {
-            return str.replace(/^\s+|\s+$/gm, '');
-        }
-
-
-        $('#myModal .btn-primary').on("click", function () {
-
-            $('.loading').removeClass("hide");
-
-            alert.find("p").html("");
-            alert.addClass("hide");
-
-            var btn = $(this).button('loading');
-
-            var question = modal.find('input[name=question]').val();
-            var id_quiz = $('input[name="quiz[id]"]').val();
-            var checked = [];
-            var value = [];
-
-            modal.find("table tbody tr").each(function () {
-                checked.push(($(this).find("input[name='true[]']").is(':checked')) ? true : false);
-                value.push($(this).find("input[name='prop[]']").val());
-            });
-
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
-                {
-                    type: type_modal_sp + "-question",
-                    question: question,
-                    id_quiz: id_quiz,
-                    id_question: id_question,
-                    value: value,
-                    checked: checked
-                }
-
-                , function (data) {
-                    if (trimStr(data) === "true") {
-                        console.log(data);
-                        reload_slides();
-                        modal.modal('hide');
-
-
-                    }
-                    else {
-
-                        alert.removeClass("hide");
-                        alert.find("p").append(data);
-                    }
-
-                }).error(function (data) {
-
-                    alert.removeClass("hide");
-                    alert.find("p").append(data.responseText);
-
-
-                }).always(function () {
-                    btn.button('reset');
-                    $('.loading').addClass("hide");
-                });
-
-
-        });
-
-
-        $("#update-order").on("click", function () {
-            var $btn = $(this);
-            $btn.button('loading');
-            var order = [];
-            $("#sortable-question li").each(function (index, element) {
-                order[index] = $(element).data("id");
-            });
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
-                {
-                    type: "order-question",
-                    order: order
-
-                }
-
-                , function (data) {
-                    console.log(data);
-                    if (trimStr(data) === "true") {
-                        reload_slides();
-                    }
-                }
-            ).error(function () {
-
-                }).always(function () {
-                    $btn.button('reset');
-
-
-                });
-
-            return false;
-
-        });
-
-
-        $('#sortable-question').on("click", ".glyphicon-remove", function () {
-            if (confirm("<?php $tr->_e("Do you want to delete this question ?") ?>")) {
-                var id_question = $(this).data("id");
-                var id_quiz = $('input[name="quiz[id]"]').val();
-
-                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
-                    {
-                        type: "remove-question",
-                        id_question: id_question,
-                        id_quiz: id_quiz
-                    }
-
-                    , function (data) {
-                        console.log(data);
-                        if (trimStr(data) === "true") {
-                            reload_slides();
-                        }
-                    }
-                ).error(function () {
-
-                    })
-            }
-            return false;
-
-        });
-
-
-        $('#sortable-question').on("click", ".glyphicon-pencil", function () {
-            type_modal_sp = "update";
-            modal.find('.modal-title').text("<?php _e("Edit Question"); ?>");
-            reinitialiserModal();
-            id_question = $(this).data("id");
-            var id_quiz = $('input[name="quiz[id]"]').val();
-            getContentSlide(id_question, id_quiz);
-
-        });
-
-
-        function getContentSlide(id_question, id_quiz) {
-            $(".loading").removeClass('hide');
-
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/question.controller.php",
-                {
-                    type: "get-question",
-                    id_question: id_question,
-                    id_quiz: id_quiz
-                }
-
-                , function (data) {
-
-                    if (trimStr(data.result) === "true") {
-
-                        modal.find('input[name=question]').val(data.content);
-
-                        for (var i = 0; i < data.propositions.length; ++i) {
-                            if (i > 1) addNewRow();
-
-                            var tr = modal.find("table tbody tr:nth-child(" + (i + 1) + ")");
-
-                            tr.find("input[name='prop[]']").val(data.propositions[i].content);
-
-                            if (trimStr(data.propositions[i].true) === "true")
-                                tr.find("input[name='true[]']").prop('checked', true);
-
-
-                        }
-
-
-                    }
-                }, 'json').error(function (data) {
-                    console.error(data);
-                }).always(function () {
-                    $(".loading").addClass('hide');
-                });
-        }
-
-
-        function reload_slides() {
-            var ul = $("#sortable-question");
-            ul.css('background', "url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%");
-            ul.html("");
-
-            var id_quiz = $('input[name="quiz[id]"]').val();
-
-            $.post("<?php echo  __ROOT_PLUGIN__2 ?>Views/reload/questions.php",
-                {
-                    id_quiz: id_quiz
-                }
-
-                , function (data) {
-
-                    ul.html(data);
-
-                }
-            ).error(function (data) {
-
-
-                }).always(function () {
-                    ul.css('background', "#FFF");
-                    $("#update-order").prop("disabled", true);
-                });
-        };
-
-
-        $("#add-new-note").on("click", function () {
-            var note = $("input[name=note]").val();
-            var id_quiz = $('input[name="quiz[id]"]').val();
-
-            if (trimStr(note) != "") {
-                $("#sortable-note").append("<li id='li-non-sortable' class='ui-state-default btn btn-default sp-note'> <span class='float-left' title=\"" + addslashes(note) + "\">" + note.substring(0, 35) + "...</span><a href=''><span class='glyphicon glyphicon-remove float-right delete-note' id='red'  aria-hidden='true'></span></a>" +
-                "<input type='hidden' name='quiz[note][]' value=\"" + addslashes(note) + "\"/></li>");
-
-                $("input[name=note]").val("");
-            }
-
-        });
-
-        $("#sortable-note").on("click", "li .delete-note", function (e) {
-            e.preventDefault();
-            if(confirm("<?php $tr->_e("Do you want to delete this note ?") ?>"))
-            {
-                $(this).parent().parent().remove();
-            }
-
-
-
-        });
-
-        $("#add-new-glossary").on("click", function () {
-            var name = $("input[name=glossary-name]").val();
-            var desc = $("input[name=glossary-desc]").val();
-
-            var id_quiz = $('input[name="quiz[id]"]').val();
-
-            if ((trimStr(name) != "") && (trimStr(desc) != "")) {
-                $("#sortable-glossary").append("<li id='li-non-sortable' class='ui-state-default btn btn-default sp-glossary'> " +
-                "               <span class='float-left' title=\"" + addslashes(name + " : " + desc) + "\">" + ("<b>" + name + "</b>" + " : " + desc).substr(0, 35) + "...</span>" +
-                "<a href=''><span class='glyphicon glyphicon-remove float-right delete-glossary' id='red'  aria-hidden='true'></span></a>" +
-                "<input type='hidden' name='quiz[glossary][name][]' value=\"" + addslashes(name) + "\" />" +
-                "<input type='hidden' name='quiz[glossary][desc][]' value=\"" + addslashes(desc) + "\" /> </li>");
-
-                $("input[name=glossary-name]").val("");
-                $("input[name=glossary-desc]").val("");
-            }
-
-        });
-
-        $("#sortable-glossary").on("click", "li .delete-glossary", function (e) {
-            e.preventDefault();
-            if(confirm("<?php echo  $tr->__("Do you want to delete this glossary ?") ?>"))
-            {
-                $(this).parent().parent().remove();
-            }
-
-
-        });
-
-        $('.select-picture').click(function (e) {
-            var $el = $(this).parent();
-            e.preventDefault();
-            console.log('test');
-            var uploader = wp.media({
-                title: '<?php echo   $tr->__('Upload an image') ?>',
-                button: {
-                    text: '<?php echo  $tr->__('Select an image') ?>'
-                },
-                library: {
-                    type: 'image'
-                },
-                multiple: false
-            })
-                .on('select', function () {
-                    var selection = uploader.state().get('selection');
-                    var attachment = selection.first().toJSON();
-                    $("input[name='quiz[pictureurl]']").val(attachment.id);
-                    $(document.getElementById('picture'), $el).val(attachment.url);
-
-                })
-                .open();
-        })
-
-
-        $("#add-new-proposition").on("click", function () {
-            addNewRow();
-        });
-
-
-        $("#myModal .table").on("click", ("#remove-proposition"), function () {
-            $(this).parent().parent().fadeOut(300, function () {
-                $(this).remove()
-            });
-        });
-
-
-        function addNewRow() {
-            modal.find('.table tbody tr:last').after("<tr><td><input type='checkbox' name='true[]'/></td><td><input type='text' class='form-control' id='prop' name='prop[]'  /><button type='button' class='close' id='remove-proposition'  aria-label='Close'><span aria-hidden='true'>&times;</span></button></td></tr>");
-        }
-
-
-    });
-})(jQuery);
+    var sp_tr_modal_new_quest= "<?php echo $tr->__("Add a new question"); ?>";
+    var sp_tr_modal_edit_quest= "<?php echo $tr->__("Edit Question"); ?>";
+    var sp_tr_modal_time_out= "<?php echo $tr->__("Time out ! please retry"); ?>";
+    var sp_tr_alert_delete_slide= "<?php echo $tr->__("Do you want to delete this slide?"); ?>";
+    var sp_tr_alert_delete_tag= "<?php echo $tr->__("Do you want to delete this tag ?"); ?>";
+    var sp_tr_alert_delete_glossary= "<?php echo $tr->__("Do you want to delete this glossary ?"); ?>";
+    var sp_tr_tiny_upload_img= "<?php echo $tr->__("Upload an image"); ?>";
+    var sp_tr_tiny_select_img= "<?php echo $tr->__("Select an image"); ?>";
+    var sp_picture_url= "<?php echo wp_get_attachment_url( $quiz->getPictureUrl() ) ?>";
+
+    var sp_root_plugin= "<?php echo __ROOT_PLUGIN__2 ?>";
 </script>
+
+<?php
+printf( '<script type="text/javascript" src="%s"></script>',  __ROOT_PLUGIN__2.'js/modQuiz.js' );
+
+?>
 

@@ -33,7 +33,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-ajax"))
         $v->run();
 
 
-
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
             echo $v->getMessageErrors();
@@ -62,7 +61,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-ajax"))
 else
 {
 
-
     if ( !defined( 'ABSPATH' ) ) exit;
 
 
@@ -75,22 +73,19 @@ else
     $error_domain_add = "";
 
 
-
     $error_domain_remove = "";
 
 
-
     if (isset($_POST)) {
-
+    
 
         $validation = new validation();
     }
-
+   
     if (isset($_POST['add'])) {
 
-
         $validation->addSource($_POST);
-
+        
         $validation->AddRules(array(
                 'name' => array(
                     'type' => 'string',
@@ -107,9 +102,10 @@ else
                     'trim' => true
                 ))
         );
-
+       
         $validation->run();
 
+        
 
         if ((sizeof($validation->errors)) > 0)
             $error_domain_add = $validation->getMessageErrors();
@@ -129,11 +125,11 @@ else
 
     }
 
-
+    
     if (isset($_POST['remove'])) {
         if ((isset($_POST['id'])) && (!empty($_POST['id']))) {
             $rules = array();
-
+           
             $validation->addSource($_POST['id']);
             for ($i = 0; $i < count($_POST['id']); ++$i) {
 
@@ -155,7 +151,6 @@ else
                 foreach ($validation->sanitized as $id) {
                     $managerDomain->delete($id);
 
-
                     if ($managerDomain->isError()) {
                         $error_domain_remove = $managerDomain->getMessageError();
                         break;
@@ -164,7 +159,7 @@ else
                 }
 
             }
-
+            
         } else {
             $error_domain_remove = $tr->__("Please select field(s) to delete");
         }

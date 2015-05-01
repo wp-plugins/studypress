@@ -2,8 +2,8 @@
 Contributors: mtadlaoui, salim1202, Meryem Bendella, Yasser Bensmaine, os-roxx
 Tags: Authoring Tool, authoring, e-learning, elearning, education, learning, online courses, lms, lcms, quiz, timed quiz, course, lesson, interactive, interactive course, interative slider, studypress, slider, content slider, text slider, image slider, picture slider, video slider, youtube slider, media slider, responsive slider, slideshow
 Requires at least: 3.6.1
-Tested up to: 4.1.1
-Stable tag: 1.0
+Tested up to: 4.2.1
+Stable tag: 1.1
 License: GPLv2 or later
 
 The easy way to create pretty multimedia lessons, quizzes and sliders.
@@ -17,18 +17,23 @@ With the help of StudyPress you can easily turns your WordPress into a powerfull
 
 <br>Features:</b><br>
 - Create an unlimited number of courses, lessons and quizzes<br>
+- Buddypress integration<br>
+- Share lesson, quiz and quiz result on social networks (facebook, linkedin, twitter and buddypress)<br>
 - Drag and drop functions that makes easy the creation of lessons and quizzes<br>
 - Quickly add wordpress media to lessons<br>
 - Visualize lessons and quizzes in a professional player<br>
 - Visualize lessons and answer quizzes in a full screen mode<br>
-- Integration of glossaries and notes for lessons and quizzes<br>
+- Integration of glossaries and tags for lessons and quizzes<br>
 - Multi teachers support by integrating wordpress author user role<br>
 - Teachers rights management<br>
+- Timed quizzes<br>
 - Automatic correction of quizzes<br>
 - Automatic quiz reporting for teachers<br>
 - Students can rate lessons and quizzes<br>
 - Support of multi criteria ratings<br>
-- English and French support
+- English and French support<br>
+- A contextual help for teachers<br>
+
 
 == Installation ==
 
@@ -49,21 +54,22 @@ StudyPress offers several ways to integrate lessons and quizzes on your web site
 
 == Screenshots ==
 
-1. Lesson first page (here in full screen. It can be integrated in posts and pages)
-2. Lesson with a multimedia slide
-3. Lesson with a video integration
-4. Quiz first page (here in full screen. It can be integrated in posts and pages)
-5. Multiple choices question 
-6. Quiz result for students
-7. Quiz result details for students
-8. Results of a quiz for teachers
-9. Detail results of a quiz for teachers
-10. Lesson and quiz ratings (Can be extended for multi criteria ratings)
-11. Courses list
-12. Add a new course (categories and authors assignement)
-13. Lessons list for authors
-14. Create a new lesson with drag and drop slides
-15. Lesson detail
-16. Slide content editing
-17. Create a new quiz with drag and drop questions
-18. Question with its answers editing
+1. Course home page contaning lessons and quizzes
+2. Lesson first page (here in full screen. It can be integrated in posts and pages)
+3. Lesson with a multimedia slide
+4. Lesson with a video integration
+5. Quiz first page (here in full screen. It can be integrated in posts and pages)
+6. Multiple choices question 
+7. Quiz result for students
+8. Quiz result details for students
+9. Results of a quiz for teachers
+10. Detail results of a quiz for teachers
+11. Lesson and quiz ratings (Can be extended for multi criteria ratings)
+12. Courses list
+13. Add a new course (categories and authors assignement)
+14. Lessons list for authors
+15. Create a new lesson with drag and drop slides
+16. Lesson detail
+17. Slide content editing
+18. Create a new quiz with drag and drop questions
+19. Question with its answers editing

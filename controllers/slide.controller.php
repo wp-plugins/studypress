@@ -4,6 +4,7 @@ global $tr;
 
 require_once '_AutoLoadClassAjax.php';
 
+
 if(isset($_POST['type']) && ($_POST['type'] === "add-slide" )) {
 
 
@@ -36,6 +37,8 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-slide" )) {
         ));
 
         $v->run();
+
+
 
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
@@ -95,7 +98,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "remove-slide")) {
 
         $v->run();
 
-
+       
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
 
@@ -118,7 +121,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "remove-slide")) {
 
     }
 }
-
 
 if(isset($_POST['type']) && ($_POST['type'] === "get-slide")) {
 
@@ -153,7 +155,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "get-slide")) {
 
         $v->run();
 
-
+        
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
 
@@ -223,8 +225,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-slide" )) {
         $v->run();
 
 
-
-
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
             echo $v->getMessageErrors();
@@ -246,6 +246,8 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-slide" )) {
 }
 
 
+
+//Ajouter une note
 if(isset($_POST['type']) && ($_POST['type'] === "add-note")) {
 
     if (isset($_POST['note']) && isset($_POST['id_lesson'])) {
@@ -280,7 +282,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-note")) {
         $v->run();
 
 
-
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
             echo $v->getMessageErrors();
@@ -288,7 +289,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-note")) {
         } else {
 
             $lesson =$managerLesson->getById($v->sanitized['id_lesson']);
-            $notes = $lesson->getNote();
+            $notes = $lesson->getTags();
 
         }
     }
@@ -317,7 +318,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "order-slide")) {
         } else {
             $re = array();
             foreach ($v->sanitized as $ordre => $id) {
-                $re[$id] = $ordre+1;
+                $re[$id] = $ordre+1;//+1 pour commencer de 1
             }
 
 

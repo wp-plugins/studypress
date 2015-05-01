@@ -1,11 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Salim
+ * Date: 11/03/2015
+ * Time: 14:39
+ */
+
 
 $sp_user = new StudyPressUserWP();
 
 
 if($sp_user->isAdministrator())
 {
-
     add_action('admin_notices', 'sp_notice_menu_course');
 
 
@@ -15,13 +21,12 @@ if($sp_user->isAdministrator())
         global $tr;
 
         $user_id = $sp_user->id();
+        
         if (!get_user_meta($user_id, 'sp_menu_course_ignore_notice')) : ?>
 
             <div class="update-nag">
-                <p>
-                    <?php echo $tr->__("This is a fresh installation of StudyPress. Don't forget to go to Appearance -> Menus -> Screen Options, and activate 'Course' option. ") . " | <a href='?page=id_Cours&sp_nag_ignore=0'>". $tr->__('Hide Notice') ."</a>" ?>
-
-                </p>
+                    <?php echo $tr->__("This is a fresh installation of StudyPress. Don't forget to go to Appearance -> Menus -> Screen Options, and activate 'Course' option. ") . " | <a href='?page=id_Cours&sp_nag_ignore=0'>". $tr->__('Hide Notice') ."</a><br/>" ?>
+                    <?php echo $tr->__("If courses does not appear in your web site, on your dashboard, go to 'Settings' -> 'Permalinks' and just click on 'Save changes' without changing anything. "); ?>
             </div>
 
         <?php endif;
@@ -50,11 +55,6 @@ if($sp_user->isAdministrator())
 
 
 
-
-
-
-
-
 add_action('admin_notices', 'sp_notice_sp_migrate');
 
 
@@ -71,10 +71,8 @@ function sp_notice_sp_migrate()
     if (get_user_meta($user_id, 'sp_menu_add_warning_migrate',true)) : ?>
 
         <div class="error">
-            <p>
-                <?php echo $tr->__("This is a fresh installation of StudyPress. Since the version 1.0 contains multiple new functionalities and has a new way to organize lessons and courses, all courses that you have created were assigned to one category. Don't forget to reorganize your courses. ") ." | <a href='?page=id_Cours&sp_ignore_migrate=0'>". $tr->__('Hide Notice') ."</a>" ?>
+                <?php echo  $tr->__("This is a fresh installation of StudyPress. Since the version 1.0 contains multiple new functionalities and has a new way to organize lessons and courses, all courses that you have created were assigned to one category. Don't forget to reorganize your courses. ") ." | <a href='?page=id_Cours&sp_ignore_migrate=0'>". $tr->__('Hide Notice') ."</a>" ?>
 
-            </p>
         </div>
 
     <?php endif;

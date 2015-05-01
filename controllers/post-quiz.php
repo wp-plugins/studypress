@@ -1,5 +1,6 @@
 <?php
 
+
 global $tr;
 
 if(isset($_POST['type']) && ($_POST['type'] === "post")) {
@@ -29,6 +30,8 @@ if(isset($_POST['type']) && ($_POST['type'] === "post")) {
 
         $v->run();
 
+       
+
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
 
@@ -48,8 +51,21 @@ if(isset($_POST['type']) && ($_POST['type'] === "post")) {
 
 
 
-                    $managerQuiz->post($quiz);
+                    $postId = $managerQuiz->post($quiz);
 
+                    if( AbstractActivityManager::isBuddyPressActive()) {
+
+
+                        $permalink = get_permalink($postId);
+                        $action = $quiz->getAuthor() . " " . $tr->__("shared a quiz") . " : " . "<a href='$permalink'>" . $quiz->getName() . "</a>";
+
+                        $imageUrl = $quiz->getPicture();
+                        $content = "<a href='$permalink'><img src='$imageUrl' width='150' height='150' /></a>";
+
+
+                        $managerQuiz->shareOnGroupsBP($quiz,$action,$content);
+
+                    }
 
                     $result['result'] = "true";
                     $result['value'] = $btn_remove;

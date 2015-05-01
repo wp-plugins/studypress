@@ -1,6 +1,5 @@
 <?php
 
-
 class PropositionManager {
 
     private $_access;
@@ -15,7 +14,7 @@ class PropositionManager {
 
     }
 
-
+   
 
 
     public function add(Proposition $prop)
@@ -33,7 +32,6 @@ class PropositionManager {
         $this->_access->insert(StudyPressDB::getTableNamePropositions(), $a);
 
 
-
         $idProp = $this->_access->getLastInsertId();
 
         return $idProp;
@@ -48,35 +46,35 @@ class PropositionManager {
 
 
 
-
     public function update($id, Proposition $prop)
     {
         $this->_access->update(
-            StudyPressDB::getTableNamePropositions(),
+            StudyPressDB::getTableNamePropositions(), 
             array(
 
                 StudyPressDB::COL_CONTENT_PROPOSITION => $prop->getContent(),
                 StudyPressDB::COL_ID_QUESTION_PROPOSITION => $prop->getQuestionId(),
                 StudyPressDB::COL_TYPE_PROPOSITION => $prop->getType(),
-                StudyPressDB::COL_ORDER_PROPOSITION => $prop->getOrder()
+                StudyPressDB::COL_ORDER_PROPOSITION => $prop->getOrder()  
             ),
-            array(StudyPressDB::COL_ID_PROPOSITION => $id)
+            array(StudyPressDB::COL_ID_PROPOSITION => $id)  //Where
         );
     }
 
 
 
+    
     public function delete($id)
     {
         $id = (int)$id;
 
         $this->_access->delete(
-            StudyPressDB::getTableNamePropositions(),
-            array(StudyPressDB::COL_ID_PROPOSITION => $id)
+            StudyPressDB::getTableNamePropositions(), 
+            array(StudyPressDB::COL_ID_PROPOSITION => $id)  
         );
     }
 
-
+    
     public function isError()
     {
         return ($this->_access->getLastError() == '') ? false : true;
@@ -86,7 +84,6 @@ class PropositionManager {
     public function getMessageError(){
         return $this->_access->getLastError();
     }
-
 
 
     public function getAll()
@@ -105,7 +102,6 @@ class PropositionManager {
 
 
     }
-
 
 
     public function getById($id)
@@ -144,7 +140,7 @@ class PropositionManager {
     }
 
 
-
+    
     public static function returnedProposition($row)
     {
         return (

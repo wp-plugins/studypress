@@ -1,5 +1,6 @@
 <?php
 
+
 class AccessData {
 
     public function __construct(){
@@ -23,9 +24,9 @@ class AccessData {
 
         global $wpdb;
         $wpdb->update(
-            $table,
+            $table, 
             $updatedColumns,
-            $condition
+            $condition 
         );
     }
 
@@ -33,8 +34,8 @@ class AccessData {
     public function delete($table,array $condition){
         global $wpdb;
         $wpdb->delete(
-            $table,
-            $condition
+            $table, 
+            $condition 
         );
 
     }
@@ -80,7 +81,7 @@ class AccessData {
 
     }
 
-
+    
     public function getVar($sql, $column_offset=0, $row_offset=0){
         global $wpdb;
         return $wpdb->get_var($sql, $column_offset, $row_offset);

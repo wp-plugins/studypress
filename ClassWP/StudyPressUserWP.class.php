@@ -1,5 +1,6 @@
 <?php
 
+
 class StudyPressUserWP {
 
 
@@ -75,6 +76,18 @@ class StudyPressUserWP {
 
     public static function getUserById($idUser){
         return get_user_by('id',$idUser);
+
+    }
+
+    public static function getIdByDisplayName($displayName){
+        global $wpdb;
+
+        if ( ! $user = $wpdb->get_row( $wpdb->prepare(
+            "SELECT ID FROM $wpdb->users WHERE display_name = '%s'", $displayName
+        ) ) )
+            return false;
+
+        return $user->ID;
 
     }
 

@@ -1,8 +1,10 @@
 <?php
 
+
 global $tr;
 
 require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
+require_once  __ROOT_PLUGIN__ ."Views/inc/html/help.php";
 
 
 
@@ -36,6 +38,86 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
         background: url('<?php echo  __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
     }
 
+
+    .sp-qcm table
+    {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        width : 100%;
+        background: #EEE;
+    }
+
+    .sp-qcm table td
+    {
+        padding: 0;
+        margin: 0;
+        border: none;
+        line-height: 1.34;
+
+    }
+
+    .sp-qcm > p
+    {
+        font-size: 1.3em;
+
+    }
+
+    .sp-qcm ul
+    {
+        list-style-type: none;
+    }
+
+    .sp-qcm ul > li
+    {
+        position: relative;
+        padding: 10px;
+        overflow: hidden;
+        border-radius: 5px;
+        margin-top: 5px;
+        background: #EEE;
+    }
+
+
+
+    .sp-qcm li.sp-checked
+    {
+        background: #Ded777;
+    }
+
+
+    .sp-qcm table td:first-child
+    {
+        padding: 5px 5px 0 0;
+        width: 5%;
+    }
+
+    .sp-qcm table td:nth-child(3)
+    {
+        width: 5%;
+    }
+    .sp-player .sp-qcm table td:nth-child(2)
+    {
+        width: 90%;
+    }
+
+
+    .sp-qcm li label
+    {
+        text-align: left;
+        font-size: 1.1em;
+        vertical-align: middle;
+    }
+
+    .sp-qcm li.false
+    {
+        box-shadow:inset 0px 0px 3px #E92836;
+    }
+    .sp-qcm li.true
+    {
+        box-shadow:inset 0px 0px 3px #009900;
+    }
+
     .red,
     .green
     {
@@ -53,53 +135,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
         color: #3e8f3e;
     }
 
-    .sp-qcm li label
-    {
-        font-size: 1.1em;
-        vertical-align: middle;
-    }
 
-    .sp-qcm ul > li .img-correct
-    {
-        position: absolute;
-        right: 20px;
-
-    }
-
-    .sp-qcm li.false
-    {
-        box-shadow:inset 0px 0px 3px #E92836;
-    }
-    .sp-qcm li.true
-    {
-        box-shadow:inset 0px 0px 3px #009900;
-    }
-
-
-    .sp-qcm > p
-    {
-        font-size: 1.3em;
-
-    }
-
-    .sp-qcm ul
-    {
-        list-style-type: none;
-    }
-
-    .sp-qcm ul > li
-    {
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 5px;
-        background: #EEE;
-    }
-
-    .table td:not(:first-child),
-    .table th:not(:first-child)
-    {
-        text-align: center;
-    }
 
 </style>
 
@@ -110,6 +146,12 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 </h1>
 
 <div class="container-fluid">
+
+    <?php
+    sp_display_link_help();
+    ?>
+
+
     <div class="row">
 
         <div class="col-md-12">
@@ -138,7 +180,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
                     ?>
                     <tr>
                         <td> <?php echo  $user->displayName() ?> </a></td>
-                        <td class="<?php echo  ($row->getNote()>50)?"green":"red"?>"> <?php echo  $row->getNote() ?>%</td>
+                        <td class="<?php echo  ($row->getNote()>=50)?"green":"red"?>"> <?php echo  $row->getNote() ?>%</td>
                         <td> <?php echo  $row->getNbrCorrectResponse() ."/". $row->getNbrQuestions() ?></td>
                         <td> <?php echo  $row->getDateResult() ?></td>
                         <td>
@@ -179,7 +221,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
                 <h4 class="modal-quiz" ></h4>
             </div>
             <div class="modal-body">
-
+                    <!-- ICI les reponses -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo  $tr->__("Close") ?></button>
@@ -190,10 +232,16 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 </div>
 
 
+<?php
+$content = "<p>This page displays the detailed result of the selected quiz for each user that has taken the quiz.</p>";
+$msg ="This feature is available for users who have <b>administrator</b>, <b>editor</b> or <b>author</b> rights.";
+sp_display_modal_help($content,$msg);
+?>
 
 
 
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
+
+
 <script>
 
     (function($) {
@@ -208,6 +256,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
 
 
             function reinitialiserModal() {
+                //Reinitialiser
 
                 modalBody.html("");
                 modalUser.html("");
@@ -237,7 +286,7 @@ require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
                         quizId: quizId,
                         userId: userId
                     }
-
+                    //Si y pas d'erreur:
                     , function (data) {
 
                         if (trimStr(data.result) === "true") {

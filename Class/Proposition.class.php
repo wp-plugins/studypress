@@ -1,5 +1,6 @@
 <?php
 
+
 class Proposition {
 
     private $_id;
@@ -7,7 +8,6 @@ class Proposition {
     private $_content;
     private $_type;
     private $_order;
-
 
     private $_typeUser;
 
@@ -33,43 +33,43 @@ class Proposition {
         }
     }
 
-
+   
     public function getContent()
     {
         return stripslashes($this->_content);
     }
 
-
+    
     public function setContent($content)
     {
         $this->_content = $content;
     }
 
-
+    
+    
     public function getId()
     {
         return $this->_id;
     }
 
-
+   
     public function setId($id)
     {
         $this->_id = $id;
     }
-
 
     public function getOrder()
     {
         return $this->_order;
     }
 
-
+   
     public function setOrder($order)
     {
         $this->_order = $order;
     }
 
-
+    
     public function getTypeUser()
     {
         return $this->_typeUser;
@@ -80,24 +80,25 @@ class Proposition {
         $this->_typeUser = $typeUser;
     }
 
+
     public function getQuestionId()
     {
         return $this->_questionId;
     }
 
-
+    
     public function setQuestionId($questionId)
     {
         $this->_questionId = $questionId;
     }
 
-
+    
     public function getType()
     {
         return $this->_type;
     }
 
-
+    
     public function setType($type)
     {
         $this->_type = $type;

@@ -3,18 +3,28 @@
 
 abstract class AbstractActivity {
 
-    private $_id;
-    private $_name;
-    private $_author;
-    private $_description;
-    private $_duration;
-    private $_note;
-    private $_glossary;
-    private $_pictureUrl;
-    private $_shortCode;
-    private $_authorId;
-    private $_courseId;
-    private $_postId ;
+    protected $_id;
+    protected $_name;
+    protected $_author;
+    protected $_description;
+    protected $_duration;
+    protected $_tags;
+    protected $_glossary;
+    protected $_pictureUrl;
+    protected $_shortCode;
+    protected $_authorId;
+    protected $_courseId;
+    protected $_postId ;
+
+
+
+    /**
+     *
+     ***Constructor****
+     *
+     *
+     *
+     */
 
 
     public function __construct(array $d)
@@ -53,6 +63,12 @@ abstract class AbstractActivity {
         return stripslashes($this->_name);
     }
 
+    public function getNiceName(){
+        $points = strlen($this->getName())>28?"...":"";
+        return stripslashes(substr($this->getName(),0,28) . $points) ;
+    }
+
+
 
     public function setName($name) {
         $this->_name = $name;
@@ -84,8 +100,8 @@ abstract class AbstractActivity {
 
     public function getNiceDescription(){
 
-        $points = (strlen($this->_description)>80)?"...":"";
-        return stripslashes(substr($this->_description,0,80) . $points);
+        $points = (strlen($this->_description)>90)?"...":"";
+        return stripslashes(substr($this->_description,0,90) . $points);
     }
 
 
@@ -100,10 +116,10 @@ abstract class AbstractActivity {
     }
 
 
-    public function getNote() {
-        if(json_decode($this->_note) !== null)
+    public function getTags() {
+        if(json_decode($this->_tags) !== null)
         {
-            $notes = json_decode($this->_note);
+            $notes = json_decode($this->_tags);
             foreach ($notes as $key => $val)
             {
                 $notes[$key] = stripslashes($val);
@@ -116,13 +132,13 @@ abstract class AbstractActivity {
         return array();
     }
 
-    public function getNoteJson() {
-        return $this->_note;
+    public function getTagsJson() {
+        return $this->_tags;
     }
 
 
-    public function setNote($note) {
-        $this->_note = $note;
+    public function setTags($note) {
+        $this->_tags = $note;
         return $this;
     }
 
@@ -167,6 +183,24 @@ abstract class AbstractActivity {
     }
 
 
+
+
+    public function getPicture() {
+        if($this->getPictureUrl())
+        {
+            $image = wp_get_attachment_image_src($this->getPictureUrl(), $size = 'thumbnail');
+            $image = $image[0];
+        }
+        else
+        {
+            $type = ($this instanceof Lesson)?"lesson":"quiz";
+            $image = __ROOT_PLUGIN__2 . "images/$type.png";
+        }
+
+        return $image;
+    }
+
+
     public function setPictureUrl($pictureUrl) {
         $this->_pictureUrl = $pictureUrl;
         return $this;
@@ -203,22 +237,32 @@ abstract class AbstractActivity {
         return $this->_courseId;
     }
 
-
+    /**
+     * @param mixed $IdCourse
+     */
     public function setCourseId($IdCourse)
     {
         $this->_courseId = $IdCourse;
     }
 
 
+
+    /**
+     * @return mixed
+     */
     public function getPostId()
     {
         return $this->_postId;
     }
 
-
+    /**
+     * @param mixed $isPosted
+     */
     public function setPostId($isPosted)
     {
         $this->_postId = $isPosted;
     }
+
+
 
 } 

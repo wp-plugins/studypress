@@ -5,10 +5,12 @@ global $tr;
 
 require_once '_AutoLoadClassAjax.php';
 
+
 if(isset($_POST['type']) && ($_POST['type'] === "add-question" )) {
 
+    if (isset($_POST['id_quiz']) && isset($_POST['value']) && isset($_POST['checked']) && isset($_POST['question']) && isset($_POST['typeQcm']) ) {
 
-    if (isset($_POST['id_quiz']) && isset($_POST['value']) && isset($_POST['checked']) && isset($_POST['question'])) {
+
 
         $managerQuiz = new QuizManager();
         $managerQuestion = new QuestionManager();
@@ -44,14 +46,13 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-question" )) {
         ));
 
 
-
         foreach ($_POST['value'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key)) $vv->addRule($key . "", 'string', true, 1, 99999, true);
         }
 
 
         $checked= array();
-
+    
         foreach ($_POST['checked'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key))
             {
@@ -65,8 +66,6 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-question" )) {
 
         $vq->run();
         $vv->run();
-
-
 
 
         if (((sizeof($vv->errors)) > 0) || (sizeof($vq->errors)) > 0) {
@@ -93,7 +92,8 @@ if(isset($_POST['type']) && ($_POST['type'] === "add-question" )) {
         if ($managerQuiz->getById($vq->sanitized['id_quiz'])) {
             $questionId = $managerQuestion->add(new Question(array(
                     'content' => $vq->sanitized['question'],
-                    'quizId' => $vq->sanitized['id_quiz']
+                    'quizId' => $vq->sanitized['id_quiz'],
+                    'type' => ($_POST['typeQcm']==="unique")?"unique":"multiple",
                 )
             ));
 
@@ -154,6 +154,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "remove-question")) {
 
         $v->run();
 
+        
 
         if ((sizeof($v->errors)) > 0) {
             header("HTTP/1.0 400 Bad Request");
@@ -291,13 +292,14 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-question" )) {
 
         ));
 
+
         foreach ($_POST['value'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key)) $vv->addRule($key . "", 'string', true, 1, 99999, true);
         }
 
 
         $checked= array();
-
+        //rules checked
         foreach ($_POST['checked'] as $key => $value) {
             if (preg_match('/^[0-9]{1,}$/', $key))
             {
@@ -311,6 +313,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-question" )) {
 
         $vq->run();
         $vv->run();
+
 
 
         if (((sizeof($vv->errors)) > 0) || (sizeof($vq->errors)) > 0) {
@@ -366,6 +369,7 @@ if(isset($_POST['type']) && ($_POST['type'] === "update-question" )) {
     }
     exit;
 }
+
 
 if(isset($_POST['type']) && ($_POST['type'] === "order-question")) {
 

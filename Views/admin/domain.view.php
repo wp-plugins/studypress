@@ -1,35 +1,14 @@
-<?php
-
-
-global $tr;
-
-require_once  __ROOT_PLUGIN__ ."Views/includeCSS.php";
-
-$confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / these Domain(s)?") ."\")'";
-
-?>
-
-<style>
-    .loading{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0.9;
-        z-index: 1060;
-        background: url('<?php echo __ROOT_PLUGIN__2 ?>images/loading.gif') no-repeat 50% 50%,#FFF;
-    }
-</style>
-
 <h1><?php $tr->__('Domains'); ?></h1>
 
 <div class="container-fluid">
+
     <div class="row">
+
+
 
         <div class="col-md-8">
             <h3><?php $tr->_e('All Domains'); ?></h3>
-            <div class="alert alert-danger" role="alert" <?php echo ($error_domain_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_domain_remove ?> </div>
+            <div class="alert alert-danger" role="alert" <?php echo  ($error_domain_remove=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_domain_remove ?> </div>
         <form action="" method="post">
 
             <table class="table table-striped table-bordered">
@@ -52,9 +31,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 foreach ($__domains as $row) {
                     ?>
                     <tr>
-                        <td><input type='checkbox' name="id[]" value='<?php echo $row->getId() ?>'/></td>
-                        <td><a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row->getId() ?>"><?php echo $row->getName() ?> </a></td>
-                        <td class="description"> <?php echo $row->getDescription() ?></td>
+                        <td><input type='checkbox' name="id[]" value='<?php echo  $row->getId() ?>'/></td>
+                        <td><a class="update" href="" data-toggle="modal" data-target="#myModal" data-id="<?php echo  $row->getId() ?>"><?php echo  $row->getName() ?> </a></td>
+                        <td class="description"> <?php echo  $row->getNiceDescription() ?></td>
                     </tr>
 
                     <?php
@@ -69,7 +48,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 <tfoot>
                 <tr>
                     <td colspan="4">
-                        <button type="submit" name="remove" <?php echo $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
+                        <button type="submit" name="remove" <?php echo  $confirm ?> class="btn btn-danger"><?php $tr->_e('Delete'); ?></button>
                     </td>
                 </tr>
                 </tfoot>
@@ -82,12 +61,15 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
     </div>
     <div class="col-md-4">
+
+
+
         <h3><?php $tr->_e('New Domain'); ?></h3>
         <form method="post" action="">
             <div class="panel panel-default">
 
                 <div class="panel-body">
-                    <div class="alert alert-danger" role="alert" <?php echo ($error_domain_add=='')?'style=\'display:none\'':'' ?>"> <?php echo $error_domain_add ?>
+                    <div class="alert alert-danger" role="alert" <?php echo  ($error_domain_add=='')?'style=\'display:none\'':'' ?>"> <?php echo  $error_domain_add ?>
                 </div>
                 <div class="form-group">
                     <label for="name"><?php $tr->_e('Name'); ?>*</label>
@@ -106,6 +88,9 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
                 </form>
 
     </div>
+
+
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -120,7 +105,7 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
                     <div class="alert alert-danger alert-dismissible hide" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p></p>
+                        <p><!-- Le message d'erreur --></p>
                     </div>
 
                     <div class="form-group">
@@ -148,9 +133,22 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
 </div>
 </div>
+
+
+
+<?php
+$contentDomain = "You can use domains to activate multi criteria ratings of lessons and quizzes. If no domain is defined, web site users can only rate the quality of the lesson or the quiz.";
+$msgDomainAccess="This feature is available for users who have <b>administrator</b> rights.";
+sp_display_modal_help($contentDomain,$msgDomainAccess,"modal-help-domain");
+
+
+
+
+
+?>
+
 </div>
 
-<script src="<?php echo __ROOT_PLUGIN__2 . "js/bootstrap.min.js" ?>"></script>
 <script>
 
     (function($) {
@@ -182,29 +180,31 @@ $confirm = "onclick='return confirm(\"". $tr->__("Do you want to delete this / t
 
 
             $('#myModal .btn-primary').on("click", function () {
-
+               
                 $('.loading').removeClass("hide");
 
+                
                 alert.find("p").html("");
                 alert.addClass("hide");
 
                 var btn = $(this).button('loading');
+
 
                 var name = modal.find('input[name=name]').val();
                 var desc = modal.find('textarea[name=desc]').val();
                 var id = modal.find('input[name=id]').val();
 
 
-                $.post("<?php echo __ROOT_PLUGIN__2 ?>controllers/domain.controller.php",
+                $.post("<?php echo  __ROOT_PLUGIN__2 ?>controllers/domain.controller.php",
                     {
                         type: "update-ajax",
                         name: name,
                         desc: desc,
                         id: id
                     }
-
+                  
                     , function (data) {
-
+                      
                         if (trimStr(data) === "true") {
                             modal.modal('hide');
                             trSelected.html(name);

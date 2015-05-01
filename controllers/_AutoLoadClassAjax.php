@@ -1,10 +1,12 @@
 <?php
 
+
 require_once '../../../../wp-load.php';
 
 
 function studyPressLoadClassAjax($class)
 {
+    
 
     $directories =array(
           "../Class/",
@@ -14,7 +16,7 @@ function studyPressLoadClassAjax($class)
 
     );
 
-
+   
 
     foreach ($directories as $directory) {
         if(file_exists($directory . $class .'.class.php'))

@@ -1,5 +1,6 @@
 <?php
 
+
 class RateDomainManager {
 
     private $_access;
@@ -14,6 +15,7 @@ class RateDomainManager {
 
     }
 
+    
 
 
     public function add(RateDomain $rate)
@@ -32,7 +34,6 @@ class RateDomainManager {
         $this->_access->insert(StudyPressDB::getTableNameRateDomain(), $a);
 
 
-
         $idRate = $this->_access->getLastInsertId();
 
         return $idRate;
@@ -44,7 +45,7 @@ class RateDomainManager {
     public function update($id, RateDomain $rate)
     {
         $this->_access->update(
-            StudyPressDB::getTableNameRateDomain(),
+            StudyPressDB::getTableNameRateDomain(), //From table RateDomain
             array(
 
                 StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN => $rate->getActivityId(),
@@ -53,32 +54,30 @@ class RateDomainManager {
                 StudyPressDB::COL_ID_USER_RATE_DOMAIN => $rate->getUserId(),
                 StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN => $rate->getDomainId()
             ),
-            array(StudyPressDB::COL_ID_RATE_DOMAIN => $id)
+            array(StudyPressDB::COL_ID_RATE_DOMAIN => $id)  //Where
         );
     }
-
 
 
     public function deleteByActivityId($activityId){
 
         $activityId = (int)$activityId;
         $this->_access->delete(
-            StudyPressDB::getTableNameRateDomain(),
+            StudyPressDB::getTableNameRateDomain(), //From table RateDomain
             array(StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN => $activityId)
         );
     }
 
-
+    
 
     public function delete($id)
     {
         $id = (int)$id;
         $this->_access->delete(
-            StudyPressDB::getTableNameRateDomain(),
+            StudyPressDB::getTableNameRateDomain(), //From table RateDomain
             array(StudyPressDB::COL_ID_RATE_DOMAIN => $id)
         );
     }
-
 
     public function isError()
     {
@@ -89,7 +88,6 @@ class RateDomainManager {
     public function getMessageError(){
         return $this->_access->getLastError();
     }
-
 
 
     public function getAll()
@@ -108,7 +106,6 @@ class RateDomainManager {
 
 
     }
-
 
 
     public function getByElement($id)
@@ -153,19 +150,18 @@ class RateDomainManager {
     }
 
 
-
     public static function returnedRate($row)
     {
         return (
         empty($row)
             ? null :
             new RateDomain(array(
-                'id'        => (int) $row[StudyPressDB::COL_ID_RATE_DOMAIN],
+                'id'       => (int) $row[StudyPressDB::COL_ID_RATE_DOMAIN],
                 'activityId'=> (int) $row[StudyPressDB::COL_ID_ACTIVITY_RATE_DOMAIN],
-                'dateRate'  =>       $row[StudyPressDB::COL_DATE_RATE_DOMAIN],
-                'value'     =>       $row[StudyPressDB::COL_VALUE_RATE_DOMAIN],
-                'userId'    => (int) $row[StudyPressDB::COL_ID_USER_RATE_DOMAIN],
-                'domainId'  => (int) $row[StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN],
+                'dateRate' =>       $row[StudyPressDB::COL_DATE_RATE_DOMAIN],
+                'value'    =>       $row[StudyPressDB::COL_VALUE_RATE_DOMAIN],
+                'userId'   => (int) $row[StudyPressDB::COL_ID_USER_RATE_DOMAIN],
+                'domainId' => (int) $row[StudyPressDB::COL_ID_DOMAIN_RATE_DOMAIN],
             ))
         );
     }

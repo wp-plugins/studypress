@@ -27,6 +27,7 @@ With the help of StudyPress you can easily turns your WordPress into a powerfull
 - Multi teachers support by integrating wordpress author user role<br>
 - Teachers rights management<br>
 - Timed quizzes<br>
+- 2 types of quiz (multiple choice and Unique choice)<br>
 - Automatic correction of quizzes<br>
 - Automatic quiz reporting for teachers<br>
 - Students can rate lessons and quizzes<br>

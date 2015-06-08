@@ -104,7 +104,7 @@ if($id !== null){
                 $owl['items'][] = array(
 
                     'name' => $name,
-                    'content' => $content,
+                    'content' => do_shortcode($content),
                 );
 
             }

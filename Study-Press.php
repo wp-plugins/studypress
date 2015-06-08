@@ -9,7 +9,7 @@ Plugin URI:   https://wordpress.org/plugins/StudyPress
 
 Description:  StudyPress is an elearning authoring tool. With this plugin you can easily create multimedia learning content and publish it as slides in your wordpress pages and posts. It can manage courses, lessons and quizzes. 
 
-Version:      1.1
+Version:      1.1.1
 
 Author:       Mohammed Tadlaoui, Salim Mohamed Saidi, Meryem Bendella, Bensmaine yasser, Bouacha oussama
 

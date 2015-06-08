@@ -155,7 +155,6 @@ global $tr;
 
 
 
-<script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.js" ?>"></script>
 <script src="<?php echo  __ROOT_PLUGIN__2 . "js/owl.carousel.min.js" ?>"></script>
 <script src="<?php echo  __ROOT_PLUGIN__2 . "js/jquery.rateyo.js" ?>"></script>
 <script src="<?php echo  __ROOT_PLUGIN__2 . "js/rating-function.js" ?>"></script>

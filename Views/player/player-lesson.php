@@ -326,7 +326,7 @@ if($spConfiguration['showRate'] === 'true')
 
                     }
                     else
-                        alert("Votre navigateur ne supporte pas le Fullscreen !! veuillez le metre à jour");
+                        alert("Your navigator don't support full screen mode");
 
                 });
 
